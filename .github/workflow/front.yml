@@ -159,13 +159,6 @@ jobs:
           echo "=== Chunks JS (top 10) ==="
           ls -lh dist/assets/*.js 2>/dev/null | sort -k5 -rh | head -10
 
-      - name: Subir artefacto de build
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend-build-${{ github.sha }}
-          path: apps/frontend/dist/
-          retention-days: 7
-
   # ═══════════════════════════════════════════════════════════════
   # JOB 4 — GATE: PR feature/* o fix/* → develop
   # ═══════════════════════════════════════════════════════════════
