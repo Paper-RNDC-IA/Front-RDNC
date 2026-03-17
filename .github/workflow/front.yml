@@ -19,7 +19,7 @@ on:
       - develop
     paths:
       - "apps/frontend/**"
-      - ".github/workflow/front.yml"
+      - ".github/workflows/front.yml"
 
   pull_request:
     branches:
@@ -27,7 +27,7 @@ on:
       - develop    # PR feature/* → develop
     paths:
       - "apps/frontend/**"
-      - ".github/workflow/front.yml"
+      - ".github/workflows/front.yml"
 
 defaults:
   run:
