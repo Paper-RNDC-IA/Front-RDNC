@@ -251,7 +251,8 @@ jobs:
             --token=${{ secrets.VERCEL_TOKEN }}
 
           vercel build \
-            --token=${{ secrets.VERCEL_TOKEN }}
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --env VITE_API_URL=${{ vars.RENDER_STAGING_URL }}
 
           DEPLOY_URL=$(vercel deploy --prebuilt \
             --token=${{ secrets.VERCEL_TOKEN }} \
