@@ -4,6 +4,8 @@ export type LayerMetric = {
   value: number | null;
   unit: string;
   available: boolean;
+  secondaryLabel?: string;
+  secondaryValue?: number | null;
 };
 
 export type MapDepartment = {
@@ -19,8 +21,13 @@ export type MapData = {
 };
 
 export type MapLayerApiItem = {
-  department: string;
-  value: number | null;
+  department?: string;
+  value?: number | null;
+  departamento?: string;
+  valor?: number | null;
+  manifiestos?: number;
+  toneladas?: number;
+  tipo?: string;
   unit?: string;
 };
 

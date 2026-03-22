@@ -3,6 +3,7 @@ import { DataTable } from '../components/common/DataTable';
 import { ErrorState } from '../components/common/ErrorState';
 import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
+import { SectionLegend } from '../components/common/SectionLegend';
 import { LineChartWidget } from '../components/charts/LineChartWidget';
 import { ExcelUploader } from '../components/telemetry/ExcelUploader';
 import { useTelemetriaPage } from '../hooks/useTelemetriaPage';
@@ -34,6 +35,15 @@ export function TelemetriaPage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <SectionLegend
+        title="Leyenda de Telemetria"
+        items={[
+          { label: 'Carga de Excel', description: 'Permite inyectar mediciones para procesamiento operacional.' },
+          { label: 'Velocidad promedio', description: 'Comportamiento de velocidad por franja de tiempo.' },
+          { label: 'Corredor principal', description: 'Resumen de flujo vehicular y velocidad por segmento.' },
+          { label: 'Alertas y eventos', description: 'Incidencias de seguridad y estado de atencion.' },
+        ]}
+      />
       <ExcelUploader onUpload={onUpload} />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {kpis.map((item) => (

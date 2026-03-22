@@ -6,6 +6,7 @@ import { EmptyState } from '../components/common/EmptyState';
 import { ErrorState } from '../components/common/ErrorState';
 import { KpiCard } from '../components/common/KpiCard';
 import { LoadingState } from '../components/common/LoadingState';
+import { SectionLegend } from '../components/common/SectionLegend';
 import { useCompanyWorkspacePage } from '../hooks/useCompanyWorkspacePage';
 
 export function CompanyWorkspacePage(): JSX.Element {
@@ -48,6 +49,16 @@ export function CompanyWorkspacePage(): JSX.Element {
   return (
     <section className="space-y-6" id="company-workspace-report">
       {error ? <ErrorState title="Novedad en portal empresarial" message={error} onRetry={reload} /> : null}
+
+      <SectionLegend
+        title="Leyenda de Portal Empresa"
+        items={[
+          { label: 'Entorno privado', description: 'Sesion autenticada con datos propios de la empresa.' },
+          { label: 'Carga de archivos', description: 'Ingreso de insumos para analisis interno y reportes.' },
+          { label: 'Tabla de archivos', description: 'Gestion de seleccion, consulta y eliminacion de archivos.' },
+          { label: 'Panel de insights', description: 'Indicadores, tendencias y exportables derivados del archivo.' },
+        ]}
+      />
 
       <Card title="Entorno privado y seguro de empresa">
         <div className="grid gap-4 md:grid-cols-3">

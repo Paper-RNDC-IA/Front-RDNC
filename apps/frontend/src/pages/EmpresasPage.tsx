@@ -3,6 +3,7 @@ import { DataTable } from '../components/common/DataTable';
 import { ErrorState } from '../components/common/ErrorState';
 import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
+import { SectionLegend } from '../components/common/SectionLegend';
 import { CompanyDetailCard } from '../components/companies/CompanyDetailCard';
 import { useEmpresasPage } from '../hooks/useEmpresasPage';
 
@@ -23,6 +24,15 @@ export function EmpresasPage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <SectionLegend
+        title="Leyenda de Empresas"
+        items={[
+          { label: 'Empresas habilitadas', description: 'Listado de empresas registradas y aptas para operar.' },
+          { label: 'Vehiculos activos', description: 'Flota reportada en uso durante el periodo consultado.' },
+          { label: 'Cumplimiento', description: 'Nivel de adherencia a reglas operativas y documentales.' },
+          { label: 'Detalle de empresa', description: 'Ficha resumida de la empresa seleccionada en la tabla.' },
+        ]}
+      />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {kpis.map((item) => (
           <KpiCard key={item.label} item={item} />

@@ -3,6 +3,7 @@ import { ErrorState } from '../components/common/ErrorState';
 import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
 import { DateRangeFilter } from '../components/common/DateRangeFilter';
+import { SectionLegend } from '../components/common/SectionLegend';
 import { LineChartWidget } from '../components/charts/LineChartWidget';
 import { BarChartWidget } from '../components/charts/BarChartWidget';
 import { useStatsPage } from '../hooks/useStatsPage';
@@ -33,6 +34,15 @@ export function EstadisticasPage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <SectionLegend
+        title="Leyenda de Estadisticas"
+        items={[
+          { label: 'KPIs', description: 'Miden estado general: volumen, cumplimiento, incidentes y actividad.' },
+          { label: 'Tendencia operativa', description: 'Muestra variacion del indicador principal en el tiempo.' },
+          { label: 'Resumen por modulo', description: 'Compara aporte relativo de cada modulo del sistema.' },
+          { label: 'Filtro de fechas', description: 'Acota el analisis al periodo seleccionado.' },
+        ]}
+      />
       <DateRangeFilter value={dateRange} onChange={setDateRange} />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {kpis.map((item) => (

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { adaptGeographyKpis } from '../adapters/geography.adapter';
-import { KpiCard } from '../components/common/KpiCard';
 import { Card } from '../components/common/Card';
 import { EmptyState } from '../components/common/EmptyState';
 import { ErrorState } from '../components/common/ErrorState';
@@ -21,6 +20,42 @@ const layerLabels: Record<MapLayer, string> = {
   royalties: 'Regalias',
 };
 
+const allMapDepartments = [
+  'La Guajira',
+  'Magdalena',
+  'Atlantico',
+  'Cesar',
+  'Bolivar',
+  'Sucre',
+  'Cordoba',
+  'Norte de Santander',
+  'Santander',
+  'Boyaca',
+  'Antioquia',
+  'Caldas',
+  'Risaralda',
+  'Quindio',
+  'Cundinamarca',
+  'Bogota D.C.',
+  'Tolima',
+  'Huila',
+  'Choco',
+  'Valle del Cauca',
+  'Cauca',
+  'Narino',
+  'Arauca',
+  'Casanare',
+  'Meta',
+  'Vichada',
+  'Guaviare',
+  'Caqueta',
+  'Putumayo',
+  'Vaupes',
+  'Guainia',
+  'Amazonas',
+  'San Andres y Providencia',
+];
+
 type GeographicState = {
   loading: boolean;
   error: string | null;
@@ -32,9 +67,35 @@ type GeographicState = {
 
 function getLayerItemByDepartment(items: MapLayerApiItem[]): Map<string, MapLayerApiItem> {
   return items.reduce<Map<string, MapLayerApiItem>>((acc, item) => {
-    acc.set(toDepartmentId(item.department), item);
+    const departmentName = item.departamento ?? item.department;
+
+    if (!departmentName) {
+      return acc;
+    }
+
+    acc.set(toDepartmentId(departmentName), item);
     return acc;
   }, new Map<string, MapLayerApiItem>());
+}
+
+function readDepartmentName(item: MapLayerApiItem): string | null {
+  return item.departamento ?? item.department ?? null;
+}
+
+function readLayerValue(item: MapLayerApiItem | undefined): number | null {
+  if (!item) {
+    return null;
+  }
+
+  if (typeof item.valor === 'number') {
+    return item.valor;
+  }
+
+  if (typeof item.value === 'number') {
+    return item.value;
+  }
+
+  return null;
 }
 
 function buildMapData(
@@ -42,14 +103,17 @@ function buildMapData(
   demand: MapLayerApiItem[],
   royalties: MapLayerApiItem[],
 ): MapData {
-  const defaultDepartments = mockGeographyDepartments.map((item) => item.department);
+  const defaultDepartments = [
+    ...allMapDepartments,
+    ...mockGeographyDepartments.map((item) => item.department),
+  ];
 
   const departmentNameById = [
     ...defaultDepartments,
-    ...production.map((item) => item.department),
-    ...demand.map((item) => item.department),
-    ...royalties.map((item) => item.department),
-  ].reduce<Map<string, string>>((acc, departmentName) => {
+    ...production.map(readDepartmentName).filter((item): item is string => Boolean(item)),
+    ...demand.map(readDepartmentName).filter((item): item is string => Boolean(item)),
+    ...royalties.map(readDepartmentName).filter((item): item is string => Boolean(item)),
+  ].reduce<Map<string, string>>((acc, departmentName: string) => {
     const id = toDepartmentId(departmentName);
 
     if (!acc.has(id)) {
@@ -67,25 +131,34 @@ function buildMapData(
     const productionItem = productionIndex.get(id);
     const demandItem = demandIndex.get(id);
     const royaltiesItem = royaltiesIndex.get(id);
+    const productionValue = readLayerValue(productionItem);
+    const demandValue = readLayerValue(demandItem);
+    const royaltiesValue = readLayerValue(royaltiesItem);
 
     return {
       id,
       name: departmentName,
       values: {
         production: {
-          value: productionItem?.value ?? null,
+          value: productionValue,
           unit: productionItem?.unit ?? 'ton/dia',
-          available: productionItem?.value !== null && productionItem?.value !== undefined,
+          available: productionValue !== null,
+          secondaryLabel: 'Manifiestos',
+          secondaryValue: productionItem?.manifiestos ?? null,
         },
         demand: {
-          value: demandItem?.value ?? null,
+          value: demandValue,
           unit: demandItem?.unit ?? 'viajes/dia',
-          available: demandItem?.value !== null && demandItem?.value !== undefined,
+          available: demandValue !== null,
+          secondaryLabel: 'Demanda regional',
+          secondaryValue: demandValue,
         },
         royalties: {
-          value: royaltiesItem?.value ?? null,
+          value: royaltiesValue,
           unit: royaltiesItem?.unit ?? 'MM COP',
-          available: royaltiesItem?.value !== null && royaltiesItem?.value !== undefined,
+          available: royaltiesValue !== null,
+          secondaryLabel: 'Toneladas asociadas',
+          secondaryValue: royaltiesItem?.toneladas ?? null,
         },
       },
     };
@@ -99,7 +172,7 @@ function buildMapData(
 }
 
 export function GeographicAnalysis(): JSX.Element {
-  const [kpis, setKpis] = useState<ReturnType<typeof adaptGeographyKpis>>([]);
+  const [summaryKpis, setSummaryKpis] = useState<ReturnType<typeof adaptGeographyKpis>>([]);
   const [state, setState] = useState<GeographicState>({
     loading: true,
     error: null,
@@ -123,7 +196,7 @@ export function GeographicAnalysis(): JSX.Element {
 
       const mapData = buildMapData(productionRes, demandRes, royaltiesRes);
 
-      setKpis(adaptGeographyKpis(kpiRes));
+      setSummaryKpis(adaptGeographyKpis(kpiRes));
       setState((prev) => ({
         ...prev,
         loading: false,
@@ -155,6 +228,7 @@ export function GeographicAnalysis(): JSX.Element {
   }, [state.mapData, state.selectedDepartmentId]);
 
   const activeLayerValue = selectedDepartment?.values[state.activeLayer];
+  const visibleKpis = summaryKpis.slice(0, 3);
 
   if (state.loading) {
     return <LoadingState title="Cargando analisis geografico" />;
@@ -169,98 +243,102 @@ export function GeographicAnalysis(): JSX.Element {
   }
 
   return (
-    <section className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {kpis.map((item) => (
-          <KpiCard key={item.label} item={item} />
-        ))}
+    <section className="space-y-4">
+      <div className="flex items-center justify-between rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3">
+        <h2 className="text-2xl font-semibold text-slate-100">Distribucion Geografica Nacional</h2>
+        <div className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-medium text-slate-300">
+          ACTUALIZADO: {new Date(state.mapData.updatedAt).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })}
+        </div>
       </div>
 
-      <Card title="Configuracion de capa geoespacial">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-wrap gap-2">
-            {(Object.keys(layerLabels) as MapLayer[]).map((layer) => (
-              <button
-                key={layer}
-                type="button"
-                onClick={() => setState((prev) => ({ ...prev, activeLayer: layer }))}
-                className={[
-                  'rounded-md px-3 py-2 text-sm transition-colors',
-                  state.activeLayer === layer
-                    ? 'bg-orange-600 text-white'
-                    : 'border border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800',
-                ].join(' ')}
-              >
-                {layerLabels[layer]}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="rounded-md border border-slate-700 px-3 py-1 text-slate-200"
-              onClick={() => setState((prev) => ({ ...prev, zoom: Math.max(0.8, prev.zoom - 0.1) }))}
-            >
-              -
-            </button>
-            <span className="text-sm text-slate-300">Zoom: {state.zoom.toFixed(1)}x</span>
-            <button
-              type="button"
-              className="rounded-md border border-slate-700 px-3 py-1 text-slate-200"
-              onClick={() => setState((prev) => ({ ...prev, zoom: Math.min(1.8, prev.zoom + 0.1) }))}
-            >
-              +
-            </button>
-          </div>
-        </div>
-      </Card>
-
-      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
+      <div className="grid gap-4 xl:grid-cols-[1.8fr_1fr]">
         <ColombiaMap
           mapData={state.mapData}
           activeLayer={state.activeLayer}
           selectedDepartmentId={state.selectedDepartmentId}
           zoom={state.zoom}
+          onLayerChange={(layer) => setState((prev) => ({ ...prev, activeLayer: layer }))}
+          onZoomIn={() => setState((prev) => ({ ...prev, zoom: Math.min(1.8, prev.zoom + 0.1) }))}
+          onZoomOut={() => setState((prev) => ({ ...prev, zoom: Math.max(0.8, prev.zoom - 0.1) }))}
+          onResetZoom={() => setState((prev) => ({ ...prev, zoom: 1 }))}
           onSelectDepartment={(departmentId) => setState((prev) => ({ ...prev, selectedDepartmentId: departmentId }))}
         />
 
-        <Card title="Panel de detalle territorial">
+        <Card title="Departamento" className="border-slate-700 bg-slate-950/85">
           {!selectedDepartment ? (
             <p className="text-sm text-slate-400">Selecciona un departamento para ver detalles.</p>
           ) : (
             <div className="space-y-3">
-              <div className="rounded-lg bg-slate-950/70 px-3 py-2">
-                <p className="text-xs text-slate-400">Departamento</p>
-                <p className="text-sm font-semibold text-slate-100">{selectedDepartment.name}</p>
+              <div className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-3">
+                <p className="text-4xl font-bold text-slate-100">{selectedDepartment.name}</p>
               </div>
 
-              <div className="rounded-lg bg-slate-950/70 px-3 py-2">
-                <p className="text-xs text-slate-400">Capa activa</p>
-                <p className="text-sm text-orange-300">{layerLabels[state.activeLayer]}</p>
-              </div>
-
-              <div className="rounded-lg bg-slate-950/70 px-3 py-2">
-                <p className="text-xs text-slate-400">Valor capa activa</p>
-                <p className="text-sm text-slate-100">
-                  {activeLayerValue?.available
-                    ? `${formatNumber(activeLayerValue.value ?? 0)} ${activeLayerValue.unit}`
-                    : 'Sin dato para la capa activa'}
+              <div className="rounded-xl border border-blue-900/70 bg-gradient-to-br from-blue-950/60 to-slate-900 px-4 py-4">
+                <p className="text-sm font-semibold text-blue-300">Produccion</p>
+                <p className="mt-2 text-4xl font-bold text-slate-100">
+                  {selectedDepartment.values.production.available
+                    ? formatNumber(selectedDepartment.values.production.value ?? 0)
+                    : 'N/A'}
+                </p>
+                <p className="text-right text-sm text-slate-200">{selectedDepartment.values.production.unit}</p>
+                <p className="mt-2 text-sm text-blue-300/90">
+                  {selectedDepartment.values.production.secondaryLabel}: {' '}
+                  {selectedDepartment.values.production.secondaryValue !== null &&
+                  selectedDepartment.values.production.secondaryValue !== undefined
+                    ? formatNumber(selectedDepartment.values.production.secondaryValue)
+                    : 'N/A'}
                 </p>
               </div>
 
-              <div className="rounded-lg bg-slate-950/70 px-3 py-2">
-                <p className="text-xs text-slate-400">Disponibilidad de datos</p>
-                <ul className="mt-2 space-y-1 text-sm text-slate-200">
-                  <li>Produccion: {selectedDepartment.values.production.available ? 'Si' : 'No'}</li>
-                  <li>Demanda: {selectedDepartment.values.demand.available ? 'Si' : 'No'}</li>
-                  <li>Regalias: {selectedDepartment.values.royalties.available ? 'Si' : 'No'}</li>
-                </ul>
+              <div className="rounded-xl border border-emerald-900/70 bg-gradient-to-br from-emerald-950/50 to-slate-900 px-4 py-4">
+                <p className="text-sm font-semibold text-emerald-300">Regalias generadas</p>
+                <p className="mt-2 text-4xl font-bold text-slate-100">
+                  {selectedDepartment.values.royalties.available
+                    ? formatNumber(selectedDepartment.values.royalties.value ?? 0)
+                    : 'N/A'}
+                </p>
+                <p className="text-right text-sm text-slate-200">{selectedDepartment.values.royalties.unit}</p>
+                <p className="mt-2 text-sm text-emerald-300/90">
+                  {selectedDepartment.values.royalties.secondaryLabel}: {' '}
+                  {selectedDepartment.values.royalties.secondaryValue !== null &&
+                  selectedDepartment.values.royalties.secondaryValue !== undefined
+                    ? formatNumber(selectedDepartment.values.royalties.secondaryValue)
+                    : 'N/A'}
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-orange-900/70 bg-gradient-to-br from-orange-950/50 to-slate-900 px-4 py-4">
+                <p className="text-sm font-semibold text-orange-300">Demanda regional</p>
+                <p className="mt-2 text-4xl font-bold text-slate-100">
+                  {selectedDepartment.values.demand.available
+                    ? formatNumber(selectedDepartment.values.demand.value ?? 0)
+                    : 'N/A'}
+                </p>
+                <p className="text-right text-sm text-slate-200">{selectedDepartment.values.demand.unit}</p>
+              </div>
+
+              <div className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-300">
+                Capa activa: <span className="font-semibold text-slate-100">{layerLabels[state.activeLayer]}</span>
+                <div>
+                  Valor activo:{' '}
+                  {activeLayerValue?.available
+                    ? `${formatNumber(activeLayerValue.value ?? 0)} ${activeLayerValue.unit}`
+                    : 'Sin dato'}
+                </div>
+              </div>
+
+              <div className="grid gap-2 md:grid-cols-3">
+                {visibleKpis.map((item) => (
+                  <div key={item.label} className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2">
+                    <p className="text-xs text-slate-400">{item.label}</p>
+                    <p className="text-sm font-semibold text-slate-100">{item.value}</p>
+                  </div>
+                ))}
               </div>
 
               <button
                 type="button"
-                className="w-full rounded-md bg-orange-700 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600"
+                className="w-full rounded-md bg-orange-600 px-3 py-2 text-sm font-medium text-white hover:bg-orange-500"
                 onClick={() => setIsReportOpen(true)}
               >
                 Ver informe detallado

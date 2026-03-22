@@ -5,6 +5,7 @@ import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
 import { DateRangeFilter } from '../components/common/DateRangeFilter';
 import { ModuleFilter } from '../components/common/ModuleFilter';
+import { SectionLegend } from '../components/common/SectionLegend';
 import { ExportActions } from '../components/exports/ExportActions';
 import { useDescargaInformePage } from '../hooks/useDescargaInformePage';
 
@@ -27,6 +28,15 @@ export function DescargaInformePage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <SectionLegend
+        title="Leyenda de Descarga Informe"
+        items={[
+          { label: 'Rango de fechas', description: 'Delimita el periodo para consolidar el reporte.' },
+          { label: 'Filtro de modulo', description: 'Define si exportas todo o solo un modulo puntual.' },
+          { label: 'Exportaciones', description: 'Genera salida en CSV, Excel o PDF con los datos filtrados.' },
+          { label: 'Resumen listo', description: 'Conteo de registros y totales previos a la descarga.' },
+        ]}
+      />
       <div className="grid gap-4 md:grid-cols-2">
         <DateRangeFilter value={dateRange} onChange={setDateRange} />
         <ModuleFilter value={module} onChange={setModule} />
