@@ -143,27 +143,31 @@ jobs:
           npm install -g vercel
 
       - name: Deploy producción a Vercel
+        id: vercel-deploy
         run: |
           vercel pull --yes \
             --environment=production \
             --token=${{ secrets.VERCEL_TOKEN }}
 
           vercel build --prod \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --env VITE_API_URL=${{ vars.RENDER_BACKEND_URL }}
-
-          vercel deploy --prebuilt --prod \
             --token=${{ secrets.VERCEL_TOKEN }}
+
+          DEPLOY_URL=$(vercel deploy --prebuilt --prod \
+            --token=${{ secrets.VERCEL_TOKEN }})
+
+          echo "deploy_url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          echo "Deploy URL: $DEPLOY_URL"
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VITE_API_URL: ${{ vars.RENDER_BACKEND_URL }}
 
       - name: Health check — producción
         run: |
           sleep 20
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" ${{ vars.FRONTEND_URL }})
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.vercel-deploy.outputs.deploy_url }}")
           if [ "$STATUS" != "200" ]; then
             echo "Producción health check falló — status $STATUS"
             exit 1
           fi
-          echo "Frontend producción OK en ${{ vars.FRONTEND_URL }}"
+          echo "Frontend producción OK en ${{ steps.vercel-deploy.outputs.deploy_url }}"
