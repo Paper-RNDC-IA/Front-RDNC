@@ -175,3 +175,5 @@ Para ver inventario completo de endpoints, metodos, payloads y flujo tecnico de 
 ## Nota de workflow
 
 Cambio menor de documentacion para validar flujo de commit en el repositorio.
+
+Actualizacion minima para disparar el workflow de CI.
