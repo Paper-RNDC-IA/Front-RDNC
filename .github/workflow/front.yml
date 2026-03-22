@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
+          cache: npm
           cache-dependency-path: apps/frontend/package-lock.json
 
       - name: Instalar dependencias
@@ -69,7 +69,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
+          cache: npm
           cache-dependency-path: apps/frontend/package-lock.json
 
       - name: Instalar dependencias
@@ -78,7 +78,7 @@ jobs:
       - name: Ejecutar tests
         run: npm run test -- --run --reporter=verbose
         env:
-          VITE_API_URL: "http://localhost:8000"
+          VITE_API_URL: ${{ vars.RENDER_BACKEND_URL }}
 
       - name: Cobertura de código
         run: npm run test -- --run --coverage
@@ -97,7 +97,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
+          cache: npm
           cache-dependency-path: apps/frontend/package-lock.json
 
       - name: Instalar dependencias
@@ -134,7 +134,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
+          cache: npm
           cache-dependency-path: apps/frontend/package-lock.json
 
       - name: Instalar dependencias + Vercel CLI
@@ -157,3 +157,13 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Health check — producción
+        run: |
+          sleep 20
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" ${{ vars.FRONTEND_URL }})
+          if [ "$STATUS" != "200" ]; then
+            echo "Producción health check falló — status $STATUS"
+            exit 1
+          fi
+          echo "Frontend producción OK en ${{ vars.FRONTEND_URL }}"
