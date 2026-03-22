@@ -171,3 +171,7 @@ Estos mocks se usan como fallback para que el frontend no dependa al 100% del ba
 Para ver inventario completo de endpoints, metodos, payloads y flujo tecnico de conexion con backend:
 
 - README-INTEGRACION-BACKEND.md
+
+## Nota de workflow
+
+Cambio menor de documentacion para validar flujo de commit en el repositorio.
