@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { adaptDepartments, adaptGeographyKpis, type DepartmentView } from '../adapters/geography.adapter';
+import {
+  adaptDepartments,
+  adaptGeographyKpis,
+  type DepartmentView,
+} from '../adapters/geography.adapter';
 import { getDepartmentIntensity, getRouteKpis } from '../services/routes.service';
 import type { DateRange, KpiItem } from '../types/common';
 import { getDefaultDateRange } from '../utils/date';

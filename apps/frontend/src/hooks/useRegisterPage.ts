@@ -32,7 +32,9 @@ export function useRegisterPage() {
       await registerCompany(values);
       navigate('/app/portal-empresa', { replace: true });
     } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : 'No fue posible registrar la empresa.');
+      setError(
+        submitError instanceof Error ? submitError.message : 'No fue posible registrar la empresa.',
+      );
     } finally {
       setLoading(false);
     }

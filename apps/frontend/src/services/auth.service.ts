@@ -1,5 +1,8 @@
 import { adaptSession } from '../adapters/auth.adapter';
-import { buildMockLoginResponse, buildMockRegisterResponse } from '../constants/company-portal.mocks';
+import {
+  buildMockLoginResponse,
+  buildMockRegisterResponse,
+} from '../constants/company-portal.mocks';
 import type {
   LoginRequest,
   LoginResponseApi,

@@ -8,7 +8,13 @@ type LoginFormProps = {
   onSubmit: () => Promise<void>;
 };
 
-export function LoginForm({ values, loading, error, onChange, onSubmit }: LoginFormProps): JSX.Element {
+export function LoginForm({
+  values,
+  loading,
+  error,
+  onChange,
+  onSubmit,
+}: LoginFormProps): JSX.Element {
   return (
     <form
       className="space-y-4"

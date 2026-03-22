@@ -54,7 +54,8 @@ export function getCorridorSummary(dateRange?: DateRange): Promise<CorridorSegme
 
 export function getSecurityEvents(dateRange?: DateRange): Promise<SecurityEventApi[]> {
   return withMockFallback(
-    () => api.get<SecurityEventApi[]>(endpoints.telemetry.securityEvents, buildDateQuery(dateRange)),
+    () =>
+      api.get<SecurityEventApi[]>(endpoints.telemetry.securityEvents, buildDateQuery(dateRange)),
     mockTelemetrySecurityEvents,
   );
 }

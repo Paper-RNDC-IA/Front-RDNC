@@ -1,4 +1,8 @@
-import { mockGeographyDemandMap, mockGeographyProductionMap, mockGeographyRoyaltiesMap } from '../../constants/mocks';
+import {
+  mockGeographyDemandMap,
+  mockGeographyProductionMap,
+  mockGeographyRoyaltiesMap,
+} from '../../constants/mocks';
 import type { MapLayerApiItem } from '../../types/geography-map';
 
 import { api, withMockFallback } from '../api';

@@ -417,10 +417,17 @@ export function ColombiaMap({
   const valueRange = useMemo(() => getValueRange(mapData, activeLayer), [activeLayer, mapData]);
 
   const availableCount = useMemo(() => {
-    return mapData.departments.filter((department) => department.values[activeLayer].available).length;
+    return mapData.departments.filter((department) => department.values[activeLayer].available)
+      .length;
   }, [activeLayer, mapData.departments]);
 
-  const layerPercentages = ['Muy Alta (80-100%)', 'Alta (60-80%)', 'Media (40-60%)', 'Baja (20-40%)', 'Muy Baja (0-20%)'];
+  const layerPercentages = [
+    'Muy Alta (80-100%)',
+    'Alta (60-80%)',
+    'Media (40-60%)',
+    'Baja (20-40%)',
+    'Muy Baja (0-20%)',
+  ];
 
   return (
     <Card className="border-slate-300 bg-slate-200/70" title="">
@@ -490,63 +497,64 @@ export function ColombiaMap({
             <rect width="900" height="1100" fill="url(#ocean-bg)" />
 
             <g transform={`translate(450 550) scale(${zoom}) translate(-450 -550)`}>
-            {departmentShapes.map((shape) => {
-              const department = departmentsById.get(shape.id);
-              const metric = department?.values[activeLayer];
-              const fill = getLayerColor(
-                activeLayer,
-                metric?.value ?? null,
-                metric?.available ?? false,
-                valueRange.min,
-                valueRange.max,
-              );
-              const isSelected = selectedDepartmentId === shape.id;
+              {departmentShapes.map((shape) => {
+                const department = departmentsById.get(shape.id);
+                const metric = department?.values[activeLayer];
+                const fill = getLayerColor(
+                  activeLayer,
+                  metric?.value ?? null,
+                  metric?.available ?? false,
+                  valueRange.min,
+                  valueRange.max,
+                );
+                const isSelected = selectedDepartmentId === shape.id;
 
-              return (
-                <g key={shape.id}>
-                  <path
-                    d={shape.path}
-                    fill={fill}
-                    stroke={isSelected ? '#1f2937' : '#ffffff'}
-                    strokeWidth={isSelected ? 2.4 : 1.2}
-                    filter={isSelected ? 'url(#map-shadow)' : undefined}
-                    className="cursor-pointer transition-all duration-200"
-                    onClick={() => onSelectDepartment(shape.id)}
-                    onMouseLeave={() => setTooltip(null)}
-                    onMouseMove={(event) => {
-                      const svgRect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
+                return (
+                  <g key={shape.id}>
+                    <path
+                      d={shape.path}
+                      fill={fill}
+                      stroke={isSelected ? '#1f2937' : '#ffffff'}
+                      strokeWidth={isSelected ? 2.4 : 1.2}
+                      filter={isSelected ? 'url(#map-shadow)' : undefined}
+                      className="cursor-pointer transition-all duration-200"
+                      onClick={() => onSelectDepartment(shape.id)}
+                      onMouseLeave={() => setTooltip(null)}
+                      onMouseMove={(event) => {
+                        const svgRect =
+                          event.currentTarget.ownerSVGElement?.getBoundingClientRect();
 
-                      if (!svgRect || !department) {
-                        return;
-                      }
+                        if (!svgRect || !department) {
+                          return;
+                        }
 
-                      setTooltip({
-                        x: event.clientX - svgRect.left + 12,
-                        y: event.clientY - svgRect.top + 12,
-                        department,
-                      });
-                    }}
-                  />
+                        setTooltip({
+                          x: event.clientX - svgRect.left + 12,
+                          y: event.clientY - svgRect.top + 12,
+                          department,
+                        });
+                      }}
+                    />
 
-                  {isSelected ? (
-                    <circle cx={shape.centroid.x} cy={shape.centroid.y} r="4" fill="#fbbf24" />
-                  ) : null}
+                    {isSelected ? (
+                      <circle cx={shape.centroid.x} cy={shape.centroid.y} r="4" fill="#fbbf24" />
+                    ) : null}
 
-                  <text
-                    x={shape.labelX}
-                    y={shape.labelY}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fontSize={shape.shortName.length > 10 ? 9 : 10}
-                    fontWeight={700}
-                    fill="rgba(15,23,42,0.85)"
-                    className="pointer-events-none select-none"
-                  >
-                    {shape.shortName}
-                  </text>
-                </g>
-              );
-            })}
+                    <text
+                      x={shape.labelX}
+                      y={shape.labelY}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fontSize={shape.shortName.length > 10 ? 9 : 10}
+                      fontWeight={700}
+                      fill="rgba(15,23,42,0.85)"
+                      className="pointer-events-none select-none"
+                    >
+                      {shape.shortName}
+                    </text>
+                  </g>
+                );
+              })}
             </g>
           </svg>
         </div>
@@ -607,8 +615,14 @@ export function ColombiaMap({
                   .slice()
                   .reverse()
                   .map((color, index) => (
-                    <div key={`${color}-${index}`} className="flex items-center gap-2 text-sm text-slate-600">
-                      <span className="inline-flex h-4 w-4 rounded-sm" style={{ backgroundColor: color }} />
+                    <div
+                      key={`${color}-${index}`}
+                      className="flex items-center gap-2 text-sm text-slate-600"
+                    >
+                      <span
+                        className="inline-flex h-4 w-4 rounded-sm"
+                        style={{ backgroundColor: color }}
+                      />
                       {layerPercentages[index]}
                     </div>
                   ))}
@@ -637,7 +651,9 @@ export function ColombiaMap({
                 tooltip.department.values[activeLayer].unit || layerStyle[activeLayer].unit,
               )}
             </p>
-            {!tooltip.department.values[activeLayer].available ? <p>Sin datos registrados</p> : null}
+            {!tooltip.department.values[activeLayer].available ? (
+              <p>Sin datos registrados</p>
+            ) : null}
           </div>
         ) : null}
       </div>

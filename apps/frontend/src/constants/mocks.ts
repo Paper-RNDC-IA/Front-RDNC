@@ -1,10 +1,22 @@
 import type { ExportCombinedApi } from '../types/export';
 import type { CompanyApi, CompanyKpiApi } from '../types/companies';
-import type { ManifestDistributionApi, ManifestKpiApi, ManifestTrendApi, RouteRankingApi, CompanyRankingApi } from '../types/manifests';
+import type {
+  ManifestDistributionApi,
+  ManifestKpiApi,
+  ManifestTrendApi,
+  RouteRankingApi,
+  CompanyRankingApi,
+} from '../types/manifests';
 import type { MapLayerApiItem } from '../types/geography-map';
 import type { DepartmentIntensityApi, RouteKpiApi } from '../types/routes';
 import type { StatsKpiApi, StatsSummaryApi, StatsTrendApi } from '../types/stats';
-import type { AlertApi, CorridorSegmentApi, SecurityEventApi, SpeedPointApi, TelemetryKpiApi } from '../types/telemetry';
+import type {
+  AlertApi,
+  CorridorSegmentApi,
+  SecurityEventApi,
+  SpeedPointApi,
+  TelemetryKpiApi,
+} from '../types/telemetry';
 
 export const mockStatsKpis: StatsKpiApi[] = [
   { label: 'Viajes Totales', value: 12540, delta: '+4.2%', trend: 'up' },
@@ -117,11 +129,35 @@ export const mockGeographyDepartments: DepartmentIntensityApi[] = [
 ];
 
 export const mockGeographyProductionMap: MapLayerApiItem[] = [
-  { departamento: 'Antioquia', valor: 1450, manifiestos: 4200, tipo: 'produccion', unit: 'ton/dia' },
-  { departamento: 'Cundinamarca', valor: 1780, manifiestos: 5800, tipo: 'produccion', unit: 'ton/dia' },
-  { departamento: 'Valle del Cauca', valor: 1320, manifiestos: 3900, tipo: 'produccion', unit: 'ton/dia' },
+  {
+    departamento: 'Antioquia',
+    valor: 1450,
+    manifiestos: 4200,
+    tipo: 'produccion',
+    unit: 'ton/dia',
+  },
+  {
+    departamento: 'Cundinamarca',
+    valor: 1780,
+    manifiestos: 5800,
+    tipo: 'produccion',
+    unit: 'ton/dia',
+  },
+  {
+    departamento: 'Valle del Cauca',
+    valor: 1320,
+    manifiestos: 3900,
+    tipo: 'produccion',
+    unit: 'ton/dia',
+  },
   { departamento: 'Atlantico', valor: 940, manifiestos: 2200, tipo: 'produccion', unit: 'ton/dia' },
-  { departamento: 'Santander', valor: 1080, manifiestos: 2650, tipo: 'produccion', unit: 'ton/dia' },
+  {
+    departamento: 'Santander',
+    valor: 1080,
+    manifiestos: 2650,
+    tipo: 'produccion',
+    unit: 'ton/dia',
+  },
   { departamento: 'Bolivar', valor: 890, manifiestos: 1980, tipo: 'produccion', unit: 'ton/dia' },
   { departamento: 'Meta', valor: 810, manifiestos: 1700, tipo: 'produccion', unit: 'ton/dia' },
   { departamento: 'Narino', valor: 650, manifiestos: 1320, tipo: 'produccion', unit: 'ton/dia' },
@@ -145,7 +181,13 @@ export const mockGeographyDemandMap: MapLayerApiItem[] = [
 export const mockGeographyRoyaltiesMap: MapLayerApiItem[] = [
   { departamento: 'Antioquia', valor: 124, toneladas: 500000, tipo: 'regalias', unit: 'MM COP' },
   { departamento: 'Cundinamarca', valor: 110, toneladas: 420000, tipo: 'regalias', unit: 'MM COP' },
-  { departamento: 'Valle del Cauca', valor: 98, toneladas: 390000, tipo: 'regalias', unit: 'MM COP' },
+  {
+    departamento: 'Valle del Cauca',
+    valor: 98,
+    toneladas: 390000,
+    tipo: 'regalias',
+    unit: 'MM COP',
+  },
   { departamento: 'Atlantico', valor: 76, toneladas: 270000, tipo: 'regalias', unit: 'MM COP' },
   { departamento: 'Santander', valor: 88, toneladas: 310000, tipo: 'regalias', unit: 'MM COP' },
   { departamento: 'Bolivar', valor: 72, toneladas: 250000, tipo: 'regalias', unit: 'MM COP' },

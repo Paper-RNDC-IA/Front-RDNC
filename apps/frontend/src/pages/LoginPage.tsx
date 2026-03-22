@@ -17,8 +17,8 @@ export function LoginPage(): JSX.Element {
           </div>
           <h1 className="text-3xl font-semibold text-slate-100">Portal privado para empresas</h1>
           <p className="max-w-xl text-sm text-slate-300">
-            Inicia sesion para cargar archivos internos, administrarlos y consultar analitica derivada para
-            seguimiento operativo y toma de decisiones.
+            Inicia sesion para cargar archivos internos, administrarlos y consultar analitica
+            derivada para seguimiento operativo y toma de decisiones.
           </p>
 
           <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-300">
@@ -31,7 +31,10 @@ export function LoginPage(): JSX.Element {
           <Link to="/" className="inline-block text-sm text-orange-300 hover:text-orange-200">
             Volver al inicio
           </Link>
-          <Link to="/register" className="ml-4 inline-block text-sm text-orange-300 hover:text-orange-200">
+          <Link
+            to="/register"
+            className="ml-4 inline-block text-sm text-orange-300 hover:text-orange-200"
+          >
             Registrarse
           </Link>
         </div>

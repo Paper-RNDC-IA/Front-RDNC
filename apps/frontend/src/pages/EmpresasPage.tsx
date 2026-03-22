@@ -8,7 +8,8 @@ import { CompanyDetailCard } from '../components/companies/CompanyDetailCard';
 import { useEmpresasPage } from '../hooks/useEmpresasPage';
 
 export function EmpresasPage(): JSX.Element {
-  const { loading, error, kpis, companies, selectedCompany, setSelectedCompany, reload } = useEmpresasPage();
+  const { loading, error, kpis, companies, selectedCompany, setSelectedCompany, reload } =
+    useEmpresasPage();
 
   if (loading) {
     return <LoadingState title="Cargando empresas" />;
@@ -27,10 +28,22 @@ export function EmpresasPage(): JSX.Element {
       <SectionLegend
         title="Leyenda de Empresas"
         items={[
-          { label: 'Empresas habilitadas', description: 'Listado de empresas registradas y aptas para operar.' },
-          { label: 'Vehiculos activos', description: 'Flota reportada en uso durante el periodo consultado.' },
-          { label: 'Cumplimiento', description: 'Nivel de adherencia a reglas operativas y documentales.' },
-          { label: 'Detalle de empresa', description: 'Ficha resumida de la empresa seleccionada en la tabla.' },
+          {
+            label: 'Empresas habilitadas',
+            description: 'Listado de empresas registradas y aptas para operar.',
+          },
+          {
+            label: 'Vehiculos activos',
+            description: 'Flota reportada en uso durante el periodo consultado.',
+          },
+          {
+            label: 'Cumplimiento',
+            description: 'Nivel de adherencia a reglas operativas y documentales.',
+          },
+          {
+            label: 'Detalle de empresa',
+            description: 'Ficha resumida de la empresa seleccionada en la tabla.',
+          },
         ]}
       />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

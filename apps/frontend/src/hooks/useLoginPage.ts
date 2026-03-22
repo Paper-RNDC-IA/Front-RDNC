@@ -30,7 +30,9 @@ export function useLoginPage() {
       await loginCompany(values);
       navigate('/app/portal-empresa', { replace: true });
     } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : 'No fue posible iniciar sesion.');
+      setError(
+        submitError instanceof Error ? submitError.message : 'No fue posible iniciar sesion.',
+      );
     } finally {
       setLoading(false);
     }

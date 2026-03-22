@@ -50,7 +50,9 @@ export function HomePage(): JSX.Element {
         <header className="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-orange-900/45 bg-slate-900/75 px-5 py-4 backdrop-blur">
           <div>
             <p className="text-xs uppercase tracking-[0.18em] text-orange-300">TransData RNDC</p>
-            <h1 className="mt-1 text-xl font-semibold text-slate-100">Monitoreo integral de transporte de carga</h1>
+            <h1 className="mt-1 text-xl font-semibold text-slate-100">
+              Monitoreo integral de transporte de carga
+            </h1>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -84,14 +86,17 @@ export function HomePage(): JSX.Element {
               Un inicio claro, una navegacion progresiva y un entorno empresarial seguro.
             </h2>
             <p className="mt-4 max-w-2xl text-sm text-slate-300">
-              Esta pagina principal resume lo esencial y organiza el acceso al resto de funcionalidades. Desde
-              aqui puedes ingresar al panel operacional general o autenticarte para entrar al espacio privado de
-              tu empresa.
+              Esta pagina principal resume lo esencial y organiza el acceso al resto de
+              funcionalidades. Desde aqui puedes ingresar al panel operacional general o
+              autenticarte para entrar al espacio privado de tu empresa.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
               {highlights.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4"
+                >
                   <h3 className="text-sm font-semibold text-orange-200">{item.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-slate-400">{item.description}</p>
                 </div>
@@ -102,8 +107,8 @@ export function HomePage(): JSX.Element {
           <aside className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl">
             <h3 className="text-lg font-semibold text-slate-100">Ruta recomendada</h3>
             <p className="mt-2 text-sm text-slate-400">
-              Empieza por la vista general y luego entra al modulo que necesites segun tu rol operativo o
-              empresarial.
+              Empieza por la vista general y luego entra al modulo que necesites segun tu rol
+              operativo o empresarial.
             </p>
 
             <ol className="mt-5 space-y-3 text-sm text-slate-300">
@@ -123,16 +128,22 @@ export function HomePage(): JSX.Element {
         <section className="mt-8 rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl">
           <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h3 className="text-lg font-semibold text-slate-100">Acceso por bloques funcionales</h3>
+              <h3 className="text-lg font-semibold text-slate-100">
+                Acceso por bloques funcionales
+              </h3>
               <p className="text-sm text-slate-400">
-                En lugar de exponer todo desde el inicio, los modulos se agrupan para una entrada ordenada.
+                En lugar de exponer todo desde el inicio, los modulos se agrupan para una entrada
+                ordenada.
               </p>
             </div>
           </header>
 
           <div className="grid gap-4 md:grid-cols-3">
             {moduleGuide.map((module) => (
-              <article key={module.name} className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+              <article
+                key={module.name}
+                className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4"
+              >
                 <h4 className="text-sm font-semibold text-orange-200">{module.name}</h4>
                 <p className="mt-1 text-xs text-slate-400">{module.routes}</p>
                 <Link
@@ -149,10 +160,22 @@ export function HomePage(): JSX.Element {
         <SectionLegend
           title="Leyenda de Inicio"
           items={[
-            { label: 'Panorama nacional', description: 'Entrada general para revisar estado operativo del sistema.' },
-            { label: 'Ruta recomendada', description: 'Secuencia sugerida para recorrer los modulos del panel.' },
-            { label: 'Acceso por bloques', description: 'Agrupa funciones por enfoque estrategico, operativo y empresarial.' },
-            { label: 'Accesos rapidos', description: 'Botones para registrarse, iniciar sesion o entrar al panel.' },
+            {
+              label: 'Panorama nacional',
+              description: 'Entrada general para revisar estado operativo del sistema.',
+            },
+            {
+              label: 'Ruta recomendada',
+              description: 'Secuencia sugerida para recorrer los modulos del panel.',
+            },
+            {
+              label: 'Acceso por bloques',
+              description: 'Agrupa funciones por enfoque estrategico, operativo y empresarial.',
+            },
+            {
+              label: 'Accesos rapidos',
+              description: 'Botones para registrarse, iniciar sesion o entrar al panel.',
+            },
           ]}
         />
       </div>

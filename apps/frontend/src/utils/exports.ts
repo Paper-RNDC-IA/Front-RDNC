@@ -4,11 +4,18 @@ import * as XLSX from 'xlsx';
 
 import type { DateRange } from '../types/common';
 
-export function toExportFileName(module: string, dateRange: DateRange, extension: 'csv' | 'xlsx' | 'pdf'): string {
+export function toExportFileName(
+  module: string,
+  dateRange: DateRange,
+  extension: 'csv' | 'xlsx' | 'pdf',
+): string {
   return `transdata-rndc-${module}-${dateRange.from}-${dateRange.to}.${extension}`;
 }
 
-export function exportRowsToCsv(rows: Array<Record<string, string | number>>, fileName: string): void {
+export function exportRowsToCsv(
+  rows: Array<Record<string, string | number>>,
+  fileName: string,
+): void {
   if (!rows.length) {
     return;
   }
@@ -27,7 +34,10 @@ export function exportRowsToCsv(rows: Array<Record<string, string | number>>, fi
   link.click();
 }
 
-export function exportRowsToExcel(rows: Array<Record<string, string | number>>, fileName: string): void {
+export function exportRowsToExcel(
+  rows: Array<Record<string, string | number>>,
+  fileName: string,
+): void {
   const worksheet = XLSX.utils.json_to_sheet(rows);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Reporte');

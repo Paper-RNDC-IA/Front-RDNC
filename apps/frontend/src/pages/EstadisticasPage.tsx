@@ -9,27 +9,26 @@ import { BarChartWidget } from '../components/charts/BarChartWidget';
 import { useStatsPage } from '../hooks/useStatsPage';
 
 export function EstadisticasPage(): JSX.Element {
-  const {
-    loading,
-    error,
-    dateRange,
-    kpis,
-    trendChart,
-    summaryChart,
-    setDateRange,
-    reload,
-  } = useStatsPage();
+  const { loading, error, dateRange, kpis, trendChart, summaryChart, setDateRange, reload } =
+    useStatsPage();
 
   if (loading) {
     return <LoadingState title="Cargando dashboard estrategico" />;
   }
 
   if (error) {
-    return <ErrorState title="No fue posible cargar estadisticas" message={error} onRetry={reload} />;
+    return (
+      <ErrorState title="No fue posible cargar estadisticas" message={error} onRetry={reload} />
+    );
   }
 
   if (!kpis.length) {
-    return <EmptyState title="Sin datos para estadisticas" message="Verifica los filtros o la fuente de datos." />;
+    return (
+      <EmptyState
+        title="Sin datos para estadisticas"
+        message="Verifica los filtros o la fuente de datos."
+      />
+    );
   }
 
   return (
@@ -37,9 +36,18 @@ export function EstadisticasPage(): JSX.Element {
       <SectionLegend
         title="Leyenda de Estadisticas"
         items={[
-          { label: 'KPIs', description: 'Miden estado general: volumen, cumplimiento, incidentes y actividad.' },
-          { label: 'Tendencia operativa', description: 'Muestra variacion del indicador principal en el tiempo.' },
-          { label: 'Resumen por modulo', description: 'Compara aporte relativo de cada modulo del sistema.' },
+          {
+            label: 'KPIs',
+            description: 'Miden estado general: volumen, cumplimiento, incidentes y actividad.',
+          },
+          {
+            label: 'Tendencia operativa',
+            description: 'Muestra variacion del indicador principal en el tiempo.',
+          },
+          {
+            label: 'Resumen por modulo',
+            description: 'Compara aporte relativo de cada modulo del sistema.',
+          },
           { label: 'Filtro de fechas', description: 'Acota el analisis al periodo seleccionado.' },
         ]}
       />
@@ -50,8 +58,18 @@ export function EstadisticasPage(): JSX.Element {
         ))}
       </div>
       <div className="grid gap-6 xl:grid-cols-2">
-        <LineChartWidget title="Tendencia operativa" data={trendChart} dataKey="value" xKey="label" />
-        <BarChartWidget title="Resumen por modulo" data={summaryChart} dataKey="value" xKey="label" />
+        <LineChartWidget
+          title="Tendencia operativa"
+          data={trendChart}
+          dataKey="value"
+          xKey="label"
+        />
+        <BarChartWidget
+          title="Resumen por modulo"
+          data={summaryChart}
+          dataKey="value"
+          xKey="label"
+        />
       </div>
     </section>
   );

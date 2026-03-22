@@ -32,7 +32,9 @@ export function ManifiestosPage(): JSX.Element {
   }
 
   if (!kpis.length) {
-    return <EmptyState title="Sin manifiestos" message="No hay datos para el rango seleccionado." />;
+    return (
+      <EmptyState title="Sin manifiestos" message="No hay datos para el rango seleccionado." />
+    );
   }
 
   return (
@@ -40,10 +42,22 @@ export function ManifiestosPage(): JSX.Element {
       <SectionLegend
         title="Leyenda de Manifiestos"
         items={[
-          { label: 'Tendencia', description: 'Evolucion de manifiestos emitidos en el rango consultado.' },
-          { label: 'Distribucion por estado', description: 'Participacion de cumplidos, en proceso y con novedad.' },
-          { label: 'Ranking de rutas', description: 'Corredores con mayor uso y nivel de incidencias.' },
-          { label: 'Ranking de empresas', description: 'Empresas con mayor volumen y cumplimiento reportado.' },
+          {
+            label: 'Tendencia',
+            description: 'Evolucion de manifiestos emitidos en el rango consultado.',
+          },
+          {
+            label: 'Distribucion por estado',
+            description: 'Participacion de cumplidos, en proceso y con novedad.',
+          },
+          {
+            label: 'Ranking de rutas',
+            description: 'Corredores con mayor uso y nivel de incidencias.',
+          },
+          {
+            label: 'Ranking de empresas',
+            description: 'Empresas con mayor volumen y cumplimiento reportado.',
+          },
         ]}
       />
       <DateRangeFilter value={dateRange} onChange={setDateRange} />
@@ -53,8 +67,18 @@ export function ManifiestosPage(): JSX.Element {
         ))}
       </div>
       <div className="grid gap-6 xl:grid-cols-2">
-        <LineChartWidget title="Tendencia de manifiestos" data={trends} dataKey="value" xKey="label" />
-        <PieChartWidget title="Distribucion por estado" data={distribution} dataKey="value" nameKey="label" />
+        <LineChartWidget
+          title="Tendencia de manifiestos"
+          data={trends}
+          dataKey="value"
+          xKey="label"
+        />
+        <PieChartWidget
+          title="Distribucion por estado"
+          data={distribution}
+          dataKey="value"
+          nameKey="label"
+        />
       </div>
       <div className="grid gap-6 xl:grid-cols-2">
         <DataTable

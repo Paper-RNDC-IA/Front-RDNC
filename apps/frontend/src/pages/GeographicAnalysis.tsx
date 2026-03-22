@@ -202,9 +202,10 @@ export function GeographicAnalysis(): JSX.Element {
         loading: false,
         mapData,
         selectedDepartmentId:
-          prev.selectedDepartmentId && mapData.departments.some((item) => item.id === prev.selectedDepartmentId)
+          prev.selectedDepartmentId &&
+          mapData.departments.some((item) => item.id === prev.selectedDepartmentId)
             ? prev.selectedDepartmentId
-            : mapData.departments[0]?.id ?? null,
+            : (mapData.departments[0]?.id ?? null),
       }));
     } catch (error) {
       setState((prev) => ({
@@ -235,11 +236,18 @@ export function GeographicAnalysis(): JSX.Element {
   }
 
   if (state.error) {
-    return <ErrorState title="No fue posible cargar el mapa" message={state.error} onRetry={load} />;
+    return (
+      <ErrorState title="No fue posible cargar el mapa" message={state.error} onRetry={load} />
+    );
   }
 
   if (!state.mapData || !state.mapData.departments.length) {
-    return <EmptyState title="Sin datos geograficos" message="No hay datos disponibles para renderizar el mapa." />;
+    return (
+      <EmptyState
+        title="Sin datos geograficos"
+        message="No hay datos disponibles para renderizar el mapa."
+      />
+    );
   }
 
   return (
@@ -247,7 +255,11 @@ export function GeographicAnalysis(): JSX.Element {
       <div className="flex items-center justify-between rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3">
         <h2 className="text-2xl font-semibold text-slate-100">Distribucion Geografica Nacional</h2>
         <div className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-medium text-slate-300">
-          ACTUALIZADO: {new Date(state.mapData.updatedAt).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })}
+          ACTUALIZADO:{' '}
+          {new Date(state.mapData.updatedAt).toLocaleTimeString('es-CO', {
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
         </div>
       </div>
 
@@ -261,7 +273,9 @@ export function GeographicAnalysis(): JSX.Element {
           onZoomIn={() => setState((prev) => ({ ...prev, zoom: Math.min(1.8, prev.zoom + 0.1) }))}
           onZoomOut={() => setState((prev) => ({ ...prev, zoom: Math.max(0.8, prev.zoom - 0.1) }))}
           onResetZoom={() => setState((prev) => ({ ...prev, zoom: 1 }))}
-          onSelectDepartment={(departmentId) => setState((prev) => ({ ...prev, selectedDepartmentId: departmentId }))}
+          onSelectDepartment={(departmentId) =>
+            setState((prev) => ({ ...prev, selectedDepartmentId: departmentId }))
+          }
         />
 
         <Card title="Departamento" className="border-slate-700 bg-slate-950/85">
@@ -280,9 +294,11 @@ export function GeographicAnalysis(): JSX.Element {
                     ? formatNumber(selectedDepartment.values.production.value ?? 0)
                     : 'N/A'}
                 </p>
-                <p className="text-right text-sm text-slate-200">{selectedDepartment.values.production.unit}</p>
+                <p className="text-right text-sm text-slate-200">
+                  {selectedDepartment.values.production.unit}
+                </p>
                 <p className="mt-2 text-sm text-blue-300/90">
-                  {selectedDepartment.values.production.secondaryLabel}: {' '}
+                  {selectedDepartment.values.production.secondaryLabel}:{' '}
                   {selectedDepartment.values.production.secondaryValue !== null &&
                   selectedDepartment.values.production.secondaryValue !== undefined
                     ? formatNumber(selectedDepartment.values.production.secondaryValue)
@@ -297,9 +313,11 @@ export function GeographicAnalysis(): JSX.Element {
                     ? formatNumber(selectedDepartment.values.royalties.value ?? 0)
                     : 'N/A'}
                 </p>
-                <p className="text-right text-sm text-slate-200">{selectedDepartment.values.royalties.unit}</p>
+                <p className="text-right text-sm text-slate-200">
+                  {selectedDepartment.values.royalties.unit}
+                </p>
                 <p className="mt-2 text-sm text-emerald-300/90">
-                  {selectedDepartment.values.royalties.secondaryLabel}: {' '}
+                  {selectedDepartment.values.royalties.secondaryLabel}:{' '}
                   {selectedDepartment.values.royalties.secondaryValue !== null &&
                   selectedDepartment.values.royalties.secondaryValue !== undefined
                     ? formatNumber(selectedDepartment.values.royalties.secondaryValue)
@@ -314,11 +332,16 @@ export function GeographicAnalysis(): JSX.Element {
                     ? formatNumber(selectedDepartment.values.demand.value ?? 0)
                     : 'N/A'}
                 </p>
-                <p className="text-right text-sm text-slate-200">{selectedDepartment.values.demand.unit}</p>
+                <p className="text-right text-sm text-slate-200">
+                  {selectedDepartment.values.demand.unit}
+                </p>
               </div>
 
               <div className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-300">
-                Capa activa: <span className="font-semibold text-slate-100">{layerLabels[state.activeLayer]}</span>
+                Capa activa:{' '}
+                <span className="font-semibold text-slate-100">
+                  {layerLabels[state.activeLayer]}
+                </span>
                 <div>
                   Valor activo:{' '}
                   {activeLayerValue?.available
@@ -329,7 +352,10 @@ export function GeographicAnalysis(): JSX.Element {
 
               <div className="grid gap-2 md:grid-cols-3">
                 {visibleKpis.map((item) => (
-                  <div key={item.label} className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2">
+                  <div
+                    key={item.label}
+                    className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2"
+                  >
                     <p className="text-xs text-slate-400">{item.label}</p>
                     <p className="text-sm font-semibold text-slate-100">{item.value}</p>
                   </div>

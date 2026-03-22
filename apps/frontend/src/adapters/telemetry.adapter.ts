@@ -32,7 +32,9 @@ export function adaptTelemetryAlerts(items: AlertApi[]): Array<Record<string, st
   }));
 }
 
-export function adaptTelemetryCorridor(items: CorridorSegmentApi[]): Array<Record<string, string | number>> {
+export function adaptTelemetryCorridor(
+  items: CorridorSegmentApi[],
+): Array<Record<string, string | number>> {
   return items.map((item) => ({
     segment: item.segment,
     vehicles: formatNumber(item.vehicles),
@@ -40,7 +42,9 @@ export function adaptTelemetryCorridor(items: CorridorSegmentApi[]): Array<Recor
   }));
 }
 
-export function adaptSecurityEvents(items: SecurityEventApi[]): Array<Record<string, string | number>> {
+export function adaptSecurityEvents(
+  items: SecurityEventApi[],
+): Array<Record<string, string | number>> {
   return items.map((item) => ({
     event: item.event,
     count: formatNumber(item.count),

@@ -43,20 +43,39 @@ export function CompanyWorkspacePage(): JSX.Element {
   }
 
   if (!session) {
-    return <EmptyState title="Sin sesion empresarial" message="Inicia sesion para acceder al entorno privado." />;
+    return (
+      <EmptyState
+        title="Sin sesion empresarial"
+        message="Inicia sesion para acceder al entorno privado."
+      />
+    );
   }
 
   return (
     <section className="space-y-6" id="company-workspace-report">
-      {error ? <ErrorState title="Novedad en portal empresarial" message={error} onRetry={reload} /> : null}
+      {error ? (
+        <ErrorState title="Novedad en portal empresarial" message={error} onRetry={reload} />
+      ) : null}
 
       <SectionLegend
         title="Leyenda de Portal Empresa"
         items={[
-          { label: 'Entorno privado', description: 'Sesion autenticada con datos propios de la empresa.' },
-          { label: 'Carga de archivos', description: 'Ingreso de insumos para analisis interno y reportes.' },
-          { label: 'Tabla de archivos', description: 'Gestion de seleccion, consulta y eliminacion de archivos.' },
-          { label: 'Panel de insights', description: 'Indicadores, tendencias y exportables derivados del archivo.' },
+          {
+            label: 'Entorno privado',
+            description: 'Sesion autenticada con datos propios de la empresa.',
+          },
+          {
+            label: 'Carga de archivos',
+            description: 'Ingreso de insumos para analisis interno y reportes.',
+          },
+          {
+            label: 'Tabla de archivos',
+            description: 'Gestion de seleccion, consulta y eliminacion de archivos.',
+          },
+          {
+            label: 'Panel de insights',
+            description: 'Indicadores, tendencias y exportables derivados del archivo.',
+          },
         ]}
       />
 

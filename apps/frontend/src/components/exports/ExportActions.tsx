@@ -19,7 +19,8 @@ export function ExportActions({
   return (
     <Card title="Exportar informe">
       <p className="mb-4 text-sm text-slate-400">
-        Modulo: <span className="text-slate-200">{module}</span> | Rango: {dateRange.from} - {dateRange.to}
+        Modulo: <span className="text-slate-200">{module}</span> | Rango: {dateRange.from} -{' '}
+        {dateRange.to}
       </p>
       <div className="flex flex-wrap gap-3">
         <button

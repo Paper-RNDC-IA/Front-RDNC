@@ -62,13 +62,10 @@ export function useEmpresasPage() {
     void load(state.dateRange);
   }, [load, state.dateRange]);
 
-  const setSelectedCompany = useCallback(
-    async (companyId: string) => {
-      const detail = await getCompanyDetail(companyId);
-      setState((prev) => ({ ...prev, selectedCompany: adaptCompanyDetail(detail) }));
-    },
-    [],
-  );
+  const setSelectedCompany = useCallback(async (companyId: string) => {
+    const detail = await getCompanyDetail(companyId);
+    setState((prev) => ({ ...prev, selectedCompany: adaptCompanyDetail(detail) }));
+  }, []);
 
   const reload = useCallback(() => {
     void load(state.dateRange);

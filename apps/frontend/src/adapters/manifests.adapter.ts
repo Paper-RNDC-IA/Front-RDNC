@@ -24,7 +24,9 @@ export function adaptManifestTrend(items: ManifestTrendApi[]): ChartDatum[] {
   }));
 }
 
-export function adaptRouteRanking(items: RouteRankingApi[]): Array<Record<string, string | number>> {
+export function adaptRouteRanking(
+  items: RouteRankingApi[],
+): Array<Record<string, string | number>> {
   return items.map((item) => ({
     route: item.route,
     trips: formatNumber(item.trips),
@@ -32,7 +34,9 @@ export function adaptRouteRanking(items: RouteRankingApi[]): Array<Record<string
   }));
 }
 
-export function adaptCompanyRanking(items: CompanyRankingApi[]): Array<Record<string, string | number>> {
+export function adaptCompanyRanking(
+  items: CompanyRankingApi[],
+): Array<Record<string, string | number>> {
   return items.map((item) => ({
     company: item.company,
     manifests: formatNumber(item.manifests),

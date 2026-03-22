@@ -47,14 +47,19 @@ export function getRouteRanking(dateRange?: DateRange): Promise<RouteRankingApi[
 
 export function getCompanyRanking(dateRange?: DateRange): Promise<CompanyRankingApi[]> {
   return withMockFallback(
-    () => api.get<CompanyRankingApi[]>(endpoints.manifests.companyRanking, buildDateQuery(dateRange)),
+    () =>
+      api.get<CompanyRankingApi[]>(endpoints.manifests.companyRanking, buildDateQuery(dateRange)),
     mockManifestCompanyRanking,
   );
 }
 
 export function getManifestDistribution(dateRange?: DateRange): Promise<ManifestDistributionApi[]> {
   return withMockFallback(
-    () => api.get<ManifestDistributionApi[]>(endpoints.manifests.distribution, buildDateQuery(dateRange)),
+    () =>
+      api.get<ManifestDistributionApi[]>(
+        endpoints.manifests.distribution,
+        buildDateQuery(dateRange),
+      ),
     mockManifestDistribution,
   );
 }

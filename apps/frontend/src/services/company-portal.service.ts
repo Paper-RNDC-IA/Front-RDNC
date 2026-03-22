@@ -74,7 +74,10 @@ export async function getCompanyFilesSummary(companyId: string): Promise<Company
   }
 }
 
-export async function uploadCompanyFile(companyId: string, file: File): Promise<CompanyFileUploadApi> {
+export async function uploadCompanyFile(
+  companyId: string,
+  file: File,
+): Promise<CompanyFileUploadApi> {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('company_id', companyId);

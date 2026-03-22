@@ -1,4 +1,12 @@
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts';
+import {
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from 'recharts';
 
 import type { ChartDatum } from '../../types/common';
 import { ChartCard } from './ChartCard';

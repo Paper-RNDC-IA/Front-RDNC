@@ -99,7 +99,9 @@ export function buildMockLoginResponse(credentials: LoginRequest): LoginResponse
 }
 
 export function buildMockRegisterResponse(payload: RegisterCompanyRequest): LoginResponseApi {
-  const emailTaken = mockCompanyUsers.some((item) => item.email.toLowerCase() === payload.email.toLowerCase());
+  const emailTaken = mockCompanyUsers.some(
+    (item) => item.email.toLowerCase() === payload.email.toLowerCase(),
+  );
   const nitTaken = mockCompanyUsers.some((item) => item.companyNit === payload.companyNit);
 
   if (emailTaken) {
@@ -141,9 +143,8 @@ export function buildCompanySummary(files: CompanyFileApi[]): CompanyFileSummary
   const processedFiles = files.filter((file) => file.status === 'processed').length;
   const pendingFiles = files.filter((file) => file.status === 'processing').length;
   const errorFiles = files.filter((file) => file.status === 'error').length;
-  const lastUpload = files
-    .map((file) => file.uploaded_at)
-    .sort((a, b) => (a > b ? -1 : 1))[0] ?? null;
+  const lastUpload =
+    files.map((file) => file.uploaded_at).sort((a, b) => (a > b ? -1 : 1))[0] ?? null;
 
   return {
     total_files: totalFiles,

@@ -85,7 +85,12 @@ export function FileInsightPanel({
       </div>
 
       <div className="grid gap-4 xl:grid-cols-2">
-        <LineChartWidget title="Tendencia de registros" data={trendData} dataKey="value" xKey="label" />
+        <LineChartWidget
+          title="Tendencia de registros"
+          data={trendData}
+          dataKey="value"
+          xKey="label"
+        />
         <PieChartWidget
           title="Distribucion por categoria"
           data={categoriesData}

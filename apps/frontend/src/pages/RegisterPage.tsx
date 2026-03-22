@@ -17,8 +17,8 @@ export function RegisterPage(): JSX.Element {
           </div>
           <h1 className="text-3xl font-semibold text-slate-100">Crea tu cuenta de empresa</h1>
           <p className="max-w-xl text-sm text-slate-300">
-            Registra tu empresa para ingresar al espacio privado donde podras cargar archivos internos,
-            analizarlos y generar reportes y estadisticas de seguimiento.
+            Registra tu empresa para ingresar al espacio privado donde podras cargar archivos
+            internos, analizarlos y generar reportes y estadisticas de seguimiento.
           </p>
 
           <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-300">

@@ -7,7 +7,10 @@ type CompanyFileUploaderProps = {
   onUpload: (file: File) => Promise<void>;
 };
 
-export function CompanyFileUploader({ uploading, onUpload }: CompanyFileUploaderProps): JSX.Element {
+export function CompanyFileUploader({
+  uploading,
+  onUpload,
+}: CompanyFileUploaderProps): JSX.Element {
   const [fileName, setFileName] = useState('');
 
   const handleFileSelection = async (file: File | null): Promise<void> => {
@@ -29,7 +32,9 @@ export function CompanyFileUploader({ uploading, onUpload }: CompanyFileUploader
           className="block w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100"
         />
 
-        <div className="text-xs text-slate-400">{fileName ? `Archivo: ${fileName}` : 'Sin archivo seleccionado'}</div>
+        <div className="text-xs text-slate-400">
+          {fileName ? `Archivo: ${fileName}` : 'Sin archivo seleccionado'}
+        </div>
 
         {uploading ? <span className="text-xs text-orange-300">Subiendo...</span> : null}
       </div>

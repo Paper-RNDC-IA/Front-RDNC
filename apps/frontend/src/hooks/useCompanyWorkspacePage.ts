@@ -100,7 +100,8 @@ export function useCompanyWorkspacePage() {
       setState((prev) => ({
         ...prev,
         insightLoading: false,
-        error: error instanceof Error ? error.message : 'No fue posible cargar el analisis del archivo.',
+        error:
+          error instanceof Error ? error.message : 'No fue posible cargar el analisis del archivo.',
       }));
     }
   }, []);
@@ -125,7 +126,7 @@ export function useCompanyWorkspacePage() {
         const selectedFileId =
           preferredFileId && files.some((item) => item.id === preferredFileId)
             ? preferredFileId
-            : files[0]?.id ?? null;
+            : (files[0]?.id ?? null);
 
         setState((prev) => ({
           ...prev,

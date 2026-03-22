@@ -107,7 +107,9 @@ export function adaptInsightNotes(insight: CompanyFileInsightApi): SummaryItem[]
   }));
 }
 
-export function adaptInsightRows(insight: CompanyFileInsightApi): Array<Record<string, string | number>> {
+export function adaptInsightRows(
+  insight: CompanyFileInsightApi,
+): Array<Record<string, string | number>> {
   return insight.categories.map((item) => ({
     categoria: item.label,
     total: item.total,

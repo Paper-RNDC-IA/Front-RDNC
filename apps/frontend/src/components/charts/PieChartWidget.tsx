@@ -12,7 +12,12 @@ type PieChartWidgetProps = {
 
 const colors = ['#ea580c', '#f97316', '#fb923c', '#f59e0b', '#fdba74'];
 
-export function PieChartWidget({ title, data, dataKey, nameKey }: PieChartWidgetProps): JSX.Element {
+export function PieChartWidget({
+  title,
+  data,
+  dataKey,
+  nameKey,
+}: PieChartWidgetProps): JSX.Element {
   return (
     <ChartCard title={title}>
       <ResponsiveContainer>

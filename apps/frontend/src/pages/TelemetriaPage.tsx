@@ -30,7 +30,9 @@ export function TelemetriaPage(): JSX.Element {
   }
 
   if (!kpis.length) {
-    return <EmptyState title="Sin telemetria" message="Sube un archivo Excel o valida el backend." />;
+    return (
+      <EmptyState title="Sin telemetria" message="Sube un archivo Excel o valida el backend." />
+    );
   }
 
   return (
@@ -38,10 +40,22 @@ export function TelemetriaPage(): JSX.Element {
       <SectionLegend
         title="Leyenda de Telemetria"
         items={[
-          { label: 'Carga de Excel', description: 'Permite inyectar mediciones para procesamiento operacional.' },
-          { label: 'Velocidad promedio', description: 'Comportamiento de velocidad por franja de tiempo.' },
-          { label: 'Corredor principal', description: 'Resumen de flujo vehicular y velocidad por segmento.' },
-          { label: 'Alertas y eventos', description: 'Incidencias de seguridad y estado de atencion.' },
+          {
+            label: 'Carga de Excel',
+            description: 'Permite inyectar mediciones para procesamiento operacional.',
+          },
+          {
+            label: 'Velocidad promedio',
+            description: 'Comportamiento de velocidad por franja de tiempo.',
+          },
+          {
+            label: 'Corredor principal',
+            description: 'Resumen de flujo vehicular y velocidad por segmento.',
+          },
+          {
+            label: 'Alertas y eventos',
+            description: 'Incidencias de seguridad y estado de atencion.',
+          },
         ]}
       />
       <ExcelUploader onUpload={onUpload} />
@@ -51,7 +65,12 @@ export function TelemetriaPage(): JSX.Element {
         ))}
       </div>
       <div className="grid gap-6 xl:grid-cols-2">
-        <LineChartWidget title="Velocidad promedio" data={speedTrend} dataKey="value" xKey="label" />
+        <LineChartWidget
+          title="Velocidad promedio"
+          data={speedTrend}
+          dataKey="value"
+          xKey="label"
+        />
         <DataTable
           title="Corredor principal"
           columns={[

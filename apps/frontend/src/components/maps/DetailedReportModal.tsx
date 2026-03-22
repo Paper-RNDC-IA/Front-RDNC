@@ -18,7 +18,11 @@ function formatMetric(value: number | null, unit: string): string {
   return `${formatNumber(value)} ${unit}`.trim();
 }
 
-export function DetailedReportModal({ open, department, onClose }: DetailedReportModalProps): JSX.Element | null {
+export function DetailedReportModal({
+  open,
+  department,
+  onClose,
+}: DetailedReportModalProps): JSX.Element | null {
   const reportRows = useMemo(() => {
     if (!department) {
       return [];
@@ -58,7 +62,10 @@ export function DetailedReportModal({ open, department, onClose }: DetailedRepor
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-4" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-4"
+      onClick={onClose}
+    >
       <article
         id={contentId}
         className="w-full max-w-2xl rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"

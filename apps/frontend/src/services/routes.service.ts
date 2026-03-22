@@ -21,7 +21,8 @@ export function getRouteKpis(dateRange?: DateRange): Promise<RouteKpiApi[]> {
 
 export function getDepartmentIntensity(dateRange?: DateRange): Promise<DepartmentIntensityApi[]> {
   return withMockFallback(
-    () => api.get<DepartmentIntensityApi[]>(endpoints.routes.departments, buildDateQuery(dateRange)),
+    () =>
+      api.get<DepartmentIntensityApi[]>(endpoints.routes.departments, buildDateQuery(dateRange)),
     mockGeographyDepartments,
   );
 }
