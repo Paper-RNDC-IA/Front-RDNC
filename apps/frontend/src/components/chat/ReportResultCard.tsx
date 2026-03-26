@@ -13,7 +13,10 @@ export function ReportResultCard({ report }: ReportResultCardProps): JSX.Element
 
       <dl className="mt-3 grid gap-2 sm:grid-cols-2">
         {report.metrics.map((metric) => (
-          <div key={metric.label} className="rounded-md border border-slate-300/80 bg-white px-2 py-1.5">
+          <div
+            key={metric.label}
+            className="rounded-md border border-slate-300/80 bg-white px-2 py-1.5"
+          >
             <dt className="text-[10px] text-slate-500">{metric.label}</dt>
             <dd className="mt-1 text-xs font-semibold text-slate-800">{metric.value}</dd>
           </div>
