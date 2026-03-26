@@ -9,7 +9,7 @@ type CardProps = PropsWithChildren<{
 export function Card({ title, actions, className, children }: CardProps): JSX.Element {
   return (
     <section
-      className={['rounded-2xl border border-slate-800 bg-slate-900/70 p-4', className ?? ''].join(
+      className={['rounded-2xl border border-slate-700 bg-slate-800/65 p-4', className ?? ''].join(
         ' ',
       )}
     >

@@ -7,7 +7,7 @@ export function LoginPage(): JSX.Element {
   const { values, loading, error, setValues, onSubmit } = useLoginPage();
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 p-4">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-900 p-4">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.22),transparent_42%),radial-gradient(circle_at_80%_0%,rgba(251,146,60,0.16),transparent_45%)]" />
 
       <section className="relative z-10 grid w-full max-w-5xl gap-6 rounded-3xl border border-slate-800 bg-slate-900/85 p-6 shadow-2xl backdrop-blur lg:grid-cols-[1.2fr_1fr] lg:p-10">

@@ -43,7 +43,7 @@ const moduleGuide = [
 
 export function HomePage(): JSX.Element {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+    <div className="relative min-h-screen overflow-hidden bg-slate-900 text-slate-100">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_0%,rgba(249,115,22,0.28),transparent_36%),radial-gradient(circle_at_95%_8%,rgba(251,146,60,0.18),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(234,88,12,0.12),transparent_45%)]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 pb-12 pt-8 lg:px-10 lg:pt-10">

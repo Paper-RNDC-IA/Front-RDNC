@@ -35,7 +35,7 @@ export function TopHeader({ onOpenMenu }: TopHeaderProps): JSX.Element {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-800 bg-slate-950/80 px-4 py-4 backdrop-blur md:px-8">
+    <header className="sticky top-0 z-30 border-b border-slate-700 bg-slate-900/85 px-4 py-4 backdrop-blur md:px-8">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <button
@@ -59,7 +59,7 @@ export function TopHeader({ onOpenMenu }: TopHeaderProps): JSX.Element {
               </div>
               <button
                 type="button"
-                className="rounded-md border border-slate-700 px-3 py-2 text-xs text-slate-200 hover:bg-slate-800"
+                className="rounded-md border border-slate-700 px-3 py-2 text-xs text-slate-200 hover:bg-slate-700"
                 onClick={() => void onLogout()}
               >
                 Cerrar sesion

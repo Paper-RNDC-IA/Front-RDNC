@@ -16,7 +16,7 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
             type="date"
             value={value.from}
             onChange={(event) => onChange({ ...value, from: event.target.value })}
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+            className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-slate-100"
           />
         </label>
         <label className="space-y-1 text-sm text-slate-300">
@@ -25,7 +25,7 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
             type="date"
             value={value.to}
             onChange={(event) => onChange({ ...value, to: event.target.value })}
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+            className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-slate-100"
           />
         </label>
       </div>

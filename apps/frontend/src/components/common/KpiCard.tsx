@@ -14,7 +14,7 @@ export function KpiCard({ item }: KpiCardProps): JSX.Element {
         : 'text-slate-300';
 
   return (
-    <Card className="bg-gradient-to-br from-slate-900 to-slate-900/50">
+    <Card className="bg-gradient-to-br from-slate-800 to-slate-700/70">
       <p className="text-xs uppercase tracking-wide text-slate-400">{item.label}</p>
       <p className="mt-2 text-2xl font-semibold text-slate-50">{item.value}</p>
       {item.delta ? <p className={`mt-1 text-xs ${trendColor}`}>{item.delta}</p> : null}

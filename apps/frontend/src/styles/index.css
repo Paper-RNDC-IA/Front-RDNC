@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 :root {
-  --bg-main: #020617;
+  --bg-main: #0b1220;
   --bg-surface: #0f172a;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
@@ -35,4 +35,37 @@ button,
 input,
 select {
   font-family: inherit;
+}
+
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.75) rgba(148, 163, 184, 0.35);
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 9px;
+}
+
+.chat-scroll::-webkit-scrollbar-track {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.92), rgba(100, 116, 139, 0.95));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(203, 213, 225, 0.95), rgba(148, 163, 184, 0.98));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.chat-scroll::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
