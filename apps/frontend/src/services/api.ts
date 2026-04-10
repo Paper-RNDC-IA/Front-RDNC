@@ -47,13 +47,3 @@ export const api = {
     });
   },
 };
-
-export async function withMockFallback<T>(request: () => Promise<T>, fallback: T): Promise<T> {
-  try {
-    return await request();
-  } catch (error) {
-    // TODO: Remove this fallback after all FastAPI endpoints are confirmed in integration.
-    console.warn('Using temporary mock fallback:', error);
-    return fallback;
-  }
-}

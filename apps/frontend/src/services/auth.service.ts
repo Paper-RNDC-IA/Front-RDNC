@@ -1,8 +1,4 @@
 import { adaptSession } from '../adapters/auth.adapter';
-import {
-  buildMockLoginResponse,
-  buildMockRegisterResponse,
-} from '../constants/company-portal.mocks';
 import type {
   LoginRequest,
   LoginResponseApi,
@@ -54,18 +50,11 @@ export async function loginCompany(credentials: LoginRequest): Promise<SessionUs
     throw new Error('Completa NIT, correo y contrasena para ingresar.');
   }
 
-  let response: LoginResponseApi;
-
-  try {
-    response = await api.post<LoginResponseApi>(endpoints.auth.login, {
-      company_nit: credentials.companyNit,
-      email: credentials.email,
-      password: credentials.password,
-    });
-  } catch {
-    // TODO: Replace mock fallback when auth endpoint is fully enabled in FastAPI.
-    response = buildMockLoginResponse(credentials);
-  }
+  const response = await api.post<LoginResponseApi>(endpoints.auth.login, {
+    company_nit: credentials.companyNit,
+    email: credentials.email,
+    password: credentials.password,
+  });
 
   const session = adaptSession(response);
   storeSession(session);
@@ -81,19 +70,12 @@ export async function registerCompany(payload: RegisterCompanyRequest): Promise<
     throw new Error('La confirmacion de contrasena no coincide.');
   }
 
-  let response: LoginResponseApi;
-
-  try {
-    response = await api.post<LoginResponseApi>(endpoints.auth.register, {
-      company_name: payload.companyName,
-      company_nit: payload.companyNit,
-      email: payload.email,
-      password: payload.password,
-    });
-  } catch {
-    // TODO: Replace mock fallback when register endpoint is fully enabled in FastAPI.
-    response = buildMockRegisterResponse(payload);
-  }
+  const response = await api.post<LoginResponseApi>(endpoints.auth.register, {
+    company_name: payload.companyName,
+    company_nit: payload.companyNit,
+    email: payload.email,
+    password: payload.password,
+  });
 
   const session = adaptSession(response);
   storeSession(session);
@@ -120,9 +102,7 @@ export async function getCurrentSession(): Promise<SessionUser | null> {
 export async function logoutCompany(): Promise<void> {
   try {
     await api.post(endpoints.auth.logout);
-  } catch {
-    // noop on mock mode
+  } finally {
+    localStorage.removeItem(SESSION_STORAGE_KEY);
   }
-
-  localStorage.removeItem(SESSION_STORAGE_KEY);
 }

@@ -1,30 +1,19 @@
-import {
-  mockGeographyDemandMap,
-  mockGeographyProductionMap,
-  mockGeographyRoyaltiesMap,
-} from '../../constants/mocks';
 import type { MapLayerApiItem } from '../../types/geography-map';
 
-import { api, withMockFallback } from '../api';
+import { api } from '../api';
 import { endpoints } from '../endpoints';
 
-export function fetchProductionMap(): Promise<MapLayerApiItem[]> {
-  return withMockFallback(
-    () => api.get<MapLayerApiItem[]>(endpoints.routes.productionMap),
-    mockGeographyProductionMap,
-  );
+export async function fetchProductionMap(): Promise<MapLayerApiItem[]> {
+  const response = await api.get<unknown>(endpoints.routes.productionMap);
+  return Array.isArray(response) ? (response as MapLayerApiItem[]) : [];
 }
 
-export function fetchDemandMap(): Promise<MapLayerApiItem[]> {
-  return withMockFallback(
-    () => api.get<MapLayerApiItem[]>(endpoints.routes.demandMap),
-    mockGeographyDemandMap,
-  );
+export async function fetchDemandMap(): Promise<MapLayerApiItem[]> {
+  const response = await api.get<unknown>(endpoints.routes.demandMap);
+  return Array.isArray(response) ? (response as MapLayerApiItem[]) : [];
 }
 
-export function fetchRoyaltiesMap(): Promise<MapLayerApiItem[]> {
-  return withMockFallback(
-    () => api.get<MapLayerApiItem[]>(endpoints.routes.royaltiesMap),
-    mockGeographyRoyaltiesMap,
-  );
+export async function fetchRoyaltiesMap(): Promise<MapLayerApiItem[]> {
+  const response = await api.get<unknown>(endpoints.routes.royaltiesMap);
+  return Array.isArray(response) ? (response as MapLayerApiItem[]) : [];
 }

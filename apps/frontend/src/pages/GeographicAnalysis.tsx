@@ -9,7 +9,6 @@ import { ColombiaMap } from '../components/maps/ColombiaMap';
 import { DetailedReportModal } from '../components/maps/DetailedReportModal';
 import type { MapData, MapLayer, MapLayerApiItem } from '../components/maps/types';
 import { toDepartmentId } from '../components/maps/types';
-import { mockGeographyDepartments } from '../constants/mocks';
 import { fetchDemandMap, fetchProductionMap, fetchRoyaltiesMap } from '../services/geography/api';
 import { getRouteKpis } from '../services/routes.service';
 import { formatNumber } from '../utils/formatters';
@@ -103,10 +102,7 @@ function buildMapData(
   demand: MapLayerApiItem[],
   royalties: MapLayerApiItem[],
 ): MapData {
-  const defaultDepartments = [
-    ...allMapDepartments,
-    ...mockGeographyDepartments.map((item) => item.department),
-  ];
+  const defaultDepartments = [...allMapDepartments];
 
   const departmentNameById = [
     ...defaultDepartments,

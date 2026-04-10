@@ -4,6 +4,7 @@ import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
 import { DateRangeFilter } from '../components/common/DateRangeFilter';
 import { SectionLegend } from '../components/common/SectionLegend';
+import { DataSourceBadge } from '../components/common/DataSourceBadge';
 import { LineChartWidget } from '../components/charts/LineChartWidget';
 import { BarChartWidget } from '../components/charts/BarChartWidget';
 import { useStatsPage } from '../hooks/useStatsPage';
@@ -33,6 +34,10 @@ export function EstadisticasPage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <DataSourceBadge
+        module="Estadisticas"
+        endpoints={['/api/stats/kpis', '/api/stats/trends', '/api/stats/summary']}
+      />
       <SectionLegend
         title="Leyenda de Estadisticas"
         items={[

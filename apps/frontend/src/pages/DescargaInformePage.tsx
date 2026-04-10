@@ -5,6 +5,7 @@ import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
 import { DateRangeFilter } from '../components/common/DateRangeFilter';
 import { ModuleFilter } from '../components/common/ModuleFilter';
+import { DataSourceBadge } from '../components/common/DataSourceBadge';
 import { SectionLegend } from '../components/common/SectionLegend';
 import { ExportActions } from '../components/exports/ExportActions';
 import { useDescargaInformePage } from '../hooks/useDescargaInformePage';
@@ -42,6 +43,10 @@ export function DescargaInformePage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <DataSourceBadge
+        module="Descarga Informe"
+        endpoints={['/api/export/combined']}
+      />
       <SectionLegend
         title="Leyenda de Descarga Informe"
         items={[

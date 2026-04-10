@@ -1,9 +1,19 @@
 import { GeographicAnalysis } from './GeographicAnalysis';
 import { SectionLegend } from '../components/common/SectionLegend';
+import { DataSourceBadge } from '../components/common/DataSourceBadge';
 
 export function GeografiaPage(): JSX.Element {
   return (
     <section className="space-y-4">
+      <DataSourceBadge
+        module="Mapa Interactivo"
+        endpoints={[
+          '/api/routes/kpis',
+          '/api/routes/production-map',
+          '/api/routes/demand-map',
+          '/api/routes/royalties-map',
+        ]}
+      />
       <SectionLegend
         title="Leyenda de Mapa Interactivo"
         items={[

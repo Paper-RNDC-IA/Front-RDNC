@@ -3,6 +3,7 @@ import { DataTable } from '../components/common/DataTable';
 import { ErrorState } from '../components/common/ErrorState';
 import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
+import { DataSourceBadge } from '../components/common/DataSourceBadge';
 import { SectionLegend } from '../components/common/SectionLegend';
 import { LineChartWidget } from '../components/charts/LineChartWidget';
 import { ExcelUploader } from '../components/telemetry/ExcelUploader';
@@ -37,6 +38,16 @@ export function TelemetriaPage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <DataSourceBadge
+        module="Telemetria"
+        endpoints={[
+          '/api/telemetry/kpis',
+          '/api/telemetry/speeds',
+          '/api/telemetry/corridor',
+          '/api/telemetry/alerts',
+          '/api/telemetry/events',
+        ]}
+      />
       <SectionLegend
         title="Leyenda de Telemetria"
         items={[

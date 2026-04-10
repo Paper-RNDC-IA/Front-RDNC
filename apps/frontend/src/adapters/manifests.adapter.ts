@@ -6,7 +6,7 @@ import type {
   ManifestTrendApi,
   RouteRankingApi,
 } from '../types/manifests';
-import { formatNumber, formatPercent } from '../utils/formatters';
+import { formatNumber } from '../utils/formatters';
 
 export function adaptManifestKpis(items: ManifestKpiApi[]): KpiItem[] {
   return items.map((item) => ({
@@ -30,7 +30,7 @@ export function adaptRouteRanking(
   return items.map((item) => ({
     route: item.route,
     trips: formatNumber(item.trips),
-    incidents: item.incidents,
+    incidents: formatNumber(item.incidents),
   }));
 }
 
@@ -40,7 +40,7 @@ export function adaptCompanyRanking(
   return items.map((item) => ({
     company: item.company,
     manifests: formatNumber(item.manifests),
-    compliance: formatPercent(item.compliance / 100),
+    compliance: formatNumber(item.compliance),
   }));
 }
 

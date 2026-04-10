@@ -6,6 +6,7 @@ import { EmptyState } from '../components/common/EmptyState';
 import { ErrorState } from '../components/common/ErrorState';
 import { KpiCard } from '../components/common/KpiCard';
 import { LoadingState } from '../components/common/LoadingState';
+import { DataSourceBadge } from '../components/common/DataSourceBadge';
 import { SectionLegend } from '../components/common/SectionLegend';
 import { useCompanyWorkspacePage } from '../hooks/useCompanyWorkspacePage';
 
@@ -56,6 +57,16 @@ export function CompanyWorkspacePage(): JSX.Element {
       {error ? (
         <ErrorState title="Novedad en portal empresarial" message={error} onRetry={reload} />
       ) : null}
+
+      <DataSourceBadge
+        module="Portal Empresa"
+        endpoints={[
+          '/api/company-files',
+          '/api/company-files/summary',
+          '/api/company-files/upload',
+          '/api/company-files/{id}/insights',
+        ]}
+      />
 
       <SectionLegend
         title="Leyenda de Portal Empresa"

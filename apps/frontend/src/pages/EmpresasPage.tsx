@@ -3,6 +3,7 @@ import { DataTable } from '../components/common/DataTable';
 import { ErrorState } from '../components/common/ErrorState';
 import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
+import { DataSourceBadge } from '../components/common/DataSourceBadge';
 import { SectionLegend } from '../components/common/SectionLegend';
 import { CompanyDetailCard } from '../components/companies/CompanyDetailCard';
 import { useEmpresasPage } from '../hooks/useEmpresasPage';
@@ -25,6 +26,10 @@ export function EmpresasPage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <DataSourceBadge
+        module="Empresas"
+        endpoints={['/api/companies/kpis', '/api/companies/list', '/api/companies/{id}']}
+      />
       <SectionLegend
         title="Leyenda de Empresas"
         items={[

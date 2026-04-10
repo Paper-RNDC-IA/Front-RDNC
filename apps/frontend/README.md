@@ -67,16 +67,11 @@ Internas:
 4. La ruta /app/portal-empresa exige sesion activa.
 5. Al cerrar sesion, se limpia el storage y se redirige a /login.
 
-### Nota de backend
-
-Cuando los endpoints de auth no estan disponibles, el frontend usa fallback mock para desarrollo local.
-
 ## Registro e inicio de sesion: como se maneja
 
 - Contratos: src/types/auth.ts
 - Servicio auth: src/services/auth.service.ts
 - Transformacion de sesion: src/adapters/auth.adapter.ts
-- Mocks auth/portal: src/constants/company-portal.mocks.ts
 - Guard de rutas: src/components/auth/RequireAuth.tsx
 
 ### Datos minimos requeridos en registro
@@ -135,7 +130,7 @@ Archivo:
 
 Variable principal:
 
-- VITE_API_BASE_URL=http://localhost:8000
+- VITE_API_URL=https://back-rndc.onrender.com
 
 ## Desarrollo local
 
@@ -155,16 +150,9 @@ npm run test -- --run
 npm run build
 ```
 
-## Estado de mocks
+## Estado de integracion
 
-Actualmente hay mocks para:
-
-- autenticacion y registro empresarial
-- portal de archivos empresariales
-- analitica general por modulos
-- capas geograficas
-
-Estos mocks se usan como fallback para que el frontend no dependa al 100% del backend durante el desarrollo.
+El frontend esta configurado para consumir datos reales del backend desplegado y no usa fallback mock en la capa de servicios principal.
 
 ## Documento adicional de integracion
 

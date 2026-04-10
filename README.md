@@ -20,4 +20,4 @@ npm run dev
 
 La documentacion funcional y tecnica del frontend esta en:
 
-- apps/frontend/README.md
+- apps/frontend/README.mdnpm --prefix apps/frontend install

@@ -4,6 +4,7 @@ import { DateRangeFilter } from '../components/common/DateRangeFilter';
 import { ErrorState } from '../components/common/ErrorState';
 import { EmptyState } from '../components/common/EmptyState';
 import { LoadingState } from '../components/common/LoadingState';
+import { DataSourceBadge } from '../components/common/DataSourceBadge';
 import { SectionLegend } from '../components/common/SectionLegend';
 import { LineChartWidget } from '../components/charts/LineChartWidget';
 import { PieChartWidget } from '../components/charts/PieChartWidget';
@@ -39,6 +40,16 @@ export function ManifiestosPage(): JSX.Element {
 
   return (
     <section className="space-y-6">
+      <DataSourceBadge
+        module="Manifiestos"
+        endpoints={[
+          '/api/manifests/kpis',
+          '/api/manifests/trends',
+          '/api/manifests/ranking-routes',
+          '/api/manifests/ranking-companies',
+          '/api/manifests/distribution',
+        ]}
+      />
       <SectionLegend
         title="Leyenda de Manifiestos"
         items={[
@@ -52,11 +63,11 @@ export function ManifiestosPage(): JSX.Element {
           },
           {
             label: 'Ranking de rutas',
-            description: 'Corredores con mayor uso y nivel de incidencias.',
+            description: 'Corredores con mayor volumen de viajes y toneladas.',
           },
           {
             label: 'Ranking de empresas',
-            description: 'Empresas con mayor volumen y cumplimiento reportado.',
+            description: 'Empresas/departamentos con mayor volumen y toneladas movilizadas.',
           },
         ]}
       />
@@ -86,7 +97,7 @@ export function ManifiestosPage(): JSX.Element {
           columns={[
             { key: 'route', label: 'Ruta' },
             { key: 'trips', label: 'Viajes' },
-            { key: 'incidents', label: 'Novedades' },
+            { key: 'incidents', label: 'Toneladas' },
           ]}
           rows={routeRanking}
           rowKey="route"
@@ -96,7 +107,7 @@ export function ManifiestosPage(): JSX.Element {
           columns={[
             { key: 'company', label: 'Empresa' },
             { key: 'manifests', label: 'Manifiestos' },
-            { key: 'compliance', label: 'Cumplimiento' },
+            { key: 'compliance', label: 'Toneladas' },
           ]}
           rows={companyRanking}
           rowKey="company"

@@ -9,7 +9,7 @@ type ChartCardProps = PropsWithChildren<{
 export function ChartCard({ title, children }: ChartCardProps): JSX.Element {
   return (
     <Card title={title}>
-      <div className="h-72 w-full">{children}</div>
+      <div className="min-h-[320px] w-full">{children}</div>
     </Card>
   );
 }
