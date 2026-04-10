@@ -11,6 +11,8 @@ type DataTableProps<T extends object> = {
   rows: T[];
   rowKey: keyof T & string;
   onRowClick?: (row: T) => void;
+  subtitle?: string;
+  maxRows?: number;
 };
 
 export function DataTable<T extends object>({
@@ -19,9 +21,14 @@ export function DataTable<T extends object>({
   rows,
   rowKey,
   onRowClick,
+  subtitle,
+  maxRows = 10,
 }: DataTableProps<T>): JSX.Element {
+  const visibleRows = rows.slice(0, maxRows);
+
   return (
     <Card title={title}>
+      {subtitle ? <p className="mb-3 text-xs text-slate-400">{subtitle}</p> : null}
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-sm">
           <thead>
@@ -34,7 +41,14 @@ export function DataTable<T extends object>({
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
+            {!visibleRows.length ? (
+              <tr>
+                <td colSpan={columns.length} className="px-3 py-5 text-center text-slate-400">
+                  No hay registros para este rango.
+                </td>
+              </tr>
+            ) : null}
+            {visibleRows.map((row) => (
               <tr
                 key={String(row[rowKey])}
                 className="border-b border-slate-900 text-slate-200 transition-colors hover:bg-slate-800/40"
@@ -54,6 +68,11 @@ export function DataTable<T extends object>({
           </tbody>
         </table>
       </div>
+      {rows.length > maxRows ? (
+        <p className="mt-3 text-xs text-slate-400">
+          Mostrando Top {maxRows} de {rows.length} registros.
+        </p>
+      ) : null}
     </Card>
   );
 }

@@ -6,9 +6,21 @@ import { LoadingState } from '../components/common/LoadingState';
 import { DateRangeFilter } from '../components/common/DateRangeFilter';
 import { ModuleFilter } from '../components/common/ModuleFilter';
 import { DataSourceBadge } from '../components/common/DataSourceBadge';
-import { SectionLegend } from '../components/common/SectionLegend';
+import { PageIntro } from '../components/common/PageIntro';
+import { SectionHeader } from '../components/common/SectionHeader';
+import { InsightsPanel } from '../components/common/InsightsPanel';
+import { BarChartWidget } from '../components/charts/BarChartWidget';
+import { PieChartWidget } from '../components/charts/PieChartWidget';
 import { ExportActions } from '../components/exports/ExportActions';
 import { useDescargaInformePage } from '../hooks/useDescargaInformePage';
+
+function parseSummaryValue(value: string | number): number {
+  if (typeof value === 'number') {
+    return value;
+  }
+
+  return Number(String(value).replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.')) || 0;
+}
 
 export function DescargaInformePage(): JSX.Element {
   const [module, setModule] = useState('all');
@@ -41,29 +53,46 @@ export function DescargaInformePage(): JSX.Element {
     );
   }
 
+  const periodLabel = `${dateRange.from} a ${dateRange.to}`;
+  const topSummary = summary[0];
+  const summaryChartData = summary
+    .map((item) => ({
+      label: item.label,
+      value: parseSummaryValue(item.value),
+    }))
+    .filter((item) => item.value > 0);
+
+  const insightItems = [
+    {
+      title: 'Exportacion lista para ejecutar',
+      detail: `Se exportara el modulo ${module === 'all' ? 'consolidado' : module} con el rango filtrado del periodo.`,
+      tone: 'neutral' as const,
+    },
+    topSummary
+      ? {
+          title: 'Dato con mayor volumen',
+          detail: `${topSummary.label} reporta ${topSummary.value} registros listos para salida.`,
+          tone: 'positive' as const,
+        }
+      : null,
+  ].filter((item): item is NonNullable<typeof item> => Boolean(item));
+
   return (
-    <section className="space-y-6">
-      <DataSourceBadge module="Descarga Informe" endpoints={['/api/export/combined']} />
-      <SectionLegend
-        title="Leyenda de Descarga Informe"
-        items={[
-          {
-            label: 'Rango de fechas',
-            description: 'Delimita el periodo para consolidar el reporte.',
-          },
-          {
-            label: 'Filtro de modulo',
-            description: 'Define si exportas todo o solo un modulo puntual.',
-          },
-          {
-            label: 'Exportaciones',
-            description: 'Genera salida en CSV, Excel o PDF con los datos filtrados.',
-          },
-          {
-            label: 'Resumen listo',
-            description: 'Conteo de registros y totales previos a la descarga.',
-          },
+    <section className="space-y-6 md:space-y-8">
+      <DataSourceBadge module="Descarga Informe" />
+      <PageIntro
+        title="Centro de Exportacion"
+        subtitle="Define modulo, rango y formato para generar reportes listos para auditoria, analisis o seguimiento operativo."
+        periodLabel={periodLabel}
+        highlights={[
+          'Seleccion por modulo',
+          'Filtros por fecha',
+          'Exportacion CSV, Excel y PDF',
         ]}
+      />
+      <SectionHeader
+        title="Configuracion de exporte"
+        description="Primero selecciona filtros, luego elige formato de salida para descargar el informe."
       />
       <div className="grid gap-4 md:grid-cols-2">
         <DateRangeFilter value={dateRange} onChange={setDateRange} />
@@ -76,6 +105,29 @@ export function DescargaInformePage(): JSX.Element {
         module={module}
         dateRange={dateRange}
       />
+      <SectionHeader
+        title="Resumen a exportar"
+        description="Vista rapida de lo que sera incluido en el archivo final."
+      />
+      <div className="grid gap-6 xl:grid-cols-2">
+        <BarChartWidget
+          title="Volumen por categoria exportable"
+          subtitle="Comparacion de registros listos para exportar"
+          data={summaryChartData}
+          dataKey="value"
+          xKey="label"
+          horizontal
+          sortDescending
+          valueLabel="Registros"
+        />
+        <PieChartWidget
+          title="Participacion del reporte"
+          subtitle="Distribucion porcentual de los datos que saldran en el informe"
+          data={summaryChartData}
+          dataKey="value"
+          nameKey="label"
+        />
+      </div>
       <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
         <h3 className="text-sm font-semibold text-slate-100">
           Resumen de datos listos para exportacion
@@ -92,6 +144,7 @@ export function DescargaInformePage(): JSX.Element {
           ))}
         </ul>
       </div>
+      <InsightsPanel title="Contexto de salida" items={insightItems} />
     </section>
   );
 }

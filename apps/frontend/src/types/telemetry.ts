@@ -13,7 +13,7 @@ export type SpeedPointApi = {
 export type AlertApi = {
   type: string;
   count: number;
-  severity: string;
+  severity?: string;
 };
 
 export type CorridorSegmentApi = {
@@ -25,7 +25,7 @@ export type CorridorSegmentApi = {
 export type SecurityEventApi = {
   event: string;
   count: number;
-  status: string;
+  status?: string;
 };
 
 export type TelemetryDashboardApi = {

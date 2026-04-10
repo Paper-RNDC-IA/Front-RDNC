@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { adaptGeographyKpis } from '../adapters/geography.adapter';
 import { Card } from '../components/common/Card';
+import { BarChartWidget } from '../components/charts/BarChartWidget';
+import { PieChartWidget } from '../components/charts/PieChartWidget';
 import { EmptyState } from '../components/common/EmptyState';
 import { ErrorState } from '../components/common/ErrorState';
 import { LoadingState } from '../components/common/LoadingState';
@@ -224,8 +226,53 @@ export function GeographicAnalysis(): JSX.Element {
     return state.mapData.departments.find((item) => item.id === state.selectedDepartmentId) ?? null;
   }, [state.mapData, state.selectedDepartmentId]);
 
+  const topDepartments = useMemo(() => {
+    if (!state.mapData) {
+      return [];
+    }
+
+    return [...state.mapData.departments]
+      .map((department) => ({
+        name: department.name,
+        value: department.values[state.activeLayer].value ?? 0,
+        unit: department.values[state.activeLayer].unit,
+      }))
+      .filter((item) => item.value > 0)
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 5);
+  }, [state.activeLayer, state.mapData]);
+
   const activeLayerValue = selectedDepartment?.values[state.activeLayer];
   const visibleKpis = summaryKpis.slice(0, 3);
+
+  const topDepartmentsChart = topDepartments.map((item) => ({
+    label: item.name,
+    value: item.value,
+  }));
+
+  const layerDistribution = [
+    {
+      label: 'Produccion',
+      value: (state.mapData?.departments ?? []).reduce(
+        (acc, department) => acc + (department.values.production.value ?? 0),
+        0,
+      ),
+    },
+    {
+      label: 'Demanda',
+      value: (state.mapData?.departments ?? []).reduce(
+        (acc, department) => acc + (department.values.demand.value ?? 0),
+        0,
+      ),
+    },
+    {
+      label: 'Regalias',
+      value: (state.mapData?.departments ?? []).reduce(
+        (acc, department) => acc + (department.values.royalties.value ?? 0),
+        0,
+      ),
+    },
+  ].filter((item) => item.value > 0);
 
   if (state.loading) {
     return <LoadingState title="Cargando analisis geografico" />;
@@ -346,6 +393,28 @@ export function GeographicAnalysis(): JSX.Element {
                 </div>
               </div>
 
+              <div className="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3">
+                <p className="text-sm font-semibold text-slate-100">Top departamentos</p>
+                <p className="mt-1 text-xs text-slate-400">
+                  Mayor actividad segun la capa activa ({layerLabels[state.activeLayer]}).
+                </p>
+                <ul className="mt-3 space-y-2">
+                  {topDepartments.map((item, index) => (
+                    <li
+                      key={item.name}
+                      className="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2"
+                    >
+                      <span className="text-xs text-slate-200">
+                        {index + 1}. {item.name}
+                      </span>
+                      <span className="text-xs font-semibold text-orange-200">
+                        {formatNumber(item.value)} {item.unit}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <div className="grid gap-2 md:grid-cols-3">
                 {visibleKpis.map((item) => (
                   <div
@@ -375,6 +444,26 @@ export function GeographicAnalysis(): JSX.Element {
         department={selectedDepartment}
         onClose={() => setIsReportOpen(false)}
       />
+
+      <div className="grid gap-6 xl:grid-cols-2">
+        <BarChartWidget
+          title="Top departamentos"
+          subtitle="Ranking territorial por la capa actualmente seleccionada"
+          data={topDepartmentsChart}
+          dataKey="value"
+          xKey="label"
+          horizontal
+          sortDescending
+          valueLabel={layerLabels[state.activeLayer]}
+        />
+        <PieChartWidget
+          title="Distribucion nacional por capa"
+          subtitle="Participacion relativa de produccion, demanda y regalias"
+          data={layerDistribution}
+          dataKey="value"
+          nameKey="label"
+        />
+      </div>
     </section>
   );
 }

@@ -1,6 +1,7 @@
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import type { ChartDatum } from '../../types/common';
+import { formatNumber } from '../../utils/formatters';
 import { ChartCard } from './ChartCard';
 
 type PieChartWidgetProps = {
@@ -8,6 +9,7 @@ type PieChartWidgetProps = {
   data: ChartDatum[];
   dataKey: string;
   nameKey: string;
+  subtitle?: string;
 };
 
 const colors = ['#ea580c', '#f97316', '#fb923c', '#f59e0b', '#fdba74'];
@@ -17,10 +19,11 @@ export function PieChartWidget({
   data,
   dataKey,
   nameKey,
+  subtitle,
 }: PieChartWidgetProps): JSX.Element {
   if (!data.length) {
     return (
-      <ChartCard title={title}>
+      <ChartCard title={title} subtitle={subtitle}>
         <div className="flex h-64 items-center justify-center rounded-xl border border-slate-700/70 bg-slate-900/40">
           <p className="text-sm text-slate-400">
             No hay distribucion disponible para este periodo.
@@ -38,8 +41,28 @@ export function PieChartWidget({
     percent: total > 0 ? (item.value / total) * 100 : 0,
   }));
 
+  if (chartData.length > 6) {
+    const sorted = [...chartData].sort((a, b) => b.value - a.value).slice(0, 8);
+
+    return (
+      <ChartCard
+        title={title}
+        subtitle={subtitle ?? 'El numero de categorias es alto, por eso se muestra ranking horizontal.'}
+      >
+        <ResponsiveContainer>
+          <BarChart data={sorted} layout="vertical" margin={{ left: 8 }}>
+            <XAxis type="number" stroke="#94a3b8" tickFormatter={formatNumber} />
+            <YAxis type="category" dataKey="label" width={120} stroke="#94a3b8" />
+            <Tooltip formatter={(value: number) => [formatNumber(value), 'Volumen']} />
+            <Bar dataKey="value" fill="#f97316" radius={[0, 6, 6, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartCard>
+    );
+  }
+
   return (
-    <ChartCard title={title}>
+    <ChartCard title={title} subtitle={subtitle}>
       <div className="space-y-4">
         <div className="h-64 w-full">
           <ResponsiveContainer>
@@ -58,7 +81,7 @@ export function PieChartWidget({
                 ) => {
                   const percent = item?.payload?.percent ?? 0;
                   return [
-                    `${value.toLocaleString('es-CO')} (${percent.toFixed(1)}%)`,
+                    `${formatNumber(value)} (${percent.toFixed(1)}%)`,
                     'Participacion',
                   ];
                 }}
@@ -86,7 +109,7 @@ export function PieChartWidget({
                 textAnchor="middle"
                 className="fill-orange-200 text-sm font-semibold"
               >
-                {total.toLocaleString('es-CO')}
+                {formatNumber(total)}
               </text>
             </PieChart>
           </ResponsiveContainer>

@@ -87,18 +87,24 @@ export function useTelemetriaPage() {
     void load(state.dateRange);
   }, [load, state.dateRange]);
 
+  const setDateRange = useCallback((dateRange: DateRange) => {
+    setState((prev) => ({ ...prev, dateRange }));
+  }, []);
+
   return useMemo(
     () => ({
       loading: state.loading,
       error: state.error,
+      dateRange: state.dateRange,
       kpis: state.kpis,
       speedTrend: state.speedTrend,
       alerts: state.alerts,
       corridorSummary: state.corridorSummary,
       securityEvents: state.securityEvents,
+      setDateRange,
       onUpload,
       reload,
     }),
-    [onUpload, reload, state],
+    [onUpload, reload, setDateRange, state],
   );
 }

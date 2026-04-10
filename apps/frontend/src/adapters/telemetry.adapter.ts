@@ -28,7 +28,6 @@ export function adaptTelemetryAlerts(items: AlertApi[]): Array<Record<string, st
   return items.map((item) => ({
     type: item.type,
     count: formatNumber(item.count),
-    severity: item.severity,
   }));
 }
 
@@ -48,6 +47,5 @@ export function adaptSecurityEvents(
   return items.map((item) => ({
     event: item.event,
     count: formatNumber(item.count),
-    status: item.status,
   }));
 }

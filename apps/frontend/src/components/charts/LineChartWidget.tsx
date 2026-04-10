@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 
 import type { ChartDatum } from '../../types/common';
+import { formatDecimal, formatNumber } from '../../utils/formatters';
 import { ChartCard } from './ChartCard';
 
 type LineChartWidgetProps = {
@@ -17,12 +18,23 @@ type LineChartWidgetProps = {
   data: ChartDatum[];
   dataKey: string;
   xKey: string;
+  subtitle?: string;
+  metricLabel?: string;
+  valueFormatter?: (value: number) => string;
 };
 
-export function LineChartWidget({ title, data, dataKey, xKey }: LineChartWidgetProps): JSX.Element {
+export function LineChartWidget({
+  title,
+  data,
+  dataKey,
+  xKey,
+  subtitle,
+  metricLabel = 'Valor',
+  valueFormatter = formatNumber,
+}: LineChartWidgetProps): JSX.Element {
   if (!data.length) {
     return (
-      <ChartCard title={title}>
+      <ChartCard title={title} subtitle={subtitle}>
         <div className="flex h-64 items-center justify-center rounded-xl border border-slate-700/70 bg-slate-900/40">
           <p className="text-sm text-slate-400">
             No hay datos de tendencia para el rango seleccionado.
@@ -33,25 +45,26 @@ export function LineChartWidget({ title, data, dataKey, xKey }: LineChartWidgetP
   }
 
   const maxValue = Math.max(...data.map((item) => item.value));
+  const firstValue = data[0]?.value ?? 0;
+  const lastValue = data[data.length - 1]?.value ?? 0;
+  const variation = firstValue > 0 ? ((lastValue - firstValue) / firstValue) * 100 : 0;
 
   return (
-    <ChartCard title={title}>
+    <ChartCard title={title} subtitle={subtitle}>
       <div className="space-y-3">
         <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 sm:grid-cols-3">
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2">
             <p className="text-[11px] uppercase tracking-wide text-slate-400">Pico</p>
-            <p className="text-sm font-semibold text-orange-200">
-              {maxValue.toLocaleString('es-CO')}
-            </p>
+            <p className="text-sm font-semibold text-orange-200">{valueFormatter(maxValue)}</p>
           </div>
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2">
             <p className="text-[11px] uppercase tracking-wide text-slate-400">Periodos</p>
             <p className="text-sm font-semibold text-slate-100">{data.length}</p>
           </div>
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2 sm:col-span-1 col-span-2">
-            <p className="text-[11px] uppercase tracking-wide text-slate-400">Ultimo valor</p>
+            <p className="text-[11px] uppercase tracking-wide text-slate-400">Variacion</p>
             <p className="text-sm font-semibold text-emerald-300">
-              {data[data.length - 1].value.toLocaleString('es-CO')}
+              {formatDecimal(variation, 1)}%
             </p>
           </div>
         </div>
@@ -90,7 +103,7 @@ export function LineChartWidget({ title, data, dataKey, xKey }: LineChartWidgetP
                   color: '#f8fafc',
                 }}
                 labelStyle={{ color: '#cbd5e1' }}
-                formatter={(value: number) => [value.toLocaleString('es-CO'), 'Manifiestos']}
+                formatter={(value: number) => [valueFormatter(value), metricLabel]}
               />
               <Area
                 type="monotone"

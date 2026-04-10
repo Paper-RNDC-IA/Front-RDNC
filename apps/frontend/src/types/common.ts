@@ -11,6 +11,15 @@ export type KpiItem = {
   delta?: string;
   trend?: TrendDirection;
   helperText?: string;
+  unit?: string;
+};
+
+export type InsightTone = 'neutral' | 'positive' | 'warning';
+
+export type InsightItem = {
+  title: string;
+  detail: string;
+  tone?: InsightTone;
 };
 
 export type ChartDatum = {

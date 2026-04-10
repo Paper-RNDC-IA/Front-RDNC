@@ -68,7 +68,6 @@ function normalizeAlerts(payload: unknown): AlertApi[] {
   return Array.from(grouped.entries()).map(([type, count]) => ({
     type,
     count,
-    severity: 'Media',
   }));
 }
 
@@ -105,7 +104,6 @@ function normalizeSecurityEvents(payload: unknown): SecurityEventApi[] {
   return Array.from(grouped.entries()).map(([event, count]) => ({
     event,
     count,
-    status: 'Registrado',
   }));
 }
 

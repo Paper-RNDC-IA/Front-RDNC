@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import { SectionLegend } from '../components/common/SectionLegend';
-
 const highlights = [
   {
     title: 'Panorama nacional RNDC',
@@ -157,27 +155,6 @@ export function HomePage(): JSX.Element {
           </div>
         </section>
 
-        <SectionLegend
-          title="Leyenda de Inicio"
-          items={[
-            {
-              label: 'Panorama nacional',
-              description: 'Entrada general para revisar estado operativo del sistema.',
-            },
-            {
-              label: 'Ruta recomendada',
-              description: 'Secuencia sugerida para recorrer los modulos del panel.',
-            },
-            {
-              label: 'Acceso por bloques',
-              description: 'Agrupa funciones por enfoque estrategico, operativo y empresarial.',
-            },
-            {
-              label: 'Accesos rapidos',
-              description: 'Botones para registrarse, iniciar sesion o entrar al panel.',
-            },
-          ]}
-        />
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ import { ErrorState } from '../components/common/ErrorState';
 import { KpiCard } from '../components/common/KpiCard';
 import { LoadingState } from '../components/common/LoadingState';
 import { DataSourceBadge } from '../components/common/DataSourceBadge';
-import { SectionLegend } from '../components/common/SectionLegend';
 import { useCompanyWorkspacePage } from '../hooks/useCompanyWorkspacePage';
 
 export function CompanyWorkspacePage(): JSX.Element {
@@ -58,37 +57,7 @@ export function CompanyWorkspacePage(): JSX.Element {
         <ErrorState title="Novedad en portal empresarial" message={error} onRetry={reload} />
       ) : null}
 
-      <DataSourceBadge
-        module="Portal Empresa"
-        endpoints={[
-          '/api/company-files',
-          '/api/company-files/summary',
-          '/api/company-files/upload',
-          '/api/company-files/{id}/insights',
-        ]}
-      />
-
-      <SectionLegend
-        title="Leyenda de Portal Empresa"
-        items={[
-          {
-            label: 'Entorno privado',
-            description: 'Sesion autenticada con datos propios de la empresa.',
-          },
-          {
-            label: 'Carga de archivos',
-            description: 'Ingreso de insumos para analisis interno y reportes.',
-          },
-          {
-            label: 'Tabla de archivos',
-            description: 'Gestion de seleccion, consulta y eliminacion de archivos.',
-          },
-          {
-            label: 'Panel de insights',
-            description: 'Indicadores, tendencias y exportables derivados del archivo.',
-          },
-        ]}
-      />
+      <DataSourceBadge module="Portal Empresa" />
 
       <Card title="Entorno privado y seguro de empresa">
         <div className="grid gap-4 md:grid-cols-3">
