@@ -26,7 +26,9 @@ export function DataSourceBadge({ module, updatedAt }: DataSourceBadgeProps): JS
     <div className="rounded-xl border border-emerald-900/70 bg-emerald-950/20 px-4 py-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.15em] text-emerald-300">Datos verificados</p>
+          <p className="text-[11px] uppercase tracking-[0.15em] text-emerald-300">
+            Datos verificados
+          </p>
           <p className="text-sm font-semibold text-slate-100">{module}</p>
         </div>
       </div>

@@ -47,12 +47,10 @@ function normalizeSpeeds(payload: unknown): SpeedPointApi[] {
     return [];
   }
 
-  return payload
-    .filter(isRecord)
-    .map((item) => ({
-      period: String(item.period ?? item.hora ?? 'N/A'),
-      avg_speed: toNumber(item.avg_speed ?? item.velocidad_promedio),
-    }));
+  return payload.filter(isRecord).map((item) => ({
+    period: String(item.period ?? item.hora ?? 'N/A'),
+    avg_speed: toNumber(item.avg_speed ?? item.velocidad_promedio),
+  }));
 }
 
 function normalizeAlerts(payload: unknown): AlertApi[] {
@@ -127,10 +125,7 @@ export async function getTelemetryAlerts(dateRange?: DateRange): Promise<AlertAp
 }
 
 export async function getTelemetryCorridor(dateRange?: DateRange): Promise<CorridorSegmentApi[]> {
-  const response = await api.get<unknown>(
-    endpoints.telemetry.corridor,
-    buildDateQuery(dateRange),
-  );
+  const response = await api.get<unknown>(endpoints.telemetry.corridor, buildDateQuery(dateRange));
   return normalizeCorridor(response);
 }
 

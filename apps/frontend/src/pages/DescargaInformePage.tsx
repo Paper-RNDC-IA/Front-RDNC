@@ -43,10 +43,7 @@ export function DescargaInformePage(): JSX.Element {
 
   return (
     <section className="space-y-6">
-      <DataSourceBadge
-        module="Descarga Informe"
-        endpoints={['/api/export/combined']}
-      />
+      <DataSourceBadge module="Descarga Informe" endpoints={['/api/export/combined']} />
       <SectionLegend
         title="Leyenda de Descarga Informe"
         items={[

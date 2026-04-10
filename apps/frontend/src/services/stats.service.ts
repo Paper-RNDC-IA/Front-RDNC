@@ -31,7 +31,10 @@ function normalizeStatsKpis(payload: unknown): StatsKpiApi[] {
   return [
     { label: 'Manifiestos Totales', value: toNumber(payload.total_manifiestos) },
     { label: 'Toneladas Totales', value: toNumber(payload.total_toneladas) },
-    { label: 'Empresas Activas', value: toNumber(payload.empresas_activas ?? payload.total_empresas) },
+    {
+      label: 'Empresas Activas',
+      value: toNumber(payload.empresas_activas ?? payload.total_empresas),
+    },
     { label: 'Rutas Totales', value: toNumber(payload.total_rutas) },
   ];
 }
@@ -41,19 +44,17 @@ function normalizeStatsTrends(payload: unknown): StatsTrendApi[] {
     return [];
   }
 
-  return payload
-    .filter(isRecord)
-    .map((item) => {
-      const period =
-        typeof item.period === 'string'
-          ? item.period
-          : `${String(item.mes ?? '').padStart(2, '0')}/${item.anio ?? ''}`;
+  return payload.filter(isRecord).map((item) => {
+    const period =
+      typeof item.period === 'string'
+        ? item.period
+        : `${String(item.mes ?? '').padStart(2, '0')}/${item.anio ?? ''}`;
 
-      return {
-        period,
-        total: toNumber(item.total ?? item.total_manifiestos),
-      };
-    });
+    return {
+      period,
+      total: toNumber(item.total ?? item.total_manifiestos),
+    };
+  });
 }
 
 function normalizeStatsSummary(payload: unknown): StatsSummaryApi[] {

@@ -10,9 +10,7 @@ export class HttpError extends Error {
   }
 }
 
-const BASE_URL = (
-  import.meta.env.VITE_API_URL ?? import.meta.env.VITE_API_BASE_URL ?? ''
-)
+const BASE_URL = (import.meta.env.VITE_API_URL ?? import.meta.env.VITE_API_BASE_URL ?? '')
   .toString()
   .replace(/\/$/, '');
 const REQUEST_TIMEOUT_MS = Number(import.meta.env.VITE_API_TIMEOUT_MS ?? 25000);
@@ -105,16 +103,16 @@ export async function httpRequest<T>(path: string, init?: RequestInit): Promise<
 
   try {
     response = await fetch(url, {
-    credentials: 'include',
-    ...init,
-    signal: controller.signal,
-    headers: {
-      Accept: 'application/json',
-      ...(init?.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
-      ...getAuthHeader(),
-      ...init?.headers,
-    },
-  });
+      credentials: 'include',
+      ...init,
+      signal: controller.signal,
+      headers: {
+        Accept: 'application/json',
+        ...(init?.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
+        ...getAuthHeader(),
+        ...init?.headers,
+      },
+    });
   } catch (error) {
     clearTimeout(timeoutId);
 

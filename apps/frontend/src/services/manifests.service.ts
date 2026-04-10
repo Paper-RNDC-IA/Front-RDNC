@@ -52,15 +52,13 @@ function normalizeTrends(payload: unknown): ManifestTrendApi[] {
     return [];
   }
 
-  return payload
-    .filter(isRecord)
-    .map((item) => ({
-      period:
-        typeof item.period === 'string'
-          ? item.period
-          : `${String(item.mes ?? '').padStart(2, '0')}/${item.anio ?? ''}`,
-      total: toNumber(item.total ?? item.total_manifiestos),
-    }));
+  return payload.filter(isRecord).map((item) => ({
+    period:
+      typeof item.period === 'string'
+        ? item.period
+        : `${String(item.mes ?? '').padStart(2, '0')}/${item.anio ?? ''}`,
+    total: toNumber(item.total ?? item.total_manifiestos),
+  }));
 }
 
 function normalizeRouteRanking(payload: unknown): RouteRankingApi[] {
@@ -68,13 +66,11 @@ function normalizeRouteRanking(payload: unknown): RouteRankingApi[] {
     return [];
   }
 
-  return payload
-    .filter(isRecord)
-    .map((item) => ({
-      route: String(item.route ?? item.label ?? 'Sin ruta'),
-      trips: toNumber(item.trips ?? item.value),
-      incidents: toNumber(item.incidents ?? item.toneladas),
-    }));
+  return payload.filter(isRecord).map((item) => ({
+    route: String(item.route ?? item.label ?? 'Sin ruta'),
+    trips: toNumber(item.trips ?? item.value),
+    incidents: toNumber(item.incidents ?? item.toneladas),
+  }));
 }
 
 function normalizeCompanyRanking(payload: unknown): CompanyRankingApi[] {
@@ -82,13 +78,11 @@ function normalizeCompanyRanking(payload: unknown): CompanyRankingApi[] {
     return [];
   }
 
-  return payload
-    .filter(isRecord)
-    .map((item) => ({
-      company: String(item.company ?? item.nombre ?? item.label ?? item.empresa_id ?? 'Sin empresa'),
-      manifests: toNumber(item.manifests ?? item.total_manifiestos ?? item.value),
-      compliance: toNumber(item.compliance ?? item.toneladas),
-    }));
+  return payload.filter(isRecord).map((item) => ({
+    company: String(item.company ?? item.nombre ?? item.label ?? item.empresa_id ?? 'Sin empresa'),
+    manifests: toNumber(item.manifests ?? item.total_manifiestos ?? item.value),
+    compliance: toNumber(item.compliance ?? item.toneladas),
+  }));
 }
 
 function normalizeDistribution(payload: unknown): ManifestDistributionApi[] {
@@ -96,12 +90,10 @@ function normalizeDistribution(payload: unknown): ManifestDistributionApi[] {
     return [];
   }
 
-  return payload
-    .filter(isRecord)
-    .map((item) => ({
-      status: String(item.status ?? item.tipo_mercancia ?? item.label ?? 'Sin categoria'),
-      total: toNumber(item.total ?? item.value),
-    }));
+  return payload.filter(isRecord).map((item) => ({
+    status: String(item.status ?? item.tipo_mercancia ?? item.label ?? 'Sin categoria'),
+    total: toNumber(item.total ?? item.value),
+  }));
 }
 
 export async function getManifestsKpis(dateRange?: DateRange): Promise<ManifestKpiApi[]> {

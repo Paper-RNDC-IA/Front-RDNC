@@ -24,7 +24,9 @@ export function LineChartWidget({ title, data, dataKey, xKey }: LineChartWidgetP
     return (
       <ChartCard title={title}>
         <div className="flex h-64 items-center justify-center rounded-xl border border-slate-700/70 bg-slate-900/40">
-          <p className="text-sm text-slate-400">No hay datos de tendencia para el rango seleccionado.</p>
+          <p className="text-sm text-slate-400">
+            No hay datos de tendencia para el rango seleccionado.
+          </p>
         </div>
       </ChartCard>
     );
@@ -38,7 +40,9 @@ export function LineChartWidget({ title, data, dataKey, xKey }: LineChartWidgetP
         <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 sm:grid-cols-3">
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2">
             <p className="text-[11px] uppercase tracking-wide text-slate-400">Pico</p>
-            <p className="text-sm font-semibold text-orange-200">{maxValue.toLocaleString('es-CO')}</p>
+            <p className="text-sm font-semibold text-orange-200">
+              {maxValue.toLocaleString('es-CO')}
+            </p>
           </div>
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2">
             <p className="text-[11px] uppercase tracking-wide text-slate-400">Periodos</p>

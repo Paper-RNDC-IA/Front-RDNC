@@ -41,13 +41,11 @@ function normalizeDepartments(payload: unknown): DepartmentIntensityApi[] {
     return [];
   }
 
-  return payload
-    .filter(isRecord)
-    .map((item) => ({
-      department: String(item.department ?? item.departamento ?? 'Sin departamento'),
-      trips: toNumber(item.trips ?? item.viajes ?? item.total),
-      intensity: toNumber(item.intensity ?? item.valor ?? item.total),
-    }));
+  return payload.filter(isRecord).map((item) => ({
+    department: String(item.department ?? item.departamento ?? 'Sin departamento'),
+    trips: toNumber(item.trips ?? item.viajes ?? item.total),
+    intensity: toNumber(item.intensity ?? item.valor ?? item.total),
+  }));
 }
 
 export async function getRoutesKpis(dateRange?: DateRange): Promise<RouteKpiApi[]> {
@@ -60,11 +58,10 @@ export async function getRoutesCorridors(dateRange?: DateRange): Promise<unknown
   return Array.isArray(response) ? response : [];
 }
 
-export async function getRoutesDepartments(dateRange?: DateRange): Promise<DepartmentIntensityApi[]> {
-  const response = await api.get<unknown>(
-    endpoints.routes.departments,
-    buildDateQuery(dateRange),
-  );
+export async function getRoutesDepartments(
+  dateRange?: DateRange,
+): Promise<DepartmentIntensityApi[]> {
+  const response = await api.get<unknown>(endpoints.routes.departments, buildDateQuery(dateRange));
   return normalizeDepartments(response);
 }
 
@@ -87,6 +84,8 @@ export async function getRouteKpis(dateRange?: DateRange): Promise<RouteKpiApi[]
   return getRoutesKpis(dateRange);
 }
 
-export async function getDepartmentIntensity(dateRange?: DateRange): Promise<DepartmentIntensityApi[]> {
+export async function getDepartmentIntensity(
+  dateRange?: DateRange,
+): Promise<DepartmentIntensityApi[]> {
   return getRoutesDepartments(dateRange);
 }
