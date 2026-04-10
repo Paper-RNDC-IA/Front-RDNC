@@ -19,7 +19,14 @@ function parseSummaryValue(value: string | number): number {
     return value;
   }
 
-  return Number(String(value).replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.')) || 0;
+  return (
+    Number(
+      String(value)
+        .replace(/[^\d,.-]/g, '')
+        .replace(/\./g, '')
+        .replace(',', '.'),
+    ) || 0
+  );
 }
 
 export function DescargaInformePage(): JSX.Element {
@@ -84,11 +91,7 @@ export function DescargaInformePage(): JSX.Element {
         title="Centro de Exportacion"
         subtitle="Define modulo, rango y formato para generar reportes listos para auditoria, analisis o seguimiento operativo."
         periodLabel={periodLabel}
-        highlights={[
-          'Seleccion por modulo',
-          'Filtros por fecha',
-          'Exportacion CSV, Excel y PDF',
-        ]}
+        highlights={['Seleccion por modulo', 'Filtros por fecha', 'Exportacion CSV, Excel y PDF']}
       />
       <SectionHeader
         title="Configuracion de exporte"

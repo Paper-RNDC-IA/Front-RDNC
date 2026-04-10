@@ -6,7 +6,8 @@ type KpiCardProps = {
 };
 
 export function KpiCard({ item }: KpiCardProps): JSX.Element {
-  const trendLabel = item.trend === 'up' ? 'En aumento' : item.trend === 'down' ? 'En descenso' : '';
+  const trendLabel =
+    item.trend === 'up' ? 'En aumento' : item.trend === 'down' ? 'En descenso' : '';
   const trendColor =
     item.trend === 'up'
       ? 'text-emerald-200'
@@ -20,7 +21,9 @@ export function KpiCard({ item }: KpiCardProps): JSX.Element {
       <p className="mt-2 text-3xl font-semibold text-slate-50">{item.value}</p>
       {item.unit ? <p className="mt-1 text-xs text-slate-400">{item.unit}</p> : null}
       {item.delta ? (
-        <p className={`mt-2 inline-flex rounded-full border border-current/30 bg-slate-950/60 px-2 py-1 text-xs ${trendColor}`}>
+        <p
+          className={`mt-2 inline-flex rounded-full border border-current/30 bg-slate-950/60 px-2 py-1 text-xs ${trendColor}`}
+        >
           {trendLabel ? `${trendLabel}: ${item.delta}` : item.delta}
         </p>
       ) : null}

@@ -56,7 +56,9 @@ export function EstadisticasPage(): JSX.Element {
         ? `La actividad total ${trendDirection} ${trendDelta.toFixed(1)}% frente al inicio de la serie disponible.`
         : 'El backend no reporta serie temporal en /stats/dashboard para este momento.',
       tone: hasTrend
-        ? (lastTrend >= firstTrend ? ('positive' as const) : ('warning' as const))
+        ? lastTrend >= firstTrend
+          ? ('positive' as const)
+          : ('warning' as const)
         : ('neutral' as const),
     },
     topModule

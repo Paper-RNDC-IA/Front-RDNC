@@ -1,4 +1,14 @@
-import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Bar,
+  BarChart,
+  Cell,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 import type { ChartDatum } from '../../types/common';
 import { formatNumber } from '../../utils/formatters';
@@ -47,7 +57,9 @@ export function PieChartWidget({
     return (
       <ChartCard
         title={title}
-        subtitle={subtitle ?? 'El numero de categorias es alto, por eso se muestra ranking horizontal.'}
+        subtitle={
+          subtitle ?? 'El numero de categorias es alto, por eso se muestra ranking horizontal.'
+        }
       >
         <ResponsiveContainer>
           <BarChart data={sorted} layout="vertical" margin={{ left: 8 }}>
@@ -80,10 +92,7 @@ export function PieChartWidget({
                   item: { payload?: { percent?: number } },
                 ) => {
                   const percent = item?.payload?.percent ?? 0;
-                  return [
-                    `${formatNumber(value)} (${percent.toFixed(1)}%)`,
-                    'Participacion',
-                  ];
+                  return [`${formatNumber(value)} (${percent.toFixed(1)}%)`, 'Participacion'];
                 }}
               />
               <Pie

@@ -32,8 +32,7 @@ export function EmpresasPage(): JSX.Element {
     setDateRange,
     setSelectedCompany,
     reload,
-  } =
-    useEmpresasPage();
+  } = useEmpresasPage();
 
   if (loading) {
     return <LoadingState title="Cargando empresas" />;

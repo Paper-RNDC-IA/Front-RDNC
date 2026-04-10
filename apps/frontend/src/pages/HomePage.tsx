@@ -154,7 +154,6 @@ export function HomePage(): JSX.Element {
             ))}
           </div>
         </section>
-
       </div>
     </div>
   );

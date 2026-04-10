@@ -20,7 +20,9 @@ export function PageIntro({
           <p className="text-xs uppercase tracking-[0.18em] text-orange-300">Analitica operativa</p>
           <h2 className="mt-1 text-2xl font-semibold text-slate-50">{title}</h2>
           <p className="mt-2 max-w-3xl text-sm text-slate-300">{subtitle}</p>
-          {periodLabel ? <p className="mt-2 text-xs text-slate-400">Periodo: {periodLabel}</p> : null}
+          {periodLabel ? (
+            <p className="mt-2 text-xs text-slate-400">Periodo: {periodLabel}</p>
+          ) : null}
         </div>
 
         {highlights.length ? (

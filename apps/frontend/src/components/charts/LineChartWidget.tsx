@@ -63,9 +63,7 @@ export function LineChartWidget({
           </div>
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2 sm:col-span-1 col-span-2">
             <p className="text-[11px] uppercase tracking-wide text-slate-400">Variacion</p>
-            <p className="text-sm font-semibold text-emerald-300">
-              {formatDecimal(variation, 1)}%
-            </p>
+            <p className="text-sm font-semibold text-emerald-300">{formatDecimal(variation, 1)}%</p>
           </div>
         </div>
 

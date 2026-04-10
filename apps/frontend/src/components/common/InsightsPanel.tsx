@@ -31,7 +31,10 @@ export function InsightsPanel({ title, items }: InsightsPanelProps): JSX.Element
     <Card title={title}>
       <ul className="space-y-2">
         {items.slice(0, 3).map((item) => (
-          <li key={item.title} className={`rounded-xl border px-3 py-2 ${resolveToneStyles(item.tone)}`}>
+          <li
+            key={item.title}
+            className={`rounded-xl border px-3 py-2 ${resolveToneStyles(item.tone)}`}
+          >
             <p className="text-sm font-semibold">{item.title}</p>
             <p className="mt-1 text-xs opacity-90">{item.detail}</p>
           </li>

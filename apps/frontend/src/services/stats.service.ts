@@ -75,7 +75,9 @@ function normalizeDashboard(payload: unknown): Omit<StatsDashboardApi, 'healthSt
     trends,
     summary,
     updatedAt:
-      typeof dashboard.ultima_actualizacion === 'string' ? dashboard.ultima_actualizacion : undefined,
+      typeof dashboard.ultima_actualizacion === 'string'
+        ? dashboard.ultima_actualizacion
+        : undefined,
   };
 }
 
@@ -90,10 +92,7 @@ function mergeSummaryFromStatsSummary(
   const telemetryTotal = toNumber(payload.total_telemetry_records);
   const next = summary.filter((item) => item.module !== 'Telemetria');
 
-  return [
-    ...next,
-    { module: 'Telemetria', total: telemetryTotal },
-  ];
+  return [...next, { module: 'Telemetria', total: telemetryTotal }];
 }
 
 export async function getStatsDashboard(): Promise<StatsDashboardApi> {
