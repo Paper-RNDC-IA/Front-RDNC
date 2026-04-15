@@ -35,8 +35,8 @@ export function ChatMessageItem({ message }: ChatMessageItemProps): JSX.Element 
         className={[
           'max-w-[88%] rounded-2xl px-3 py-2 shadow-md',
           isUser
-            ? 'rounded-br-md border border-slate-300 bg-slate-200 text-slate-800 shadow-slate-500/15'
-            : 'rounded-bl-md border border-slate-300/85 bg-white text-slate-700 shadow-slate-500/10',
+            ? 'rounded-br-md border border-orange-300 bg-orange-50 text-slate-800 shadow-orange-200/30'
+            : 'rounded-bl-md border border-zinc-300 bg-white text-slate-700 shadow-zinc-300/30',
         ].join(' ')}
       >
         <p className="text-[13px] leading-relaxed">{message.content}</p>

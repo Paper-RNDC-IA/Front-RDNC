@@ -7,15 +7,15 @@ type AgentStatusBadgeProps = {
 const STATUS_STYLES: Record<AgentStatus, { label: string; classes: string }> = {
   online: {
     label: 'Agente activo',
-    classes: 'border-slate-300/90 bg-white/90 text-slate-700',
+    classes: 'border-orange-200 bg-white text-slate-700',
   },
   thinking: {
     label: 'Analizando consulta',
-    classes: 'border-slate-400/85 bg-slate-200/90 text-slate-700',
+    classes: 'border-orange-300 bg-orange-50 text-orange-700',
   },
   offline: {
     label: 'Agente no disponible',
-    classes: 'border-slate-300/85 bg-slate-100/90 text-slate-600',
+    classes: 'border-zinc-300 bg-zinc-100 text-slate-600',
   },
 };
 
@@ -25,7 +25,7 @@ export function AgentStatusBadge({ status }: AgentStatusBadgeProps): JSX.Element
   return (
     <span
       className={[
-        'inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10px] font-medium tracking-wide shadow-sm',
+        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wide shadow-sm',
         config.classes,
       ].join(' ')}
     >

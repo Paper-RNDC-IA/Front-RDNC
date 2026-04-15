@@ -6,16 +6,16 @@ type ErrorStateProps = {
 
 export function ErrorState({ title, message, onRetry }: ErrorStateProps): JSX.Element {
   return (
-    <div className="rounded-2xl border border-rose-900/60 bg-rose-950/30 p-6">
-      <h3 className="text-lg font-semibold text-rose-200">{title}</h3>
-      <p className="mt-2 text-sm text-rose-100/90">{message}</p>
-      <p className="mt-1 text-xs text-rose-100/75">
+    <div className="rounded-2xl border-2 border-orange-200 bg-[#fff7f2] p-6 shadow-[0_12px_24px_rgba(249,115,22,0.08)]">
+      <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+      <p className="mt-2 text-sm text-slate-700">{message}</p>
+      <p className="mt-1 text-xs text-slate-500">
         Verifica conectividad con el backend y vuelve a intentar.
       </p>
       {onRetry ? (
         <button
           type="button"
-          className="mt-4 rounded-md bg-rose-400/20 px-3 py-2 text-sm font-medium text-rose-100"
+          className="mt-4 rounded-md border border-orange-300 bg-orange-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-600"
           onClick={onRetry}
         >
           Reintentar

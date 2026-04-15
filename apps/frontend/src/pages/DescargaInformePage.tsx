@@ -56,6 +56,7 @@ export function DescargaInformePage(): JSX.Element {
       <EmptyState
         title="Sin datos para exportar"
         message="Selecciona un modulo o rango con informacion."
+        source="RNDC publico y/o telemetria empresarial segun modulo seleccionado"
       />
     );
   }
@@ -86,12 +87,42 @@ export function DescargaInformePage(): JSX.Element {
 
   return (
     <section className="space-y-6 md:space-y-8">
-      <DataSourceBadge module="Descarga Informe" />
+      <DataSourceBadge
+        module="Centro de informes"
+        sourceLabel="Segun modulo seleccionado"
+        sourceDetail="Puede incluir RNDC publico, telemetria privada o consolidado"
+        visibility={module === 'all' ? 'hybrid' : 'internal'}
+      />
       <PageIntro
-        title="Centro de Exportacion"
-        subtitle="Define modulo, rango y formato para generar reportes listos para auditoria, analisis o seguimiento operativo."
+        title="Centro de Exportacion y Sustentacion"
+        subtitle="Configura modulo, rango y formato para generar reportes explicables, listos para auditoria, evaluacion y seguimiento operacional."
         periodLabel={periodLabel}
-        highlights={['Seleccion por modulo', 'Filtros por fecha', 'Exportacion CSV, Excel y PDF']}
+        highlights={[
+          'Que muestra: resumen previo a exportacion',
+          'Para que sirve: reportes para evaluacion',
+          'Fuente: segun modulo elegido',
+          'Salidas: CSV, Excel y PDF',
+        ]}
+        moduleGuide={{
+          summary:
+            'Este modulo prepara salidas descargables con trazabilidad de fuente y rango temporal.',
+          purpose:
+            'Permite consolidar evidencia analitica para revisiones internas, auditorias o sustentaciones academicas.',
+          userType: 'Analistas, coordinadores y evaluadores que requieren soporte documental.',
+          source:
+            'RNDC publico, telemetria empresarial o consolidado mixto segun el filtro de modulo.',
+          analysisType: 'Analisis de resumen exportable y composicion del contenido del reporte.',
+          scope: 'Periodo definido por usuario y modulo seleccionado en la interfaz.',
+          interpretation:
+            'Verifique primero la composicion del reporte para asegurar que la descarga corresponde al objetivo de analisis.',
+          limitations:
+            'El reporte solo incluye informacion disponible y sincronizada para el rango filtrado.',
+          useCases: [
+            'Generar anexos para entrega universitaria.',
+            'Exportar evidencia de un periodo operativo.',
+            'Compartir resumen ejecutivo con stakeholders.',
+          ],
+        }}
       />
       <SectionHeader
         title="Configuracion de exporte"
@@ -122,6 +153,14 @@ export function DescargaInformePage(): JSX.Element {
           horizontal
           sortDescending
           valueLabel="Registros"
+          sourceLabel="Consolidado del modulo filtrado"
+          help={{
+            description: 'Compara volumen de datos que sera incluido en la exportacion final.',
+            xAxis: 'Cantidad de registros exportables.',
+            yAxis: 'Categoria de resumen.',
+            interpretation:
+              'Categorias con mayor volumen dominaran el contenido y el peso analitico del informe.',
+          }}
         />
         <PieChartWidget
           title="Participacion del reporte"
@@ -129,6 +168,14 @@ export function DescargaInformePage(): JSX.Element {
           data={summaryChartData}
           dataKey="value"
           nameKey="label"
+          sourceLabel="Consolidado del modulo filtrado"
+          help={{
+            description: 'Mide participacion porcentual de cada categoria dentro del reporte.',
+            xAxis: 'Categoria incluida en exporte.',
+            yAxis: 'Participacion relativa y volumen.',
+            interpretation:
+              'Una participacion alta indica que esa categoria explica la mayor parte del reporte descargado.',
+          }}
         />
       </div>
       <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">

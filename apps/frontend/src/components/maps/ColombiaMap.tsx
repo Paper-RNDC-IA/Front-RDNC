@@ -31,7 +31,7 @@ const layerStyle: Record<MapLayer, { label: string; unit: string; palette: strin
   production: {
     label: 'Produccion',
     unit: 'ton/dia',
-    palette: ['#dbeafe', '#93c5fd', '#60a5fa', '#2563eb', '#1e40af'],
+    palette: ['#fff3e0', '#f9d9b0', '#f2b475', '#d88939', '#ad6218'],
   },
   demand: {
     label: 'Demanda',
@@ -430,8 +430,8 @@ export function ColombiaMap({
   ];
 
   return (
-    <Card className="border-slate-300 bg-slate-200/70" title="">
-      <div className="relative min-h-[620px] overflow-hidden rounded-xl border border-slate-300 bg-[#d8e0ec] p-4">
+    <Card className="border-slate-300 bg-white" title="">
+      <div className="relative min-h-[620px] overflow-hidden rounded-xl border border-slate-300 bg-[#f3f4f6] p-4">
         <div className="absolute left-3 top-3 z-20 flex flex-col gap-2">
           <button
             type="button"
@@ -465,7 +465,7 @@ export function ColombiaMap({
                 onClick={() => onLayerChange(layer)}
                 className={[
                   'rounded-lg px-4 py-2 text-sm font-semibold transition-colors',
-                  activeLayer === layer && layer === 'production' ? 'bg-blue-600 text-white' : '',
+                  activeLayer === layer && layer === 'production' ? 'bg-amber-700 text-white' : '',
                   activeLayer === layer && layer === 'royalties' ? 'bg-emerald-600 text-white' : '',
                   activeLayer === layer && layer === 'demand' ? 'bg-orange-600 text-white' : '',
                   activeLayer !== layer ? 'text-slate-600 hover:bg-slate-100' : '',
@@ -489,8 +489,8 @@ export function ColombiaMap({
                 </feMerge>
               </filter>
               <linearGradient id="ocean-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#e9f1fb" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#c8d8ee" stopOpacity="0.6" />
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.98" />
+                <stop offset="100%" stopColor="#e5e7eb" stopOpacity="0.92" />
               </linearGradient>
             </defs>
 
@@ -514,8 +514,8 @@ export function ColombiaMap({
                     <path
                       d={shape.path}
                       fill={fill}
-                      stroke={isSelected ? '#1f2937' : '#ffffff'}
-                      strokeWidth={isSelected ? 2.4 : 1.2}
+                      stroke={isSelected ? '#7c2d12' : '#fff8ef'}
+                      strokeWidth={isSelected ? 3 : 1.8}
                       filter={isSelected ? 'url(#map-shadow)' : undefined}
                       className="cursor-pointer transition-all duration-200"
                       onClick={() => onSelectDepartment(shape.id)}

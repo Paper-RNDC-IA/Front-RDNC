@@ -88,9 +88,9 @@ export function ChatWidget(): JSX.Element {
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-slate-300/70 bg-slate-500/95 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_10px_22px_rgba(51,65,85,0.3)] transition hover:-translate-y-0.5 hover:bg-slate-400"
+        className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-orange-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-900 shadow-[0_10px_22px_rgba(15,23,42,0.14)] transition hover:-translate-y-0.5 hover:bg-orange-50"
       >
-        <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/40 bg-white/18 text-white">
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-orange-300 bg-orange-50 text-orange-700">
           <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
             <path
               d="M4 4H16V12H8L4 16V4Z"

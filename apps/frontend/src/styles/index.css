@@ -1,30 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg-main: #0b1220;
-  --bg-surface: #0f172a;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --accent: #f97316;
+  --bg-main: #fffbf8;
+  --bg-surface: #ffffff;
+  --bg-elevated: #fff6ef;
+  --text-main: #111827;
+  --text-muted: #475569;
+  --accent: #ea580c;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  font-size: 17.4px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
   background:
-    radial-gradient(circle at 15% 20%, rgba(249, 115, 22, 0.14), transparent 40%),
-    radial-gradient(circle at 85% 0%, rgba(251, 146, 60, 0.1), transparent 45%), var(--bg-main);
+    radial-gradient(circle at 7% 0%, rgba(249, 115, 22, 0.12), transparent 34%),
+    radial-gradient(circle at 96% 10%, rgba(251, 146, 60, 0.1), transparent 32%),
+    linear-gradient(180deg, #fffdfa 0%, #fff9f5 54%, #fffdfb 100%);
   color: var(--text-main);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.01em;
 }
 
 #root {
@@ -37,9 +57,29 @@ select {
   font-family: inherit;
 }
 
+.text-xs {
+  font-size: 0.84rem !important;
+  line-height: 1.45 !important;
+}
+
+.text-sm {
+  font-size: 0.98rem !important;
+  line-height: 1.55 !important;
+}
+
+.text-base {
+  font-size: 1.08rem !important;
+  line-height: 1.62 !important;
+}
+
+.border,
+[class*=' border-'] {
+  border-width: 1.6px;
+}
+
 .chat-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(100, 116, 139, 0.75) rgba(148, 163, 184, 0.35);
+  scrollbar-color: rgba(234, 88, 12, 0.45) rgba(241, 245, 249, 0.85);
 }
 
 .chat-scroll::-webkit-scrollbar {
@@ -47,19 +87,19 @@ select {
 }
 
 .chat-scroll::-webkit-scrollbar-track {
-  background: rgba(148, 163, 184, 0.35);
+  background: rgba(241, 245, 249, 0.85);
   border-radius: 999px;
 }
 
 .chat-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(148, 163, 184, 0.92), rgba(100, 116, 139, 0.95));
+  background: linear-gradient(180deg, rgba(251, 146, 60, 0.9), rgba(234, 88, 12, 0.95));
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 .chat-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(203, 213, 225, 0.95), rgba(148, 163, 184, 0.98));
+  background: linear-gradient(180deg, rgba(253, 186, 116, 0.95), rgba(249, 115, 22, 0.98));
   border: 2px solid transparent;
   background-clip: padding-box;
 }
@@ -69,3 +109,131 @@ select {
   width: 0;
   height: 0;
 }
+
+/* Global remaps for legacy dark classes to preserve compatibility with the premium light system. */
+.bg-slate-950,
+.bg-slate-900,
+.bg-slate-800,
+.bg-slate-700 {
+  background-color: var(--bg-surface) !important;
+}
+
+.bg-slate-950\/95,
+.bg-slate-950\/85,
+.bg-slate-950\/75,
+.bg-slate-950\/70,
+.bg-slate-950\/60,
+.bg-slate-900\/95,
+.bg-slate-900\/85,
+.bg-slate-900\/75,
+.bg-slate-900\/70,
+.bg-slate-900\/65,
+.bg-slate-900\/60,
+.bg-slate-900\/45,
+.bg-slate-900\/40,
+.bg-slate-800\/95,
+.bg-slate-800\/70,
+.bg-slate-800\/65,
+.bg-slate-800\/60,
+.bg-slate-700\/70 {
+  background-color: rgba(255, 252, 249, 0.96) !important;
+}
+
+.text-slate-50,
+.text-slate-100,
+.text-slate-200 {
+  color: #111827 !important;
+}
+
+.text-slate-300 {
+  color: #334155 !important;
+}
+
+.text-slate-400,
+.text-slate-500 {
+  color: #475569 !important;
+}
+
+.border-slate-900,
+.border-slate-800,
+.border-slate-700,
+.border-slate-700\/80,
+.border-slate-700\/70,
+.border-slate-600,
+.border-slate-500 {
+  border-color: #e2e8f0 !important;
+}
+
+.hover\:bg-slate-800\/40:hover,
+.hover\:bg-slate-800:hover,
+.hover\:bg-slate-700:hover,
+.hover\:bg-slate-600:hover,
+.hover\:bg-slate-500:hover {
+  background-color: #fff3e8 !important;
+}
+
+.from-slate-800 {
+  --tw-gradient-from: #ffffff var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(255, 255, 255, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.to-slate-900,
+.to-slate-900\/80,
+.to-slate-500 {
+  --tw-gradient-to: #ffffff var(--tw-gradient-to-position) !important;
+}
+
+.bg-emerald-950\/30,
+.bg-emerald-950\/20,
+.bg-amber-950\/30,
+.bg-amber-950\/25,
+.bg-sky-950\/40,
+.bg-sky-950\/30,
+.bg-violet-950\/40,
+.bg-violet-950\/30,
+.bg-blue-950\/60,
+.bg-emerald-950\/50,
+.bg-orange-950\/50 {
+  background-color: #ffffff !important;
+}
+
+.border-emerald-900\/70,
+.border-emerald-800\/70,
+.border-amber-900\/70,
+.border-amber-800\/70,
+.border-sky-900\/60,
+.border-sky-800\/70,
+.border-violet-800\/70,
+.border-blue-900\/70,
+.border-orange-900\/70,
+.border-orange-800\/40,
+.border-orange-800\/45,
+.border-orange-900\/45,
+.border-orange-900\/50 {
+  border-color: #fb923c !important;
+}
+
+.text-emerald-100,
+.text-emerald-200,
+.text-emerald-300,
+.text-amber-100,
+.text-amber-200,
+.text-blue-300,
+.text-sky-200,
+.text-sky-300,
+.text-violet-200,
+.text-orange-100,
+.text-orange-200,
+.text-orange-300 {
+  color: #ea580c !important;
+}
+
+.from-blue-950\/60,
+.from-emerald-950\/50,
+.from-orange-950\/50 {
+  --tw-gradient-from: #ffffff var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(255, 255, 255, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+

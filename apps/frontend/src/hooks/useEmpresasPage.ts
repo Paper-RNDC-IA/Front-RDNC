@@ -8,7 +8,7 @@ import {
 } from '../adapters/companies.adapter';
 import { getCompanies, getCompanyDetail, getCompanyKpis } from '../services/companies.service';
 import type { DateRange, KpiItem } from '../types/common';
-import { getDefaultDateRange } from '../utils/date';
+import { getDefaultDateRange, normalizeDateRange } from '../utils/date';
 
 type EmpresasPageState = {
   loading: boolean;
@@ -63,7 +63,7 @@ export function useEmpresasPage() {
   }, [load, state.dateRange]);
 
   const setDateRange = useCallback((dateRange: DateRange) => {
-    setState((prev) => ({ ...prev, dateRange }));
+    setState((prev) => ({ ...prev, dateRange: normalizeDateRange(dateRange) }));
   }, []);
 
   const setSelectedCompany = useCallback(async (companyId: string) => {

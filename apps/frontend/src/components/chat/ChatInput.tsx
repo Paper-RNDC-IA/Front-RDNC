@@ -21,9 +21,9 @@ export function ChatInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="border-t border-slate-300/85 bg-slate-100/75 px-2.5 py-2"
+      className="border-t border-zinc-200 bg-[#fffaf6] px-2.5 py-2"
     >
-      <div className="flex items-end gap-2 rounded-xl border border-slate-300 bg-white px-2 py-1.5 shadow-inner shadow-slate-500/10">
+      <div className="flex items-end gap-2 rounded-xl border border-zinc-300 bg-white px-2 py-1.5 shadow-inner shadow-zinc-200/80">
         <textarea
           value={value}
           onChange={(event) => onChange(event.target.value)}
@@ -36,7 +36,7 @@ export function ChatInput({
         <button
           type="submit"
           disabled={disabled || value.trim().length === 0}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-500 bg-slate-600 text-white shadow-sm transition hover:bg-slate-500 disabled:cursor-not-allowed disabled:border-slate-300/30 disabled:bg-slate-300 disabled:text-slate-500"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-orange-400 bg-orange-500 text-white shadow-sm transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:border-zinc-300 disabled:bg-zinc-300 disabled:text-slate-500"
           aria-label="Enviar mensaje"
         >
           <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">

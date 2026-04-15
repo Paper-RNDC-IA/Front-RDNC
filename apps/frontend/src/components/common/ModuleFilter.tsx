@@ -21,7 +21,7 @@ export function ModuleFilter({ value, onChange }: ModuleFilterProps): JSX.Elemen
       <select
         value={value}
         onChange={(event) => onChange(event.target.value as ExportModule)}
-        className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+        className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
       >
         {modules.map((item) => (
           <option key={item.value} value={item.value}>

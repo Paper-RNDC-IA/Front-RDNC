@@ -7,10 +7,10 @@ type ChatHeaderProps = {
 
 export function ChatHeader({ status, onClose }: ChatHeaderProps): JSX.Element {
   return (
-    <header className="flex items-start justify-between gap-3 border-b border-slate-500/70 bg-gradient-to-r from-slate-600 to-slate-500 px-3 py-2.5">
+    <header className="flex items-start justify-between gap-3 border-b border-zinc-200 bg-[#fff7f2] px-3 py-2.5">
       <div>
-        <p className="text-[10px] uppercase tracking-[0.18em] text-slate-100/90">Asistente RNDC</p>
-        <h2 className="mt-1 text-sm font-semibold text-white">Centro de ayuda operacional</h2>
+        <p className="text-[10px] uppercase tracking-[0.18em] text-orange-600">Asistente RNDC</p>
+        <h2 className="mt-1 text-sm font-semibold text-slate-900">Centro de ayuda operacional</h2>
         <div className="mt-1.5">
           <AgentStatusBadge status={status} />
         </div>
@@ -19,7 +19,7 @@ export function ChatHeader({ status, onClose }: ChatHeaderProps): JSX.Element {
       <button
         type="button"
         onClick={onClose}
-        className="rounded-md border border-slate-200/35 bg-slate-500/45 p-1.5 text-slate-50 transition hover:border-slate-100/55 hover:bg-slate-400/55"
+        className="rounded-md border border-zinc-300 bg-white p-1.5 text-slate-700 transition hover:bg-zinc-100"
         aria-label="Cerrar chat"
       >
         <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">

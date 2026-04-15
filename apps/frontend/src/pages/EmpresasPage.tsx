@@ -43,7 +43,13 @@ export function EmpresasPage(): JSX.Element {
   }
 
   if (!companies.length) {
-    return <EmptyState title="Sin empresas habilitadas" message="No hay empresas registradas." />;
+    return (
+      <EmptyState
+        title="Sin empresas habilitadas"
+        message="No hay empresas registradas."
+        source="RNDC publico /api/companies/*"
+      />
+    );
   }
 
   const periodLabel = `${dateRange.from} a ${dateRange.to}`;
@@ -90,16 +96,41 @@ export function EmpresasPage(): JSX.Element {
 
   return (
     <section className="space-y-6 md:space-y-8">
-      <DataSourceBadge module="Empresas" />
+      <DataSourceBadge
+        module="Empresas habilitadas RNDC"
+        sourceLabel="RNDC publico"
+        sourceDetail="Directorio y actividad empresarial consolidada por backend"
+        visibility="public"
+      />
       <PageIntro
-        title="Panel de Empresas"
-        subtitle="Compara empresas habilitadas por actividad y cumplimiento para identificar actores principales del ecosistema logistica."
+        title="Panel Publico de Empresas RNDC"
+        subtitle="Compara empresas habilitadas por actividad y cumplimiento para identificar actores relevantes del ecosistema de transporte de carga."
         periodLabel={periodLabel}
         highlights={[
-          'Ranking por actividad',
-          'Comparativo por cumplimiento',
-          'Detalle por empresa',
+          'Que muestra: tejido empresarial del RNDC',
+          'Para que sirve: comparacion entre empresas',
+          'Fuente: RNDC publico',
+          'Analisis: actividad y cumplimiento',
         ]}
+        moduleGuide={{
+          summary:
+            'Modulo para revisar empresas habilitadas, su capacidad activa y nivel de cumplimiento operativo.',
+          purpose:
+            'Facilita comparativos entre empresas y detecta lideres o posibles brechas de desempeno.',
+          userType: 'Evaluadores, analistas sectoriales y autoridades de seguimiento.',
+          source: 'RNDC publico a traves del backend de empresas.',
+          analysisType: 'Analisis comparativo por ranking, estado y ficha individual.',
+          scope: 'Periodo filtrado con cobertura de empresas disponibles en la fuente oficial.',
+          interpretation:
+            'Use ranking y distribucion por estado en conjunto para evitar conclusiones basadas en un solo indicador.',
+          limitations:
+            'El nivel de detalle depende del reporte oficial disponible para cada empresa.',
+          useCases: [
+            'Identificar empresas con mayor actividad.',
+            'Revisar cumplimiento relativo entre actores.',
+            'Sustentar comparativos en evaluaciones.',
+          ],
+        }}
       />
       <DateRangeFilter value={dateRange} onChange={setDateRange} />
       <SectionHeader
@@ -108,7 +139,7 @@ export function EmpresasPage(): JSX.Element {
       />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {kpis.map((item) => (
-          <KpiCard key={item.label} item={item} />
+          <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
         ))}
       </div>
       <SectionHeader
@@ -125,6 +156,14 @@ export function EmpresasPage(): JSX.Element {
           horizontal
           sortDescending
           valueLabel="Vehiculos"
+          sourceLabel="RNDC publico"
+          help={{
+            description: 'Compara capacidad activa de empresas por cantidad de vehiculos.',
+            xAxis: 'Numero de vehiculos activos.',
+            yAxis: 'Empresa habilitada.',
+            interpretation:
+              'Empresas con barras mas altas tienen mayor capacidad operacional reportada.',
+          }}
         />
         <PieChartWidget
           title="Distribucion por estado"
@@ -132,6 +171,14 @@ export function EmpresasPage(): JSX.Element {
           data={companyPieData}
           dataKey="value"
           nameKey="label"
+          sourceLabel="RNDC publico"
+          help={{
+            description: 'Distribuye empresas por estado operativo para lectura de composicion sectorial.',
+            xAxis: 'Estado de empresa.',
+            yAxis: 'Participacion sobre el total de empresas.',
+            interpretation:
+              'Un estado dominante puede indicar concentracion de madurez o cumplimiento en el conjunto analizado.',
+          }}
         />
       </div>
       <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
@@ -148,6 +195,8 @@ export function EmpresasPage(): JSX.Element {
           rowKey="id"
           onRowClick={(row) => setSelectedCompany(String(row.id))}
           maxRows={12}
+          sourceLabel="RNDC publico"
+          helpText="Selecciona una empresa para ver su ficha y comparar actividad, cumplimiento y estado operativo."
         />
         <CompanyDetailCard company={selectedCompany} />
       </div>

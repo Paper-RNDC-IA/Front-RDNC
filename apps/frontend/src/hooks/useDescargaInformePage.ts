@@ -10,7 +10,7 @@ import {
   exportSectionToPdf,
   toExportFileName,
 } from '../utils/exports';
-import { getDefaultDateRange } from '../utils/date';
+import { getDefaultDateRange, normalizeDateRange } from '../utils/date';
 
 type DescargaInformePageState = {
   loading: boolean;
@@ -55,7 +55,7 @@ export function useDescargaInformePage(module: string) {
   }, [load, module, state.dateRange]);
 
   const setDateRange = useCallback((dateRange: DateRange) => {
-    setState((prev) => ({ ...prev, dateRange }));
+    setState((prev) => ({ ...prev, dateRange: normalizeDateRange(dateRange) }));
   }, []);
 
   const exportCsv = useCallback(async () => {

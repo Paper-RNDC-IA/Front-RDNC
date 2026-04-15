@@ -7,39 +7,39 @@ export function RegisterPage(): JSX.Element {
   const { values, loading, error, setValues, onSubmit } = useRegisterPage();
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-900 p-4">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.22),transparent_42%),radial-gradient(circle_at_80%_0%,rgba(251,146,60,0.16),transparent_45%)]" />
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#fffdfa] p-4">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.15),transparent_42%),radial-gradient(circle_at_80%_0%,rgba(251,146,60,0.1),transparent_45%)]" />
 
-      <section className="relative z-10 grid w-full max-w-5xl gap-6 rounded-3xl border border-slate-800 bg-slate-900/85 p-6 shadow-2xl backdrop-blur lg:grid-cols-[1.2fr_1fr] lg:p-10">
+      <section className="relative z-10 grid w-full max-w-5xl gap-6 rounded-3xl border-2 border-zinc-200 bg-white p-6 shadow-[0_20px_40px_rgba(15,23,42,0.1)] backdrop-blur lg:grid-cols-[1.2fr_1fr] lg:p-10">
         <div className="space-y-4">
-          <div className="inline-flex rounded-full border border-orange-800/40 bg-orange-500/10 px-3 py-1 text-xs text-orange-200">
+          <div className="inline-flex rounded-full border border-orange-300 bg-orange-50 px-3 py-1 text-xs font-medium text-orange-700">
             Registro empresarial
           </div>
-          <h1 className="text-3xl font-semibold text-slate-100">Crea tu cuenta de empresa</h1>
-          <p className="max-w-xl text-sm text-slate-300">
+          <h1 className="text-3xl font-semibold text-slate-900">Crea tu cuenta de empresa</h1>
+          <p className="max-w-xl text-sm text-slate-600">
             Registra tu empresa para ingresar al espacio privado donde podras cargar archivos
             internos, analizarlos y generar reportes y estadisticas de seguimiento.
           </p>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-300">
-            <p className="font-medium text-slate-100">Requisitos minimos</p>
+          <div className="rounded-2xl border border-zinc-200 bg-[#fffaf6] p-4 text-sm text-slate-700">
+            <p className="font-semibold text-slate-900">Requisitos minimos</p>
             <p className="mt-2">1. NIT valido</p>
             <p>2. Correo corporativo</p>
             <p>3. Contrasena de acceso</p>
           </div>
 
           <div className="space-x-4 text-sm">
-            <Link to="/" className="text-orange-300 hover:text-orange-200">
+            <Link to="/" className="font-medium text-orange-700 hover:text-orange-800">
               Volver al inicio
             </Link>
-            <Link to="/login" className="text-orange-300 hover:text-orange-200">
+            <Link to="/login" className="font-medium text-orange-700 hover:text-orange-800">
               Ya tengo cuenta
             </Link>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
-          <h2 className="mb-4 text-lg font-semibold text-slate-100">Registrarse</h2>
+        <div className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
+          <h2 className="mb-4 text-lg font-semibold text-slate-900">Registrarse</h2>
           <RegisterForm
             values={values}
             loading={loading}

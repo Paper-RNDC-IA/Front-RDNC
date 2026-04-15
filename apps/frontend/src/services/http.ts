@@ -93,6 +93,84 @@ function resolveUrl(path: string): string {
   return `${BASE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
+function readPayloadText(payload: unknown): string {
+  if (typeof payload === 'string') {
+    return payload;
+  }
+
+  if (payload && typeof payload === 'object' && 'detail' in payload) {
+    const detail = (payload as { detail?: unknown }).detail;
+
+    if (typeof detail === 'string') {
+      return detail;
+    }
+
+    if (Array.isArray(detail)) {
+      return detail
+        .map((item) => {
+          if (typeof item === 'string') {
+            return item;
+          }
+
+          if (item && typeof item === 'object') {
+            const message = 'msg' in item ? (item as { msg?: unknown }).msg : null;
+            const location = 'loc' in item ? (item as { loc?: unknown }).loc : null;
+            const locationText = Array.isArray(location)
+              ? location.map((part) => String(part)).join('.')
+              : '';
+
+            if (typeof message === 'string' && locationText) {
+              return `${locationText}: ${message}`;
+            }
+
+            if (typeof message === 'string') {
+              return message;
+            }
+          }
+
+          return '';
+        })
+        .filter(Boolean)
+        .join(' | ');
+    }
+  }
+
+  return '';
+}
+
+function resolveValidationErrorMessage(payload: unknown): string {
+  const payloadText = readPayloadText(payload).toLowerCase();
+
+  const hasRangeIssue =
+    payloadText.includes('from') &&
+    payloadText.includes('to') &&
+    (payloadText.includes('greater') ||
+      payloadText.includes('after') ||
+      payloadText.includes('before') ||
+      payloadText.includes('menor') ||
+      payloadText.includes('mayor') ||
+      payloadText.includes('order') ||
+      payloadText.includes('rango'));
+
+  if (hasRangeIssue) {
+    return 'Rango invalido: la fecha inicial debe ser menor o igual a la final.';
+  }
+
+  const hasFormatIssue =
+    payloadText.includes('date') ||
+    payloadText.includes('format') ||
+    payloadText.includes('regex') ||
+    payloadText.includes('parsing') ||
+    payloadText.includes('from') ||
+    payloadText.includes('to');
+
+  if (hasFormatIssue) {
+    return 'Formato invalido: usar YYYY-MM-DD.';
+  }
+
+  return 'Solicitud invalida: revisa los parametros enviados.';
+}
+
 export async function httpRequest<T>(path: string, init?: RequestInit): Promise<T> {
   const url = resolveUrl(path);
   const controller = new AbortController();
@@ -136,8 +214,17 @@ export async function httpRequest<T>(path: string, init?: RequestInit): Promise<
     : null;
 
   if (!response.ok) {
+    if (response.status === 422) {
+      throw new HttpError(resolveValidationErrorMessage(payload), response.status, payload);
+    }
+
+    const payloadText = readPayloadText(payload);
+    const errorMessage = payloadText
+      ? `La solicitud fallo con estado ${response.status}: ${payloadText}`
+      : `La solicitud fallo con estado ${response.status}.`;
+
     throw new HttpError(
-      `La solicitud fallo con estado ${response.status}.`,
+      errorMessage,
       response.status,
       payload,
     );

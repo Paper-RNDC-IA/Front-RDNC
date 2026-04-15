@@ -14,11 +14,11 @@ export function ChatMessageList({ messages, isTyping }: ChatMessageListProps): J
 
       {isTyping ? (
         <article className="flex justify-start">
-          <div className="rounded-2xl rounded-bl-md border border-slate-300/80 bg-white px-3 py-2 shadow-sm shadow-slate-500/10">
+          <div className="rounded-2xl rounded-bl-md border border-zinc-300 bg-white px-3 py-2 shadow-sm shadow-zinc-300/30">
             <div className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:-0.2s]" />
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:-0.1s]" />
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" />
+              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-orange-400 [animation-delay:-0.2s]" />
+              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-orange-400 [animation-delay:-0.1s]" />
+              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-orange-400" />
             </div>
           </div>
         </article>

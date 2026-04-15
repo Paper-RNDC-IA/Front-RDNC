@@ -5,9 +5,9 @@ type SectionHeaderProps = {
 
 export function SectionHeader({ title, description }: SectionHeaderProps): JSX.Element {
   return (
-    <div className="space-y-1">
-      <h3 className="text-lg font-semibold text-slate-100">{title}</h3>
-      {description ? <p className="text-sm text-slate-400">{description}</p> : null}
+    <div className="space-y-2 border-l-4 border-orange-300 pl-3">
+      <h3 className="text-xl font-semibold leading-tight text-slate-900">{title}</h3>
+      {description ? <p className="max-w-3xl text-sm text-slate-600">{description}</p> : null}
     </div>
   );
 }

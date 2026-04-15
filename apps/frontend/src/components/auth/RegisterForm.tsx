@@ -23,63 +23,63 @@ export function RegisterForm({
         void onSubmit();
       }}
     >
-      <label className="block space-y-1 text-sm text-slate-300">
+      <label className="block space-y-1 text-sm text-slate-700">
         <span>Nombre de empresa</span>
         <input
           type="text"
           value={values.companyName}
           onChange={(event) => onChange({ ...values, companyName: event.target.value })}
           placeholder="Transportes Ejemplo SAS"
-          className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+          className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
         />
       </label>
 
-      <label className="block space-y-1 text-sm text-slate-300">
+      <label className="block space-y-1 text-sm text-slate-700">
         <span>NIT de empresa</span>
         <input
           type="text"
           value={values.companyNit}
           onChange={(event) => onChange({ ...values, companyNit: event.target.value })}
           placeholder="901234567-1"
-          className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+          className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
         />
       </label>
 
-      <label className="block space-y-1 text-sm text-slate-300">
+      <label className="block space-y-1 text-sm text-slate-700">
         <span>Correo corporativo</span>
         <input
           type="email"
           value={values.email}
           onChange={(event) => onChange({ ...values, email: event.target.value })}
           placeholder="contacto@empresa.com"
-          className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+          className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
         />
       </label>
 
-      <label className="block space-y-1 text-sm text-slate-300">
+      <label className="block space-y-1 text-sm text-slate-700">
         <span>Contrasena</span>
         <input
           type="password"
           value={values.password}
           onChange={(event) => onChange({ ...values, password: event.target.value })}
           placeholder="********"
-          className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+          className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
         />
       </label>
 
-      <label className="block space-y-1 text-sm text-slate-300">
+      <label className="block space-y-1 text-sm text-slate-700">
         <span>Confirmar contrasena</span>
         <input
           type="password"
           value={values.confirmPassword}
           onChange={(event) => onChange({ ...values, confirmPassword: event.target.value })}
           placeholder="********"
-          className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+          className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
         />
       </label>
 
       {error ? (
-        <div className="rounded-md border border-rose-900/60 bg-rose-950/40 px-3 py-2 text-sm text-rose-200">
+        <div className="rounded-md border border-orange-300 bg-orange-50 px-3 py-2 text-sm text-slate-700">
           {error}
         </div>
       ) : null}
@@ -87,7 +87,7 @@ export function RegisterForm({
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-md bg-orange-700 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70"
+        className="w-full rounded-md border border-orange-500 bg-orange-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {loading ? 'Registrando empresa...' : 'Registrarse'}
       </button>

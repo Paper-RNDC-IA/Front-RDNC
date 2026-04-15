@@ -7,6 +7,7 @@ import { ErrorState } from '../components/common/ErrorState';
 import { KpiCard } from '../components/common/KpiCard';
 import { LoadingState } from '../components/common/LoadingState';
 import { DataSourceBadge } from '../components/common/DataSourceBadge';
+import { PageIntro } from '../components/common/PageIntro';
 import { useCompanyWorkspacePage } from '../hooks/useCompanyWorkspacePage';
 
 export function CompanyWorkspacePage(): JSX.Element {
@@ -57,7 +58,42 @@ export function CompanyWorkspacePage(): JSX.Element {
         <ErrorState title="Novedad en portal empresarial" message={error} onRetry={reload} />
       ) : null}
 
-      <DataSourceBadge module="Portal Empresa" />
+      <DataSourceBadge
+        module="Portal privado empresarial"
+        sourceLabel="Telemetria empresarial"
+        sourceDetail="Datos internos cargados por la empresa autenticada"
+        visibility="private"
+      />
+
+      <PageIntro
+        title="Zona Privada Empresarial"
+        subtitle="Espacio seguro para cargar archivos propios, revisar historico y generar analitica interna de telemetria."
+        highlights={[
+          'Que muestra: datos internos de empresa',
+          'Para que sirve: control operacional privado',
+          'Fuente: Excel empresarial cargado por usuario',
+          'Acciones: cargar, analizar y exportar',
+        ]}
+        moduleGuide={{
+          summary:
+            'Este modulo centraliza el ciclo privado de archivos empresariales: carga, trazabilidad, analisis y exportacion.',
+          purpose:
+            'Facilita que cada empresa convierta sus datos crudos en indicadores accionables sin exponer informacion sensible.',
+          userType: 'Usuarios autenticados de cada empresa.',
+          source: 'Archivos Excel privados cargados en la sesion empresarial.',
+          analysisType: 'Analisis interno de KPIs, tendencia y categorias por archivo.',
+          scope: 'Restringido a la empresa autenticada y su historico de archivos.',
+          interpretation:
+            'Seleccione un archivo para activar las visualizaciones; compare KPIs y tendencia para evaluar calidad operativa.',
+          limitations:
+            'Los resultados dependen de la calidad del archivo y de la estructura esperada por el sistema.',
+          useCases: [
+            'Auditar calidad de cargas internas.',
+            'Construir reportes operativos privados.',
+            'Preparar evidencia para reuniones de seguimiento.',
+          ],
+        }}
+      />
 
       <Card title="Entorno privado y seguro de empresa">
         <div className="grid gap-4 md:grid-cols-3">
@@ -78,7 +114,7 @@ export function CompanyWorkspacePage(): JSX.Element {
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {summaryKpis.map((item) => (
-          <KpiCard key={item.label} item={item} />
+          <KpiCard key={item.label} item={item} sourceLabel="Telemetria empresarial" />
         ))}
       </div>
 

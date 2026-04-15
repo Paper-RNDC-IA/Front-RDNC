@@ -12,6 +12,7 @@ import {
 import type { ChartDatum } from '../../types/common';
 import { formatDecimal, formatNumber } from '../../utils/formatters';
 import { ChartCard } from './ChartCard';
+import { ChartLegendHelp } from '../common/ChartLegendHelp';
 
 type LineChartWidgetProps = {
   title: string;
@@ -21,6 +22,13 @@ type LineChartWidgetProps = {
   subtitle?: string;
   metricLabel?: string;
   valueFormatter?: (value: number) => string;
+  sourceLabel?: string;
+  help?: {
+    description: string;
+    xAxis: string;
+    yAxis: string;
+    interpretation: string;
+  };
 };
 
 export function LineChartWidget({
@@ -31,12 +39,14 @@ export function LineChartWidget({
   subtitle,
   metricLabel = 'Valor',
   valueFormatter = formatNumber,
+  sourceLabel,
+  help,
 }: LineChartWidgetProps): JSX.Element {
   if (!data.length) {
     return (
       <ChartCard title={title} subtitle={subtitle}>
-        <div className="flex h-64 items-center justify-center rounded-xl border border-slate-700/70 bg-slate-900/40">
-          <p className="text-sm text-slate-400">
+        <div className="flex h-64 items-center justify-center rounded-xl border border-zinc-200 bg-[#fffaf6]">
+          <p className="text-sm text-slate-600">
             No hay datos de tendencia para el rango seleccionado.
           </p>
         </div>
@@ -50,24 +60,24 @@ export function LineChartWidget({
   const variation = firstValue > 0 ? ((lastValue - firstValue) / firstValue) * 100 : 0;
 
   return (
-    <ChartCard title={title} subtitle={subtitle}>
-      <div className="space-y-3">
-        <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 sm:grid-cols-3">
-          <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2">
-            <p className="text-[11px] uppercase tracking-wide text-slate-400">Pico</p>
-            <p className="text-sm font-semibold text-orange-200">{valueFormatter(maxValue)}</p>
+    <ChartCard title={title} subtitle={subtitle} sourceLabel={sourceLabel}>
+      <div className="space-y-2.5">
+        <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 sm:grid-cols-3">
+          <div className="rounded-xl border border-zinc-200 bg-white px-3 py-2.5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500">Pico</p>
+            <p className="text-sm font-semibold text-orange-700">{valueFormatter(maxValue)}</p>
           </div>
-          <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2">
-            <p className="text-[11px] uppercase tracking-wide text-slate-400">Periodos</p>
-            <p className="text-sm font-semibold text-slate-100">{data.length}</p>
+          <div className="rounded-xl border border-zinc-200 bg-white px-3 py-2.5 shadow-sm">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500">Periodos</p>
+            <p className="text-sm font-semibold text-slate-900">{data.length}</p>
           </div>
-          <div className="rounded-lg border border-slate-700/70 bg-slate-900/45 px-3 py-2 sm:col-span-1 col-span-2">
-            <p className="text-[11px] uppercase tracking-wide text-slate-400">Variacion</p>
-            <p className="text-sm font-semibold text-emerald-300">{formatDecimal(variation, 1)}%</p>
+          <div className="col-span-2 rounded-xl border border-zinc-200 bg-white px-3 py-2.5 shadow-sm sm:col-span-1">
+            <p className="text-[11px] uppercase tracking-wide text-slate-500">Variacion</p>
+            <p className="text-sm font-semibold text-orange-700">{formatDecimal(variation, 1)}%</p>
           </div>
         </div>
 
-        <div className="h-64 w-full">
+        <div className="h-56 w-full">
           <ResponsiveContainer>
             <AreaChart data={data} margin={{ top: 12, right: 12, left: -8, bottom: 0 }}>
               <defs>
@@ -76,31 +86,32 @@ export function LineChartWidget({
                   <stop offset="95%" stopColor="#f97316" stopOpacity={0.03} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="4 4" stroke="#334155" vertical={false} />
+              <CartesianGrid strokeDasharray="4 4" stroke="#e2e8f0" vertical={false} />
               <XAxis
                 dataKey={xKey}
-                stroke="#94a3b8"
+                stroke="#64748b"
                 tick={{ fontSize: 11 }}
                 tickLine={false}
-                axisLine={{ stroke: '#334155' }}
+                axisLine={{ stroke: '#cbd5e1' }}
                 minTickGap={20}
               />
               <YAxis
-                stroke="#94a3b8"
+                stroke="#64748b"
                 tick={{ fontSize: 11 }}
                 tickLine={false}
-                axisLine={{ stroke: '#334155' }}
+                axisLine={{ stroke: '#cbd5e1' }}
                 width={58}
               />
               <Tooltip
                 cursor={{ stroke: '#fdba74', strokeDasharray: '3 3' }}
                 contentStyle={{
-                  backgroundColor: '#0f172a',
-                  borderColor: '#475569',
+                  backgroundColor: '#ffffff',
+                  borderColor: '#e2e8f0',
                   borderRadius: '10px',
-                  color: '#f8fafc',
+                  color: '#0f172a',
+                  boxShadow: '0 12px 22px rgba(15, 23, 42, 0.12)',
                 }}
-                labelStyle={{ color: '#cbd5e1' }}
+                labelStyle={{ color: '#64748b' }}
                 formatter={(value: number) => [valueFormatter(value), metricLabel]}
               />
               <Area
@@ -120,6 +131,16 @@ export function LineChartWidget({
             </AreaChart>
           </ResponsiveContainer>
         </div>
+
+        {help ? (
+          <ChartLegendHelp
+            description={help.description}
+            xAxis={help.xAxis}
+            yAxis={help.yAxis}
+            interpretation={help.interpretation}
+            source={sourceLabel ?? 'No especificada'}
+          />
+        ) : null}
       </div>
     </ChartCard>
   );

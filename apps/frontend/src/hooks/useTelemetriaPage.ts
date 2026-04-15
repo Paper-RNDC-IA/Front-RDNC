@@ -13,10 +13,9 @@ import {
   getSpeedTrend,
   getTelemetryAlerts,
   getTelemetryKpis,
-  uploadTelemetryExcel,
 } from '../services/telemetry.service';
 import type { ChartDatum, DateRange, KpiItem } from '../types/common';
-import { getDefaultDateRange } from '../utils/date';
+import { getDefaultDateRange, normalizeDateRange } from '../utils/date';
 
 type TelemetriaPageState = {
   loading: boolean;
@@ -75,20 +74,12 @@ export function useTelemetriaPage() {
     void load(state.dateRange);
   }, [load, state.dateRange]);
 
-  const onUpload = useCallback(
-    async (file: File) => {
-      await uploadTelemetryExcel(file);
-      await load(state.dateRange);
-    },
-    [load, state.dateRange],
-  );
-
   const reload = useCallback(() => {
     void load(state.dateRange);
   }, [load, state.dateRange]);
 
   const setDateRange = useCallback((dateRange: DateRange) => {
-    setState((prev) => ({ ...prev, dateRange }));
+    setState((prev) => ({ ...prev, dateRange: normalizeDateRange(dateRange) }));
   }, []);
 
   return useMemo(
@@ -102,9 +93,8 @@ export function useTelemetriaPage() {
       corridorSummary: state.corridorSummary,
       securityEvents: state.securityEvents,
       setDateRange,
-      onUpload,
       reload,
     }),
-    [onUpload, reload, setDateRange, state],
+    [reload, setDateRange, state],
   );
 }

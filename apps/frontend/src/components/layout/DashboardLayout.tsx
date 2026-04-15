@@ -9,12 +9,13 @@ export function DashboardLayout(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-800 text-slate-100">
+    <div className="min-h-screen bg-[#fffcfa] text-slate-900">
       <div className="flex min-h-screen">
         <Sidebar open={isMenuOpen} onNavigate={() => setIsMenuOpen(false)} />
         <div className="flex min-h-screen flex-1 flex-col">
           <TopHeader onOpenMenu={() => setIsMenuOpen((prev) => !prev)} />
-          <main className="flex-1 px-4 py-6 md:px-8 md:py-8">
+          <main className="relative flex-1 bg-[#fffdfb] px-5 py-7 md:px-10 md:py-10">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(249,115,22,0.05),transparent_30%)]" />
             <Outlet />
           </main>
           <ChatWidget />

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
   adaptCompanyRanking,
@@ -15,7 +15,7 @@ import {
   getRouteRanking,
 } from '../services/manifests.service';
 import type { ChartDatum, DateRange, KpiItem } from '../types/common';
-import { getDefaultDateRange } from '../utils/date';
+import { getDefaultDateRange, normalizeDateRange } from '../utils/date';
 
 type ManifiestosPageState = {
   loading: boolean;
@@ -29,6 +29,8 @@ type ManifiestosPageState = {
 };
 
 export function useManifiestosPage() {
+  const requestIdRef = useRef(0);
+
   const [state, setState] = useState<ManifiestosPageState>({
     loading: true,
     error: null,
@@ -41,6 +43,7 @@ export function useManifiestosPage() {
   });
 
   const load = useCallback(async (dateRange: DateRange) => {
+    const requestId = ++requestIdRef.current;
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
@@ -52,6 +55,10 @@ export function useManifiestosPage() {
         getManifestDistribution(dateRange),
       ]);
 
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
+
       setState((prev) => ({
         ...prev,
         loading: false,
@@ -62,6 +69,10 @@ export function useManifiestosPage() {
         distribution: adaptManifestDistribution(distributionRes),
       }));
     } catch (error) {
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
+
       setState((prev) => ({
         ...prev,
         loading: false,
@@ -75,7 +86,18 @@ export function useManifiestosPage() {
   }, [load, state.dateRange]);
 
   const setDateRange = useCallback((dateRange: DateRange) => {
-    setState((prev) => ({ ...prev, dateRange }));
+    const normalizedRange = normalizeDateRange(dateRange);
+
+    setState((prev) => {
+      if (
+        prev.dateRange.from === normalizedRange.from &&
+        prev.dateRange.to === normalizedRange.to
+      ) {
+        return prev;
+      }
+
+      return { ...prev, dateRange: normalizedRange };
+    });
   }, []);
 
   const reload = useCallback(() => {

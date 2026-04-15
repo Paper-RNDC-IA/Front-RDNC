@@ -5,9 +5,17 @@ import type {
   StatsSummaryApi,
   StatsTrendApi,
 } from '../types/stats';
+import type { DateRange } from '../types/common';
 
 import { api } from './api';
 import { endpoints } from './endpoints';
+
+function buildDateQuery(dateRange?: DateRange): Record<string, string> {
+  return {
+    from: dateRange?.from ?? '',
+    to: dateRange?.to ?? '',
+  };
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
@@ -95,10 +103,10 @@ function mergeSummaryFromStatsSummary(
   return [...next, { module: 'Telemetria', total: telemetryTotal }];
 }
 
-export async function getStatsDashboard(): Promise<StatsDashboardApi> {
+export async function getStatsDashboard(dateRange?: DateRange): Promise<StatsDashboardApi> {
   const [dashboardRes, summaryRes, healthRes] = await Promise.allSettled([
-    api.get<unknown>(endpoints.stats.dashboard),
-    api.get<unknown>(endpoints.stats.summary),
+    api.get<unknown>(endpoints.stats.dashboard, buildDateQuery(dateRange)),
+    api.get<unknown>(endpoints.stats.summary, buildDateQuery(dateRange)),
     api.get<unknown>(endpoints.stats.health),
   ]);
 
@@ -125,17 +133,17 @@ export async function getStatsDashboard(): Promise<StatsDashboardApi> {
   };
 }
 
-export async function getStatsKpis(): Promise<StatsKpiApi[]> {
-  const dashboard = await getStatsDashboard();
+export async function getStatsKpis(dateRange?: DateRange): Promise<StatsKpiApi[]> {
+  const dashboard = await getStatsDashboard(dateRange);
   return dashboard.kpis;
 }
 
-export async function getStatsTrends(): Promise<StatsTrendApi[]> {
-  const dashboard = await getStatsDashboard();
+export async function getStatsTrends(dateRange?: DateRange): Promise<StatsTrendApi[]> {
+  const dashboard = await getStatsDashboard(dateRange);
   return dashboard.trends;
 }
 
-export async function getStatsSummary(): Promise<StatsSummaryApi[]> {
-  const dashboard = await getStatsDashboard();
+export async function getStatsSummary(dateRange?: DateRange): Promise<StatsSummaryApi[]> {
+  const dashboard = await getStatsDashboard(dateRange);
   return dashboard.summary;
 }

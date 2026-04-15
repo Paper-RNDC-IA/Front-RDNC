@@ -5,47 +5,81 @@ type SidebarProps = {
   onNavigate: () => void;
 };
 
-const navItems = [
-  { to: '/', label: 'Inicio' },
-  { to: '/app/estadisticas', label: 'Estadisticas' },
-  { to: '/app/manifiestos', label: 'Manifiestos' },
-  { to: '/app/telemetria', label: 'Telemetria' },
-  { to: '/app/geografia', label: 'Mapa Interactivo' },
-  { to: '/app/empresas', label: 'Empresas' },
-  { to: '/app/portal-empresa', label: 'Portal Empresa' },
-  { to: '/app/descarga-informe', label: 'Descarga Informe' },
+type EnabledNavItem = {
+  to: string;
+  label: string;
+};
+
+type NavGroup = {
+  title: string;
+  items: EnabledNavItem[];
+};
+
+const navGroups: NavGroup[] = [
+  {
+    title: 'General',
+    items: [{ to: '/', label: 'Inicio' }],
+  },
+  {
+    title: 'RNDC Publico',
+    items: [
+      { to: '/app/estadisticas', label: 'Estadisticas' },
+      { to: '/app/manifiestos', label: 'Manifiestos' },
+      { to: '/app/telemetria', label: 'Telemetria' },
+      { to: '/app/empresas', label: 'Empresas' },
+    ],
+  },
+  {
+    title: 'Territorial',
+    items: [{ to: '/app/geografia', label: 'Geografia' }],
+  },
+  {
+    title: 'Empresa',
+    items: [
+      { to: '/app/portal-empresa', label: 'Portal Empresa' },
+      { to: '/app/descarga-informe', label: 'Informes' },
+    ],
+  },
 ];
 
 export function Sidebar({ open, onNavigate }: SidebarProps): JSX.Element {
   return (
     <aside
       className={[
-        'fixed inset-y-0 left-0 z-40 w-72 border-r border-slate-700 bg-slate-900/95 px-4 py-6 transition-transform duration-300 md:translate-x-0 md:static md:w-64',
+        'fixed inset-y-0 left-0 z-40 w-72 border-r-2 border-zinc-200 bg-[#fffdfa] px-5 py-7 shadow-[10px_0_28px_rgba(15,23,42,0.06)] transition-transform duration-300 md:sticky md:top-0 md:h-screen md:translate-x-0 md:w-64',
         open ? 'translate-x-0' : '-translate-x-full',
       ].join(' ')}
     >
-      <div className="mb-8 rounded-xl border border-orange-800/45 bg-slate-800/95 p-4">
-        <h1 className="text-lg font-semibold text-orange-300">TransData RNDC</h1>
-        <p className="mt-1 text-sm text-slate-400">Monitoreo de carga terrestre</p>
+      <div className="mb-7 rounded-2xl border border-orange-200/70 bg-gradient-to-br from-orange-50 to-white px-4 py-4 shadow-sm">
+        <p className="text-xs uppercase tracking-[0.2em] text-orange-600">Plataforma</p>
+        <h1 className="mt-1 text-base font-semibold text-slate-900">TransData RNDC</h1>
+        <p className="mt-1 text-xs text-slate-600">Monitoreo de carga terrestre</p>
       </div>
 
-      <nav className="space-y-2">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            onClick={onNavigate}
-            className={({ isActive }) =>
-              [
-                'block rounded-lg px-3 py-2 text-sm transition-colors',
-                isActive
-                  ? 'bg-orange-500/20 text-orange-200'
-                  : 'text-slate-300 hover:bg-slate-700 hover:text-slate-100',
-              ].join(' ')
-            }
-          >
-            {item.label}
-          </NavLink>
+      <nav className="space-y-3">
+        {navGroups.map((group) => (
+          <section key={group.title} className="pb-2 last:pb-0">
+            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{group.title}</p>
+            <div className="mt-2 space-y-1.5">
+              {group.items.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  onClick={onNavigate}
+                  className={({ isActive }) =>
+                    [
+                      'block rounded-xl px-3 py-2.5 transition-all duration-150',
+                      isActive
+                        ? 'bg-gradient-to-r from-orange-100 to-orange-50 text-slate-900 shadow-[0_8px_18px_rgba(249,115,22,0.14)]'
+                        : 'text-slate-700 hover:bg-white/80 hover:text-slate-900',
+                    ].join(' ')
+                  }
+                >
+                  <p className="text-[15px] font-semibold">{item.label}</p>
+                </NavLink>
+              ))}
+            </div>
+          </section>
         ))}
       </nav>
     </aside>

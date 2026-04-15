@@ -80,7 +80,7 @@ export function FileInsightPanel({
 
       <div className="grid gap-4 md:grid-cols-2">
         {kpis.map((item) => (
-          <KpiCard key={item.label} item={item} />
+          <KpiCard key={item.label} item={item} sourceLabel="Telemetria empresarial" />
         ))}
       </div>
 
@@ -90,12 +90,28 @@ export function FileInsightPanel({
           data={trendData}
           dataKey="value"
           xKey="label"
+          sourceLabel="Telemetria empresarial"
+          help={{
+            description: 'Muestra variacion temporal de registros del archivo seleccionado.',
+            xAxis: 'Periodo del archivo.',
+            yAxis: 'Cantidad de registros validos.',
+            interpretation:
+              'Permite detectar picos o caidas en la captura de datos del archivo empresarial.',
+          }}
         />
         <PieChartWidget
           title="Distribucion por categoria"
           data={categoriesData}
           dataKey="value"
           nameKey="label"
+          sourceLabel="Telemetria empresarial"
+          help={{
+            description: 'Distribuye el archivo por categorias para evaluar composicion del dato.',
+            xAxis: 'Categoria detectada.',
+            yAxis: 'Participacion en el total del archivo.',
+            interpretation:
+              'Categorias predominantes indican el tipo de comportamiento mas frecuente en el archivo.',
+          }}
         />
       </div>
 

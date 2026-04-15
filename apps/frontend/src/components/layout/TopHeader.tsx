@@ -8,20 +8,48 @@ type TopHeaderProps = {
   onOpenMenu: () => void;
 };
 
-const titles: Record<string, string> = {
-  '/app/estadisticas': 'Dashboard Estrategico',
-  '/app/manifiestos': 'Analisis de Manifiestos',
-  '/app/telemetria': 'Telemetria GPS',
-  '/app/geografia': 'Mapa Interactivo de Colombia',
-  '/app/empresas': 'Empresas Habilitadas',
-  '/app/portal-empresa': 'Portal Privado Empresarial',
-  '/app/descarga-informe': 'Descarga de Informes',
+const routeMeta: Record<string, { title: string; subtitle: string }> = {
+  '/': {
+    title: 'Panorama General del Proyecto',
+    subtitle: 'Objetivo, alcance y ruta recomendada para evaluacion academica',
+  },
+  '/app/estadisticas': {
+    title: 'Datos Publicos RNDC: Estadisticas',
+    subtitle: 'Indicadores nacionales agregados del transporte de carga',
+  },
+  '/app/manifiestos': {
+    title: 'Datos Publicos RNDC: Manifiestos',
+    subtitle: 'Volumen, corredores y actores con mayor actividad reportada',
+  },
+  '/app/telemetria': {
+    title: 'Zona Privada Empresarial: Telemetria GPS',
+    subtitle: 'Analisis de velocidad, alertas y seguridad desde archivos empresariales',
+  },
+  '/app/geografia': {
+    title: 'Inteligencia Territorial y Mapas',
+    subtitle: 'Distribucion por departamento para produccion, demanda y regalias',
+  },
+  '/app/empresas': {
+    title: 'Datos Publicos RNDC: Empresas',
+    subtitle: 'Comparativo de empresas habilitadas y su cumplimiento',
+  },
+  '/app/portal-empresa': {
+    title: 'Portal Privado de Empresa',
+    subtitle: 'Carga Excel, historico de archivos y reportes internos',
+  },
+  '/app/descarga-informe': {
+    title: 'Centro de Informes y Exportacion',
+    subtitle: 'Salida de resultados para seguimiento y sustentacion',
+  },
 };
 
 export function TopHeader({ onOpenMenu }: TopHeaderProps): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
-  const title = titles[location.pathname] ?? 'TransData RNDC';
+  const headerMeta = routeMeta[location.pathname] ?? {
+    title: 'TransData RNDC',
+    subtitle: 'Monitoreo del transporte de carga terrestre en Colombia',
+  };
   const [session, setSession] = useState<SessionUser | null>(() => getStoredSession());
 
   useEffect(() => {
@@ -35,31 +63,32 @@ export function TopHeader({ onOpenMenu }: TopHeaderProps): JSX.Element {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-700 bg-slate-900/85 px-4 py-4 backdrop-blur md:px-8">
+    <header className="sticky top-0 z-30 border-b-2 border-zinc-200 bg-white/95 px-5 py-4 shadow-[0_6px_16px_rgba(15,23,42,0.06)] backdrop-blur md:px-10 relative">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-orange-300 via-orange-500 to-orange-300 opacity-90" />
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <button
             type="button"
-            className="rounded-md border border-slate-700 px-2 py-1 text-slate-200 md:hidden"
+            className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-slate-700 md:hidden"
             onClick={onOpenMenu}
             aria-label="Abrir menu"
           >
             Menu
           </button>
-          <div>
-            <h2 className="text-xl font-semibold text-slate-100">{title}</h2>
-            <p className="text-xs text-slate-400">Operacion nacional - Colombia</p>
+          <div className="border-l-4 border-orange-400 pl-3">
+            <h2 className="text-2xl font-semibold leading-tight text-slate-900">{headerMeta.title}</h2>
+            <p className="mt-1 text-sm text-slate-600">{headerMeta.subtitle}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           {session ? (
             <>
-              <div className="rounded-lg bg-orange-500/10 px-3 py-2 text-xs text-orange-200">
+              <div className="rounded-full border border-orange-300 bg-orange-50 px-3 py-1.5 text-xs font-semibold text-orange-700 shadow-sm">
                 {session.companyName}
               </div>
               <button
                 type="button"
-                className="rounded-md border border-slate-700 px-3 py-2 text-xs text-slate-200 hover:bg-slate-700"
+                className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 hover:bg-zinc-100"
                 onClick={() => void onLogout()}
               >
                 Cerrar sesion
@@ -68,7 +97,7 @@ export function TopHeader({ onOpenMenu }: TopHeaderProps): JSX.Element {
           ) : (
             <Link
               to="/login"
-              className="rounded-md border border-orange-700/70 bg-orange-900/20 px-3 py-2 text-xs text-orange-200 hover:bg-orange-800/30"
+              className="rounded-md border border-orange-300 bg-orange-50 px-3 py-2 text-xs font-medium text-orange-700 hover:bg-orange-100"
             >
               Iniciar sesión
             </Link>

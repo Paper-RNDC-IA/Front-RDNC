@@ -12,7 +12,6 @@ import { InsightsPanel } from '../components/common/InsightsPanel';
 import { BarChartWidget } from '../components/charts/BarChartWidget';
 import { LineChartWidget } from '../components/charts/LineChartWidget';
 import { PieChartWidget } from '../components/charts/PieChartWidget';
-import { ExcelUploader } from '../components/telemetry/ExcelUploader';
 import { useTelemetriaPage } from '../hooks/useTelemetriaPage';
 import { formatSpeed } from '../utils/formatters';
 
@@ -39,7 +38,6 @@ export function TelemetriaPage(): JSX.Element {
     securityEvents,
     corridorSummary,
     setDateRange,
-    onUpload,
     reload,
   } = useTelemetriaPage();
 
@@ -53,7 +51,11 @@ export function TelemetriaPage(): JSX.Element {
 
   if (!kpis.length) {
     return (
-      <EmptyState title="Sin telemetria" message="Sube un archivo Excel o valida el backend." />
+      <EmptyState
+        title="Sin telemetria"
+        message="No hay datos disponibles para el rango seleccionado."
+        source="RNDC publico /api/telemetry/*"
+      />
     );
   }
 
@@ -116,27 +118,51 @@ export function TelemetriaPage(): JSX.Element {
 
   return (
     <section className="space-y-6 md:space-y-8">
-      <DataSourceBadge module="Telemetria" />
+      <DataSourceBadge
+        module="Telemetria RNDC publica"
+        sourceLabel="RNDC publico"
+        sourceDetail="Registros de telemetria procesados por backend y expuestos por API publica"
+        visibility="public"
+      />
       <PageIntro
-        title="Centro Operativo de Telemetria"
-        subtitle="Monitorea velocidad, alertas y eventos de seguridad para detectar riesgos en ruta y priorizar acciones de control."
+        title="Telemetria Publica RNDC"
+        subtitle="Modulo para interpretar velocidad, alertas y eventos de seguridad con datos de telemetria publicados por el sistema RNDC."
         periodLabel={periodLabel}
         highlights={[
-          'Comportamiento de velocidad',
-          'Alertas criticas',
-          'Eventos de seguridad',
-          'Corredor principal',
+          'Que muestra: comportamiento de telemetria reportada',
+          'Para que sirve: control operativo y riesgo',
+          'Fuente: API publica de telemetria RNDC',
+          'Alcance: analisis publico por rango de fechas',
         ]}
+        moduleGuide={{
+          summary:
+            'Este modulo transforma la telemetria disponible en RNDC en indicadores de seguridad, alertas y desempeno operativo.',
+          purpose:
+            'Permite detectar riesgos tempranos, priorizar supervision y revisar corredores con mayor exposicion.',
+          userType: 'Coordinadores de flota, analistas de seguridad y gerencia operativa.',
+          source: 'Datos publicos de telemetria expuestos por backend en /api/telemetry/*.',
+          analysisType: 'Analisis operacional de tendencia, frecuencia de eventos y ranking de riesgos.',
+          scope:
+            'Cobertura sobre registros de telemetria disponibles para el periodo filtrado en la interfaz.',
+          interpretation:
+            'Combine velocidad promedio con alertas criticas para distinguir si el riesgo proviene de conducta o de contexto operativo.',
+          limitations:
+            'La calidad del analisis depende de la completitud y consistencia de los registros de telemetria publicados.',
+          useCases: [
+            'Seguimiento semanal de eventos criticos.',
+            'Priorizacion de acciones de seguridad vial.',
+            'Comparacion interna por corredores de mayor riesgo.',
+          ],
+        }}
       />
       <DateRangeFilter value={dateRange} onChange={setDateRange} />
-      <ExcelUploader onUpload={onUpload} />
       <SectionHeader
         title="KPIs operativos"
         description="Lectura rapida de desempeno de flota y variables de seguridad."
       />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {kpis.map((item) => (
-          <KpiCard key={item.label} item={item} />
+          <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
         ))}
       </div>
       <SectionHeader
@@ -145,11 +171,11 @@ export function TelemetriaPage(): JSX.Element {
       />
       <div className="grid gap-4 md:grid-cols-3">
         {criticalCards.map((item) => (
-          <Card key={String(item.type)} className="border-amber-900/70 bg-amber-950/25">
-            <p className="text-xs uppercase tracking-wide text-amber-200">Riesgo detectado</p>
-            <p className="mt-2 text-base font-semibold text-amber-100">{String(item.type)}</p>
-            <p className="mt-1 text-2xl font-bold text-white">{String(item.count)}</p>
-            <p className="mt-2 text-xs text-amber-100/80">Eventos observados en el periodo.</p>
+          <Card key={String(item.type)} className="border-amber-300 bg-gradient-to-b from-amber-50 to-white">
+            <p className="text-xs uppercase tracking-wide text-amber-800">Riesgo detectado</p>
+            <p className="mt-2 text-base font-semibold text-slate-900">{String(item.type)}</p>
+            <p className="mt-1 text-2xl font-bold text-amber-900">{String(item.count)}</p>
+            <p className="mt-2 text-xs text-slate-700">Eventos observados en el periodo.</p>
           </Card>
         ))}
       </div>
@@ -166,6 +192,14 @@ export function TelemetriaPage(): JSX.Element {
           xKey="label"
           metricLabel="Velocidad promedio"
           valueFormatter={formatSpeed}
+          sourceLabel="RNDC publico"
+          help={{
+            description: 'Evolucion temporal de la velocidad media calculada con registros GPS validos.',
+            xAxis: 'Cortes temporales del periodo seleccionado.',
+            yAxis: 'Velocidad promedio en km/h.',
+            interpretation:
+              'Cambios bruscos o niveles persistentemente altos pueden requerir revision de conducta y condiciones de ruta.',
+          }}
         />
         <BarChartWidget
           title="Ranking de alertas"
@@ -176,6 +210,14 @@ export function TelemetriaPage(): JSX.Element {
           horizontal
           sortDescending
           valueLabel="Eventos"
+          sourceLabel="RNDC publico"
+          help={{
+            description: 'Frecuencia de alertas para identificar tipos de riesgo dominantes.',
+            xAxis: 'Cantidad de eventos.',
+            yAxis: 'Tipo de alerta.',
+            interpretation:
+              'Las alertas con mayor frecuencia deben priorizarse en protocolos de seguimiento.',
+          }}
         />
       </div>
 
@@ -185,6 +227,14 @@ export function TelemetriaPage(): JSX.Element {
         data={alertChart}
         dataKey="value"
         nameKey="label"
+        sourceLabel="RNDC publico"
+        help={{
+          description: 'Participacion relativa de cada alerta dentro del total del periodo.',
+          xAxis: 'Categorias de alerta.',
+          yAxis: 'Porcentaje y volumen de eventos.',
+          interpretation:
+            'Una alta participacion de una categoria indica foco principal de intervencion operativa.',
+        }}
       />
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_1fr]">
@@ -197,6 +247,14 @@ export function TelemetriaPage(): JSX.Element {
           horizontal
           sortDescending
           valueLabel="Eventos"
+          sourceLabel="RNDC publico"
+          help={{
+            description: 'Ranking de eventos que afectan la seguridad de operacion.',
+            xAxis: 'Numero de eventos.',
+            yAxis: 'Tipo de evento de seguridad.',
+            interpretation:
+              'Eventos superiores en frecuencia representan mayor exposicion y necesidad de control.',
+          }}
         />
         <Card title="Timeline operativo" className="border-slate-700/80 bg-slate-900/70">
           <p className="mb-3 text-xs text-slate-400">
@@ -237,6 +295,8 @@ export function TelemetriaPage(): JSX.Element {
           rows={corridorSummary}
           rowKey="segment"
           maxRows={6}
+          sourceLabel="Telemetria empresarial"
+          helpText="Lista segmentos con mayor flujo y velocidad media para priorizar tramos de seguimiento."
         />
         <DataTable
           title="Alertas"
@@ -248,6 +308,8 @@ export function TelemetriaPage(): JSX.Element {
           rows={alerts}
           rowKey="type"
           maxRows={6}
+          sourceLabel="Telemetria empresarial"
+          helpText="Consolida alertas por tipo para entender concentracion de riesgo operacional."
         />
         <DataTable
           title="Eventos de seguridad"
@@ -259,6 +321,8 @@ export function TelemetriaPage(): JSX.Element {
           rows={securityEvents}
           rowKey="event"
           maxRows={6}
+          sourceLabel="Telemetria empresarial"
+          helpText="Muestra eventos de seguridad para apoyar planes de mitigacion y capacitacion."
         />
       </div>
       <InsightsPanel title="Lectura de riesgo del periodo" items={insightItems} />
