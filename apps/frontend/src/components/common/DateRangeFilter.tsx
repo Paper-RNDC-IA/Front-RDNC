@@ -13,7 +13,7 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
   const [draft, setDraft] = useState<DateRange>(value);
 
   useEffect(() => {
-    setDraft(value);
+    setDraft({ from: value.from, to: value.to });
   }, [value.from, value.to]);
 
   const validationMessage = useMemo(() => getDateRangeValidationError(draft), [draft]);

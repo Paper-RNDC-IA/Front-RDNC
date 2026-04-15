@@ -6,5 +6,6 @@ type DataSourceBadgeProps = {
   updatedAt?: string;
 };
 export function DataSourceBadge(_props: DataSourceBadgeProps): JSX.Element | null {
+  void _props;
   return null;
 }
