@@ -125,103 +125,104 @@ export function ManifiestosPage(): JSX.Element {
       ) : null}
       {!error && hasData ? (
         <>
-      <SectionHeader
-        title="KPIs del modulo"
-        description="Indicadores clave para seguimiento del volumen y comportamiento de manifiestos."
-      />
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {kpis.map((item) => (
-          <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
-        ))}
-      </div>
-      <SectionHeader
-        title="Tendencia y composicion"
-        description="Este bloque muestra como cambia el volumen y en que categorias se concentra."
-      />
-      <div className="grid gap-6 xl:grid-cols-2">
-        <LineChartWidget
-          title="Tendencia de manifiestos"
-          subtitle="Como evoluciona el total de manifiestos por periodo"
-          data={trends}
-          dataKey="value"
-          xKey="label"
-          metricLabel="Manifiestos"
-          sourceLabel="RNDC publico"
-          help={{
-            description: 'Serie temporal del volumen de manifiestos en el rango seleccionado.',
-            xAxis: 'Periodos dentro del rango de fechas.',
-            yAxis: 'Cantidad de manifiestos reportados.',
-            interpretation:
-              'Subidas sostenidas sugieren mayor actividad logistica; caidas pueden indicar contraccion o estacionalidad.',
-          }}
-        />
-        <PieChartWidget
-          title="Distribucion por categoria"
-          subtitle="Que tipo de registros concentra mayor volumen"
-          data={distribution}
-          dataKey="value"
-          nameKey="label"
-          sourceLabel="RNDC publico"
-          help={{
-            description: 'Distribucion de categorias para entender en que se concentra el volumen.',
-            xAxis: 'Categoria o tipo de registro.',
-            yAxis: 'Participacion porcentual del total.',
-            interpretation:
-              'Categorias dominantes explican la mayor parte del comportamiento operativo del periodo.',
-          }}
-        />
-      </div>
-      <BarChartWidget
-        title="Ranking visual de rutas"
-        subtitle="Top corredores por viajes para lectura rapida"
-        data={routeBarData}
-        dataKey="value"
-        xKey="label"
-        horizontal
-        sortDescending
-        valueLabel="Viajes"
-        sourceLabel="RNDC publico"
-        help={{
-          description: 'Ranking de corredores con mayor frecuencia de viajes.',
-          xAxis: 'Numero de viajes.',
-          yAxis: 'Ruta o corredor.',
-          interpretation:
-            'Las primeras rutas representan los ejes con mayor presion operativa y relevancia logistica.',
-        }}
-      />
-      <SectionHeader
-        title="Rankings"
-        description="Compara corredores y empresas para detectar concentracion operativa."
-      />
-      <div className="grid gap-6 xl:grid-cols-2">
-        <DataTable
-          title="Ranking de rutas"
-          subtitle="Top corredores por cantidad de viajes y toneladas reportadas."
-          columns={[
-            { key: 'route', label: 'Ruta' },
-            { key: 'trips', label: 'Viajes' },
-            { key: 'incidents', label: 'Toneladas' },
-          ]}
-          rows={routeRanking}
-          rowKey="route"
-          sourceLabel="RNDC publico"
-          helpText="Lista corredores con viajes y toneladas para comparar intensidad y volumen de carga."
-        />
-        <DataTable
-          title="Ranking de empresas"
-          subtitle="Empresas con mayor participacion segun manifiestos y toneladas."
-          columns={[
-            { key: 'company', label: 'Empresa' },
-            { key: 'manifests', label: 'Manifiestos' },
-            { key: 'compliance', label: 'Toneladas' },
-          ]}
-          rows={companyRanking}
-          rowKey="company"
-          sourceLabel="RNDC publico"
-          helpText="Muestra empresas lideres del periodo para evaluar participacion y concentracion del mercado."
-        />
-      </div>
-      <InsightsPanel title="Hallazgos del periodo" items={insightItems} />
+          <SectionHeader
+            title="KPIs del modulo"
+            description="Indicadores clave para seguimiento del volumen y comportamiento de manifiestos."
+          />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {kpis.map((item) => (
+              <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
+            ))}
+          </div>
+          <SectionHeader
+            title="Tendencia y composicion"
+            description="Este bloque muestra como cambia el volumen y en que categorias se concentra."
+          />
+          <div className="grid gap-6 xl:grid-cols-2">
+            <LineChartWidget
+              title="Tendencia de manifiestos"
+              subtitle="Como evoluciona el total de manifiestos por periodo"
+              data={trends}
+              dataKey="value"
+              xKey="label"
+              metricLabel="Manifiestos"
+              sourceLabel="RNDC publico"
+              help={{
+                description: 'Serie temporal del volumen de manifiestos en el rango seleccionado.',
+                xAxis: 'Periodos dentro del rango de fechas.',
+                yAxis: 'Cantidad de manifiestos reportados.',
+                interpretation:
+                  'Subidas sostenidas sugieren mayor actividad logistica; caidas pueden indicar contraccion o estacionalidad.',
+              }}
+            />
+            <PieChartWidget
+              title="Distribucion por categoria"
+              subtitle="Que tipo de registros concentra mayor volumen"
+              data={distribution}
+              dataKey="value"
+              nameKey="label"
+              sourceLabel="RNDC publico"
+              help={{
+                description:
+                  'Distribucion de categorias para entender en que se concentra el volumen.',
+                xAxis: 'Categoria o tipo de registro.',
+                yAxis: 'Participacion porcentual del total.',
+                interpretation:
+                  'Categorias dominantes explican la mayor parte del comportamiento operativo del periodo.',
+              }}
+            />
+          </div>
+          <BarChartWidget
+            title="Ranking visual de rutas"
+            subtitle="Top corredores por viajes para lectura rapida"
+            data={routeBarData}
+            dataKey="value"
+            xKey="label"
+            horizontal
+            sortDescending
+            valueLabel="Viajes"
+            sourceLabel="RNDC publico"
+            help={{
+              description: 'Ranking de corredores con mayor frecuencia de viajes.',
+              xAxis: 'Numero de viajes.',
+              yAxis: 'Ruta o corredor.',
+              interpretation:
+                'Las primeras rutas representan los ejes con mayor presion operativa y relevancia logistica.',
+            }}
+          />
+          <SectionHeader
+            title="Rankings"
+            description="Compara corredores y empresas para detectar concentracion operativa."
+          />
+          <div className="grid gap-6 xl:grid-cols-2">
+            <DataTable
+              title="Ranking de rutas"
+              subtitle="Top corredores por cantidad de viajes y toneladas reportadas."
+              columns={[
+                { key: 'route', label: 'Ruta' },
+                { key: 'trips', label: 'Viajes' },
+                { key: 'incidents', label: 'Toneladas' },
+              ]}
+              rows={routeRanking}
+              rowKey="route"
+              sourceLabel="RNDC publico"
+              helpText="Lista corredores con viajes y toneladas para comparar intensidad y volumen de carga."
+            />
+            <DataTable
+              title="Ranking de empresas"
+              subtitle="Empresas con mayor participacion segun manifiestos y toneladas."
+              columns={[
+                { key: 'company', label: 'Empresa' },
+                { key: 'manifests', label: 'Manifiestos' },
+                { key: 'compliance', label: 'Toneladas' },
+              ]}
+              rows={companyRanking}
+              rowKey="company"
+              sourceLabel="RNDC publico"
+              helpText="Muestra empresas lideres del periodo para evaluar participacion y concentracion del mercado."
+            />
+          </div>
+          <InsightsPanel title="Hallazgos del periodo" items={insightItems} />
         </>
       ) : null}
     </section>

@@ -141,7 +141,8 @@ export function TelemetriaPage(): JSX.Element {
             'Permite detectar riesgos tempranos, priorizar supervision y revisar corredores con mayor exposicion.',
           userType: 'Coordinadores de flota, analistas de seguridad y gerencia operativa.',
           source: 'Datos publicos de telemetria expuestos por backend en /api/telemetry/*.',
-          analysisType: 'Analisis operacional de tendencia, frecuencia de eventos y ranking de riesgos.',
+          analysisType:
+            'Analisis operacional de tendencia, frecuencia de eventos y ranking de riesgos.',
           scope:
             'Cobertura sobre registros de telemetria disponibles para el periodo filtrado en la interfaz.',
           interpretation:
@@ -171,7 +172,10 @@ export function TelemetriaPage(): JSX.Element {
       />
       <div className="grid gap-4 md:grid-cols-3">
         {criticalCards.map((item) => (
-          <Card key={String(item.type)} className="border-amber-300 bg-gradient-to-b from-amber-50 to-white">
+          <Card
+            key={String(item.type)}
+            className="border-amber-300 bg-gradient-to-b from-amber-50 to-white"
+          >
             <p className="text-xs uppercase tracking-wide text-amber-800">Riesgo detectado</p>
             <p className="mt-2 text-base font-semibold text-slate-900">{String(item.type)}</p>
             <p className="mt-1 text-2xl font-bold text-amber-900">{String(item.count)}</p>
@@ -194,7 +198,8 @@ export function TelemetriaPage(): JSX.Element {
           valueFormatter={formatSpeed}
           sourceLabel="RNDC publico"
           help={{
-            description: 'Evolucion temporal de la velocidad media calculada con registros GPS validos.',
+            description:
+              'Evolucion temporal de la velocidad media calculada con registros GPS validos.',
             xAxis: 'Cortes temporales del periodo seleccionado.',
             yAxis: 'Velocidad promedio en km/h.',
             interpretation:

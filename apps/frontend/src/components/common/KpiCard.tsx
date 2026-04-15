@@ -7,7 +7,10 @@ type KpiCardProps = {
   sourceLabel?: string;
 };
 
-export function KpiCard({ item, sourceLabel = 'Fuente no especificada' }: KpiCardProps): JSX.Element {
+export function KpiCard({
+  item,
+  sourceLabel = 'Fuente no especificada',
+}: KpiCardProps): JSX.Element {
   const trendLabel =
     item.trend === 'up' ? 'En aumento' : item.trend === 'down' ? 'En descenso' : '';
   const trendColor =

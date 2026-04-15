@@ -28,7 +28,10 @@ export function LoginPage(): JSX.Element {
             <p>Contrasena: TransData123*</p>
           </div>
 
-          <Link to="/" className="inline-block text-sm font-medium text-orange-700 hover:text-orange-800">
+          <Link
+            to="/"
+            className="inline-block text-sm font-medium text-orange-700 hover:text-orange-800"
+          >
             Volver al inicio
           </Link>
           <Link

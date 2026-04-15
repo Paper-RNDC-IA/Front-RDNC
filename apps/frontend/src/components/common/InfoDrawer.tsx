@@ -43,7 +43,9 @@ export function InfoDrawer({
           <aside className="h-full w-full max-w-md border-l border-zinc-200 bg-[#fffdfa] p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-xs uppercase tracking-[0.14em] text-orange-500">Guia del modulo</p>
+                <p className="text-xs uppercase tracking-[0.14em] text-orange-500">
+                  Guia del modulo
+                </p>
                 <h3 className="mt-1 text-lg font-semibold text-slate-900">{title}</h3>
               </div>
               <button
@@ -80,7 +82,10 @@ export function InfoDrawer({
                 <p className="text-xs uppercase tracking-wide text-slate-500">Usos recomendados</p>
                 <ul className="mt-2 space-y-2 text-sm text-slate-700">
                   {useCases.map((item) => (
-                    <li key={item} className="rounded-md border border-zinc-200 bg-[#fffdfa] px-2 py-1">
+                    <li
+                      key={item}
+                      className="rounded-md border border-zinc-200 bg-[#fffdfa] px-2 py-1"
+                    >
                       {item}
                     </li>
                   ))}

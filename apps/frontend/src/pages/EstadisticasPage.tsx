@@ -120,71 +120,73 @@ export function EstadisticasPage(): JSX.Element {
       ) : null}
       {!error && hasData ? (
         <>
-      <SectionHeader
-        title="KPIs principales"
-        description="Estos indicadores resumen volumen y estado operativo global para el rango de fechas consultado."
-      />
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {kpis.map((item) => (
-          <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
-        ))}
-      </div>
-      <SectionHeader
-        title="Visualizaciones"
-        description="Cada grafico responde una pregunta clave para la toma de decisiones."
-      />
-      <div className="grid gap-4 xl:grid-cols-2">
-        <LineChartWidget
-          title="Tendencia operativa"
-          subtitle="Serie temporal reportada por el backend en /stats/dashboard"
-          data={trendChart}
-          dataKey="value"
-          xKey="label"
-          metricLabel="Registros"
-          sourceLabel="RNDC publico"
-          help={{
-            description: 'Muestra la evolucion temporal del volumen total reportado por el backend.',
-            xAxis: 'Periodos o cortes temporales reportados.',
-            yAxis: 'Cantidad de registros agregados.',
-            interpretation:
-              'Una pendiente ascendente indica crecimiento de actividad; descendente sugiere contraccion frente al inicio del periodo.',
-          }}
-        />
-        <BarChartWidget
-          title="Resumen por modulo"
-          subtitle="Que modulos concentran mas actividad"
-          data={summaryChart}
-          dataKey="value"
-          xKey="label"
-          sortDescending
-          horizontal
-          valueLabel="Registros"
-          sourceLabel="RNDC publico"
-          help={{
-            description: 'Compara modulos para identificar donde se concentra la mayor actividad.',
-            xAxis: 'Volumen de registros.',
-            yAxis: 'Modulo analitico.',
-            interpretation:
-              'Las barras mas largas indican los modulos dominantes del periodo y ayudan a priorizar analisis.',
-          }}
-        />
-      </div>
-      <PieChartWidget
-        title="Participacion por modulo"
-        subtitle="Como se distribuye el volumen total entre modulos"
-        data={summaryDistribution}
-        dataKey="value"
-        nameKey="label"
-        sourceLabel="RNDC publico"
-        help={{
-          description: 'Presenta el peso relativo de cada modulo sobre el total de registros.',
-          xAxis: 'Categorias de modulo.',
-          yAxis: 'Participacion porcentual y volumen.',
-          interpretation:
-            'Categorias con mayor porcentaje representan la mayor contribucion al total consolidado.',
-        }}
-      />
-      <InsightsPanel title="Insights rapidos" items={insightItems} />
+          <SectionHeader
+            title="KPIs principales"
+            description="Estos indicadores resumen volumen y estado operativo global para el rango de fechas consultado."
+          />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {kpis.map((item) => (
+              <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
+            ))}
+          </div>
+          <SectionHeader
+            title="Visualizaciones"
+            description="Cada grafico responde una pregunta clave para la toma de decisiones."
+          />
+          <div className="grid gap-4 xl:grid-cols-2">
+            <LineChartWidget
+              title="Tendencia operativa"
+              subtitle="Serie temporal reportada por el backend en /stats/dashboard"
+              data={trendChart}
+              dataKey="value"
+              xKey="label"
+              metricLabel="Registros"
+              sourceLabel="RNDC publico"
+              help={{
+                description:
+                  'Muestra la evolucion temporal del volumen total reportado por el backend.',
+                xAxis: 'Periodos o cortes temporales reportados.',
+                yAxis: 'Cantidad de registros agregados.',
+                interpretation:
+                  'Una pendiente ascendente indica crecimiento de actividad; descendente sugiere contraccion frente al inicio del periodo.',
+              }}
+            />
+            <BarChartWidget
+              title="Resumen por modulo"
+              subtitle="Que modulos concentran mas actividad"
+              data={summaryChart}
+              dataKey="value"
+              xKey="label"
+              sortDescending
+              horizontal
+              valueLabel="Registros"
+              sourceLabel="RNDC publico"
+              help={{
+                description:
+                  'Compara modulos para identificar donde se concentra la mayor actividad.',
+                xAxis: 'Volumen de registros.',
+                yAxis: 'Modulo analitico.',
+                interpretation:
+                  'Las barras mas largas indican los modulos dominantes del periodo y ayudan a priorizar analisis.',
+              }}
+            />
+          </div>
+          <PieChartWidget
+            title="Participacion por modulo"
+            subtitle="Como se distribuye el volumen total entre modulos"
+            data={summaryDistribution}
+            dataKey="value"
+            nameKey="label"
+            sourceLabel="RNDC publico"
+            help={{
+              description: 'Presenta el peso relativo de cada modulo sobre el total de registros.',
+              xAxis: 'Categorias de modulo.',
+              yAxis: 'Participacion porcentual y volumen.',
+              interpretation:
+                'Categorias con mayor porcentaje representan la mayor contribucion al total consolidado.',
+            }}
+          />
+          <InsightsPanel title="Insights rapidos" items={insightItems} />
         </>
       ) : null}
     </section>

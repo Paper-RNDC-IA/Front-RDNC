@@ -19,10 +19,7 @@ export function ChatInput({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="border-t border-zinc-200 bg-[#fffaf6] px-2.5 py-2"
-    >
+    <form onSubmit={handleSubmit} className="border-t border-zinc-200 bg-[#fffaf6] px-2.5 py-2">
       <div className="flex items-end gap-2 rounded-xl border border-zinc-300 bg-white px-2 py-1.5 shadow-inner shadow-zinc-200/80">
         <textarea
           value={value}

@@ -173,7 +173,8 @@ export function EmpresasPage(): JSX.Element {
           nameKey="label"
           sourceLabel="RNDC publico"
           help={{
-            description: 'Distribuye empresas por estado operativo para lectura de composicion sectorial.',
+            description:
+              'Distribuye empresas por estado operativo para lectura de composicion sectorial.',
             xAxis: 'Estado de empresa.',
             yAxis: 'Participacion sobre el total de empresas.',
             interpretation:

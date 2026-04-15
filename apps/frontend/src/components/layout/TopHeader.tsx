@@ -76,7 +76,9 @@ export function TopHeader({ onOpenMenu }: TopHeaderProps): JSX.Element {
             Menu
           </button>
           <div className="border-l-4 border-orange-400 pl-3">
-            <h2 className="text-2xl font-semibold leading-tight text-slate-900">{headerMeta.title}</h2>
+            <h2 className="text-2xl font-semibold leading-tight text-slate-900">
+              {headerMeta.title}
+            </h2>
             <p className="mt-1 text-sm text-slate-600">{headerMeta.subtitle}</p>
           </div>
         </div>

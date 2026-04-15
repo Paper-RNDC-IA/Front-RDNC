@@ -223,11 +223,7 @@ export async function httpRequest<T>(path: string, init?: RequestInit): Promise<
       ? `La solicitud fallo con estado ${response.status}: ${payloadText}`
       : `La solicitud fallo con estado ${response.status}.`;
 
-    throw new HttpError(
-      errorMessage,
-      response.status,
-      payload,
-    );
+    throw new HttpError(errorMessage, response.status, payload);
   }
 
   return payload as T;

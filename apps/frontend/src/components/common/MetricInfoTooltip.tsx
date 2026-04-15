@@ -16,7 +16,7 @@ export function MetricInfoTooltip({
   className,
 }: MetricInfoTooltipProps): JSX.Element {
   return (
-    <div className={["group relative inline-flex", className ?? ''].join(' ')}>
+    <div className={['group relative inline-flex', className ?? ''].join(' ')}>
       <button
         type="button"
         className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-zinc-300 bg-white text-[11px] font-semibold text-slate-700 transition-colors hover:border-orange-300 hover:text-orange-700"

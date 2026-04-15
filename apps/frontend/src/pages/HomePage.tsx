@@ -64,9 +64,9 @@ export function HomePage(): JSX.Element {
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600">
               Este inicio esta pensado para que un evaluador entienda rapidamente que modulo
-              consultar, que tipo de dato utiliza cada vista y cual es su objetivo analitico.
-              Cada bloque de navegacion distingue claramente entre datos publicos, privados y
-              analisis territorial.
+              consultar, que tipo de dato utiliza cada vista y cual es su objetivo analitico. Cada
+              bloque de navegacion distingue claramente entre datos publicos, privados y analisis
+              territorial.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-3">

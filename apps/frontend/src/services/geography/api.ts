@@ -12,7 +12,10 @@ function buildDateQuery(dateRange?: DateRange): Record<string, string> {
 }
 
 export async function fetchProductionMap(dateRange?: DateRange): Promise<MapLayerApiItem[]> {
-  const response = await api.get<unknown>(endpoints.routes.productionMap, buildDateQuery(dateRange));
+  const response = await api.get<unknown>(
+    endpoints.routes.productionMap,
+    buildDateQuery(dateRange),
+  );
   return Array.isArray(response) ? (response as MapLayerApiItem[]) : [];
 }
 
