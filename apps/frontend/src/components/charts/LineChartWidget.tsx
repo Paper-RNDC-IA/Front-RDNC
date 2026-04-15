@@ -138,7 +138,6 @@ export function LineChartWidget({
             xAxis={help.xAxis}
             yAxis={help.yAxis}
             interpretation={help.interpretation}
-            source={sourceLabel ?? 'No especificada'}
           />
         ) : null}
       </div>
