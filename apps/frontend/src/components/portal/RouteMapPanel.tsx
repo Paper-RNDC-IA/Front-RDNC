@@ -20,7 +20,9 @@ function EventBadge({ level }: { level: string }): JSX.Element {
           : 'border-slate-300 bg-slate-50 text-slate-700';
 
   return (
-    <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold uppercase ${className}`}>
+    <span
+      className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold uppercase ${className}`}
+    >
       {level}
     </span>
   );
@@ -81,12 +83,16 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
         </p>
       </Card>
 
-      {error ? <ErrorState title="Error cargando recorridos" message={error} onRetry={refresh} /> : null}
+      {error ? (
+        <ErrorState title="Error cargando recorridos" message={error} onRetry={refresh} />
+      ) : null}
 
       <Card title="Filtros del recorrido">
         <div className="grid gap-3 lg:grid-cols-3">
           <label className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">Archivo</span>
+            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Archivo
+            </span>
             <select
               value={filters.fileId}
               onChange={(event) => setFileId(event.target.value)}
@@ -103,7 +109,9 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
           </label>
 
           <label className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">Vehiculo</span>
+            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Vehiculo
+            </span>
             <select
               value={filters.vehicleId}
               onChange={(event) => setVehicleId(event.target.value)}
@@ -120,7 +128,9 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
           </label>
 
           <label className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">Mes</span>
+            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Mes
+            </span>
             <select
               value={filters.month}
               onChange={(event) => setMonth(event.target.value)}
@@ -153,13 +163,15 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
             <div className="rounded-xl border border-[#f0d8c7] bg-[#fff8f2] px-3 py-2 text-xs text-slate-700">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-2">
-                  <span className="route-marker route-marker-start route-marker-inline">I</span> Inicio
+                  <span className="route-marker route-marker-start route-marker-inline">I</span>{' '}
+                  Inicio
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <span className="route-marker route-marker-end route-marker-inline">F</span> Fin
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <span className="route-marker route-marker-event route-marker-inline">!</span> Eventos
+                  <span className="route-marker route-marker-event route-marker-inline">!</span>{' '}
+                  Eventos
                 </span>
               </div>
             </div>
@@ -173,7 +185,9 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                     key={item.label}
                     className="rounded-xl border border-[#f0d7c3] bg-[#fffbf8] px-3 py-2"
                   >
-                    <p className="text-[11px] uppercase tracking-wide text-slate-500">{item.label}</p>
+                    <p className="text-[11px] uppercase tracking-wide text-slate-500">
+                      {item.label}
+                    </p>
                     <p className="text-sm font-semibold text-[#7c3310]">{item.value}</p>
                   </div>
                 ))}
@@ -195,12 +209,16 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                         <EventBadge level={event.severity} />
                       </div>
                       <p className="text-xs text-slate-600">{event.description}</p>
-                      <p className="mt-1 text-[11px] text-slate-500">{event.timestamp || 'Sin timestamp'}</p>
+                      <p className="mt-1 text-[11px] text-slate-500">
+                        {event.timestamp || 'Sin timestamp'}
+                      </p>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-slate-500">No se detectaron eventos para los filtros seleccionados.</p>
+                <p className="text-sm text-slate-500">
+                  No se detectaron eventos para los filtros seleccionados.
+                </p>
               )}
             </Card>
           </div>
