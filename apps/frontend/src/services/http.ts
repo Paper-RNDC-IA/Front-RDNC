@@ -69,9 +69,16 @@ function getAuthHeader(): Record<string, string> {
       return {};
     }
 
-    const parsed = JSON.parse(raw) as { token?: string };
+    const parsed = JSON.parse(raw) as {
+      token?: string;
+      access_token?: string;
+      accessToken?: string;
+    };
+    const token = parsed.token ?? parsed.access_token ?? parsed.accessToken;
 
-    return parsed.token ? { Authorization: `Bearer ${parsed.token}` } : {};
+    return typeof token === 'string' && token.trim().length > 0
+      ? { Authorization: `Bearer ${token}` }
+      : {};
   } catch {
     return {};
   }
@@ -173,35 +180,50 @@ function resolveValidationErrorMessage(payload: unknown): string {
 
 export async function httpRequest<T>(path: string, init?: RequestInit): Promise<T> {
   const url = resolveUrl(path);
-  const controller = new AbortController();
   const timeout = Number.isFinite(REQUEST_TIMEOUT_MS) ? REQUEST_TIMEOUT_MS : 25000;
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
-
+  const authHeader = getAuthHeader();
+  const hasAuthToken = typeof authHeader.Authorization === 'string' && authHeader.Authorization.length > 0;
   let response: Response;
 
-  try {
-    response = await fetch(url, {
-      credentials: 'include',
-      ...init,
-      signal: controller.signal,
-      headers: {
-        Accept: 'application/json',
-        ...(init?.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
-        ...getAuthHeader(),
-        ...init?.headers,
-      },
-    });
-  } catch (error) {
-    clearTimeout(timeoutId);
+  const attemptRequest = async (attempt: number): Promise<Response> => {
+    const controller = new AbortController();
+    const attemptTimeout = attempt === 1 ? timeout : Math.round(timeout * 1.8);
+    const timeoutId = setTimeout(() => controller.abort(), attemptTimeout);
 
-    if (error instanceof DOMException && error.name === 'AbortError') {
-      throw new HttpError(`La solicitud supero el tiempo limite (${timeout} ms).`, 408, null);
+    try {
+      return await fetch(url, {
+        credentials: 'include',
+        ...init,
+        signal: controller.signal,
+        headers: {
+          Accept: 'application/json',
+          ...(init?.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
+          ...authHeader,
+          ...init?.headers,
+        },
+      });
+    } finally {
+      clearTimeout(timeoutId);
     }
+  };
 
-    throw new HttpError('No fue posible conectar con el backend.', 0, null);
+  try {
+    response = await attemptRequest(1);
+  } catch (error) {
+    const isTimeout = error instanceof DOMException && error.name === 'AbortError';
+
+    // Retry once for transient cold starts or brief network hiccups.
+    try {
+      response = await attemptRequest(2);
+    } catch {
+      if (isTimeout) {
+        throw new HttpError(`La solicitud supero el tiempo limite (${timeout} ms).`, 408, null);
+      }
+
+      throw new HttpError('No fue posible conectar con el backend.', 0, null);
+    }
   }
 
-  clearTimeout(timeoutId);
   logDevRequest(init?.method ?? 'GET', url, response.status);
   persistApiSyncInfo(response);
 
@@ -214,6 +236,18 @@ export async function httpRequest<T>(path: string, init?: RequestInit): Promise<
     : null;
 
   if (!response.ok) {
+    if (response.status === 401) {
+      const payloadText = readPayloadText(payload);
+
+      if (payloadText.toLowerCase().includes('token requerido')) {
+        const message = hasAuthToken
+          ? 'Autenticacion rechazada por backend (401): se envio token, pero el servidor no lo acepto para este endpoint.'
+          : 'Sesion no encontrada en frontend (401): no se envio token de autenticacion. Inicia sesion nuevamente.';
+
+        throw new HttpError(message, response.status, payload);
+      }
+    }
+
     if (response.status === 422) {
       throw new HttpError(resolveValidationErrorMessage(payload), response.status, payload);
     }

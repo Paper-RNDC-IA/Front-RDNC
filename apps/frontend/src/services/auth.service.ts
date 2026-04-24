@@ -8,11 +8,16 @@ import type {
 
 import { api } from './api';
 import { endpoints } from './endpoints';
+import { HttpError } from './http';
 
 const SESSION_STORAGE_KEY = 'transdata-rndc:company-session';
 
 function isExpired(expiresAt: string): boolean {
   return new Date(expiresAt).getTime() <= Date.now();
+}
+
+function hasToken(token: unknown): token is string {
+  return typeof token === 'string' && token.trim().length > 0;
 }
 
 function storeSession(session: SessionUser): void {
@@ -29,7 +34,7 @@ export function getStoredSession(): SessionUser | null {
   try {
     const parsed = JSON.parse(raw) as SessionUser;
 
-    if (!parsed.expiresAt || isExpired(parsed.expiresAt)) {
+    if (!hasToken(parsed.token) || !parsed.expiresAt || isExpired(parsed.expiresAt)) {
       localStorage.removeItem(SESSION_STORAGE_KEY);
       return null;
     }
@@ -91,10 +96,18 @@ export async function getCurrentSession(): Promise<SessionUser | null> {
 
   try {
     const response = await api.get<LoginResponseApi>(endpoints.auth.me);
-    const session = adaptSession(response);
+    const session = adaptSession(response, {
+      token: existingSession.token,
+      expiresAt: existingSession.expiresAt,
+    });
     storeSession(session);
     return session;
-  } catch {
+  } catch (error) {
+    if (error instanceof HttpError && (error.status === 401 || error.status === 403)) {
+      localStorage.removeItem(SESSION_STORAGE_KEY);
+      return null;
+    }
+
     return existingSession;
   }
 }

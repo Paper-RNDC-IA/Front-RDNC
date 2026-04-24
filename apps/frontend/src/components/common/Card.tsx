@@ -10,15 +10,14 @@ export function Card({ title, actions, className, children }: CardProps): JSX.El
   return (
     <section
       className={[
-        'relative overflow-hidden rounded-2xl border-2 border-zinc-300 bg-white p-5 shadow-[0_14px_28px_rgba(15,23,42,0.08)]',
+        'relative overflow-hidden rounded-[20px] border border-[#d2daeb] bg-white p-5 shadow-[0_10px_24px_rgba(20,49,94,0.08)]',
         className ?? '',
       ].join(' ')}
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[4px] bg-gradient-to-r from-orange-300 via-orange-500 to-orange-300" />
       {(title || actions) && (
         <header className="mb-4 flex items-center justify-between gap-3">
           {title ? (
-            <h3 className="text-xl font-semibold tracking-wide text-slate-900">{title}</h3>
+            <h3 className="text-2xl font-semibold tracking-tight text-[#193a67]">{title}</h3>
           ) : (
             <span />
           )}

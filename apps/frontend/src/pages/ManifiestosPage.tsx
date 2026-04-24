@@ -129,7 +129,7 @@ export function ManifiestosPage(): JSX.Element {
             title="KPIs del modulo"
             description="Indicadores clave para seguimiento del volumen y comportamiento de manifiestos."
           />
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
             {kpis.map((item) => (
               <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
             ))}
@@ -138,7 +138,7 @@ export function ManifiestosPage(): JSX.Element {
             title="Tendencia y composicion"
             description="Este bloque muestra como cambia el volumen y en que categorias se concentra."
           />
-          <div className="grid gap-6 xl:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
             <LineChartWidget
               title="Tendencia de manifiestos"
               subtitle="Como evoluciona el total de manifiestos por periodo"
@@ -194,7 +194,7 @@ export function ManifiestosPage(): JSX.Element {
             title="Rankings"
             description="Compara corredores y empresas para detectar concentracion operativa."
           />
-          <div className="grid gap-6 xl:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
             <DataTable
               title="Ranking de rutas"
               subtitle="Top corredores por cantidad de viajes y toneladas reportadas."

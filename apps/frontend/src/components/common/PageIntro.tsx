@@ -26,16 +26,16 @@ export function PageIntro({
   moduleGuide,
 }: PageIntroProps): JSX.Element {
   return (
-    <Card className="border-orange-200/70 bg-gradient-to-b from-[#fffdfb] to-white">
+    <Card className="border-[#d2daeb] bg-gradient-to-b from-[#fbfcff] to-white">
       <div className="space-y-5">
-        <div className="max-w-3xl border-l-4 border-orange-400 pl-4">
-          <p className="text-xs uppercase tracking-[0.18em] text-orange-600">Analitica operativa</p>
-          <h2 className="mt-1 text-4xl font-semibold leading-tight text-slate-900 md:text-5xl">
+        <div className="max-w-4xl border-l-4 border-[#f07b1b] pl-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#f07b1b]">Analitica operativa</p>
+          <h2 className="mt-1 text-4xl font-semibold leading-tight text-[#173a68] md:text-5xl">
             {title}
           </h2>
-          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-slate-700">{subtitle}</p>
+          <p className="mt-3 max-w-3xl text-lg leading-relaxed text-[#556f98]">{subtitle}</p>
           {periodLabel ? (
-            <p className="mt-3 inline-flex rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-slate-600">
+            <p className="mt-3 inline-flex rounded-full border border-[#d7deee] bg-[#f8faff] px-3 py-1 text-sm text-[#496892]">
               Periodo: {periodLabel}
             </p>
           ) : null}

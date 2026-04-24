@@ -19,14 +19,14 @@ export function CompanyFilesTable({
   return (
     <Card title="Archivos internos cargados">
       <div className="overflow-x-auto">
-        <table className="min-w-full text-left text-sm">
+        <table className="min-w-full text-left text-xs sm:text-sm">
           <thead>
             <tr className="border-b border-slate-800 text-slate-400">
-              <th className="px-3 py-2 font-medium">Archivo</th>
-              <th className="px-3 py-2 font-medium">Modulo</th>
-              <th className="px-3 py-2 font-medium">Registros</th>
-              <th className="px-3 py-2 font-medium">Estado</th>
-              <th className="px-3 py-2 font-medium">Acciones</th>
+              <th className="whitespace-nowrap px-2 py-2 font-medium sm:px-3">Archivo</th>
+              <th className="whitespace-nowrap px-2 py-2 font-medium sm:px-3">Modulo</th>
+              <th className="whitespace-nowrap px-2 py-2 font-medium sm:px-3">Registros</th>
+              <th className="whitespace-nowrap px-2 py-2 font-medium sm:px-3">Estado</th>
+              <th className="whitespace-nowrap px-2 py-2 font-medium sm:px-3">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -44,14 +44,14 @@ export function CompanyFilesTable({
                       : 'text-slate-200 hover:bg-slate-800/40',
                   ].join(' ')}
                 >
-                  <td className="px-3 py-2">
+                  <td className="px-2 py-2 sm:px-3">
                     <div className="font-medium">{row.fileName}</div>
                     <div className="text-xs text-slate-400">{row.uploadedAt}</div>
                   </td>
-                  <td className="px-3 py-2">{row.module}</td>
-                  <td className="px-3 py-2">{row.records}</td>
-                  <td className="px-3 py-2">{row.status}</td>
-                  <td className="px-3 py-2">
+                  <td className="px-2 py-2 sm:px-3">{row.module}</td>
+                  <td className="px-2 py-2 sm:px-3">{row.records}</td>
+                  <td className="px-2 py-2 sm:px-3">{row.status}</td>
+                  <td className="px-2 py-2 sm:px-3">
                     <div className="flex flex-wrap gap-2">
                       <button
                         type="button"

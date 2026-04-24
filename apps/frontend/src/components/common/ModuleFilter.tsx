@@ -17,11 +17,11 @@ const modules: Array<{ label: string; value: ExportModule }> = [
 
 export function ModuleFilter({ value, onChange }: ModuleFilterProps): JSX.Element {
   return (
-    <Card title="Filtro por modulo">
+    <Card title="Filtro por modulo" className="border-[#d2daeb] bg-[#f7f9fe]">
       <select
         value={value}
         onChange={(event) => onChange(event.target.value as ExportModule)}
-        className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
+        className="w-full rounded-lg border border-[#cbd7eb] bg-white px-3 py-2 text-[#1d3d68]"
       >
         {modules.map((item) => (
           <option key={item.value} value={item.value}>

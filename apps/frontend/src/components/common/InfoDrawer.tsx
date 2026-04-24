@@ -40,7 +40,7 @@ export function InfoDrawer({
             onClick={() => setOpen(false)}
           />
 
-          <aside className="h-full w-full max-w-md border-l border-zinc-200 bg-[#fffdfa] p-5">
+          <aside className="h-full w-full max-w-md border-l border-zinc-200 bg-[#fffdfa] p-3 sm:p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-xs uppercase tracking-[0.14em] text-orange-500">
@@ -57,7 +57,7 @@ export function InfoDrawer({
               </button>
             </div>
 
-            <div className="mt-5 space-y-4 text-sm text-slate-700">
+            <div className="mt-4 space-y-3 text-xs text-slate-700 sm:mt-5 sm:space-y-4 sm:text-sm">
               <section className="rounded-xl border border-zinc-200 bg-white p-3">
                 <p className="text-xs uppercase tracking-wide text-slate-500">Proposito</p>
                 <p className="mt-1 leading-relaxed">{purpose}</p>

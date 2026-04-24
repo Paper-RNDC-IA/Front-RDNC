@@ -28,6 +28,13 @@ export const endpoints = {
     report: '/api/telemetry/report',
     upload: '/api/telemetry/upload',
   },
+  telemetryRoutes: {
+    files: '/api/telemetry/routes/files',
+    vehicles: '/api/telemetry/routes/vehicles',
+    months: '/api/telemetry/routes/months',
+    map: '/api/telemetry/routes/map',
+    events: '/api/telemetry/routes/events',
+  },
   routes: {
     kpis: '/api/routes/kpis',
     corridors: '/api/routes/corridors',

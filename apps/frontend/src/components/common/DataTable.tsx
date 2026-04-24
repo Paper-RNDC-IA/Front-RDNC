@@ -36,7 +36,7 @@ export function DataTable<T extends object>({
       className="bg-gradient-to-b from-white to-[#fffaf6]"
       title={title}
       actions={
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {sourceLabel ? (
             <span className="rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-700 shadow-sm">
               Fuente: {sourceLabel}
@@ -55,11 +55,11 @@ export function DataTable<T extends object>({
     >
       {subtitle ? <p className="mb-3 text-xs text-slate-500">{subtitle}</p> : null}
       <div className="overflow-x-auto">
-        <table className="min-w-full text-left text-sm">
+        <table className="min-w-full text-left text-xs sm:text-sm">
           <thead>
             <tr className="border-b-2 border-zinc-200 text-slate-600">
               {columns.map((column) => (
-                <th key={column.key} className="px-3 py-2 font-medium">
+                <th key={column.key} className="whitespace-nowrap px-2 py-2 font-medium sm:px-3">
                   {column.label}
                 </th>
               ))}
@@ -68,7 +68,7 @@ export function DataTable<T extends object>({
           <tbody>
             {!visibleRows.length ? (
               <tr>
-                <td colSpan={columns.length} className="px-3 py-5 text-center text-slate-500">
+                <td colSpan={columns.length} className="px-2 py-5 text-center text-slate-500 sm:px-3">
                   No hay registros para este rango.
                 </td>
               </tr>
@@ -83,7 +83,7 @@ export function DataTable<T extends object>({
                   const value = row[column.key];
 
                   return (
-                    <td key={`${String(row[rowKey])}-${column.key}`} className="px-3 py-2">
+                    <td key={`${String(row[rowKey])}-${column.key}`} className="px-2 py-2 sm:px-3">
                       {typeof value === 'string' || typeof value === 'number' ? value : ''}
                     </td>
                   );

@@ -13,13 +13,13 @@ export type RegisterCompanyRequest = {
 };
 
 export type LoginResponseApi = {
-  access_token: string;
-  token_type: 'bearer';
+  access_token?: string;
+  token_type?: 'bearer';
   company_id: string;
   company_name: string;
   company_nit?: string;
   email: string;
-  expires_at: string;
+  expires_at?: string;
 };
 
 export type SessionUser = {

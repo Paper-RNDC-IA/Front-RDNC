@@ -63,10 +63,10 @@ export function TopHeader({ onOpenMenu }: TopHeaderProps): JSX.Element {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b-2 border-zinc-200 bg-white/95 px-5 py-4 shadow-[0_6px_16px_rgba(15,23,42,0.06)] backdrop-blur md:px-10 relative">
+    <header className="sticky relative top-0 z-30 border-b-2 border-zinc-200 bg-white/95 px-4 py-3 shadow-[0_6px_16px_rgba(15,23,42,0.06)] backdrop-blur sm:px-5 sm:py-4 md:px-10">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-orange-300 via-orange-500 to-orange-300 opacity-90" />
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
+        <div className="flex min-w-0 items-start gap-2 sm:items-center sm:gap-3">
           <button
             type="button"
             className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-slate-700 md:hidden"
@@ -75,17 +75,17 @@ export function TopHeader({ onOpenMenu }: TopHeaderProps): JSX.Element {
           >
             Menu
           </button>
-          <div className="border-l-4 border-orange-400 pl-3">
-            <h2 className="text-2xl font-semibold leading-tight text-slate-900">
+          <div className="min-w-0 border-l-4 border-orange-400 pl-3">
+            <h2 className="text-xl font-semibold leading-tight text-slate-900 sm:text-2xl">
               {headerMeta.title}
             </h2>
-            <p className="mt-1 text-sm text-slate-600">{headerMeta.subtitle}</p>
+            <p className="mt-1 text-xs text-slate-600 sm:text-sm">{headerMeta.subtitle}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
           {session ? (
             <>
-              <div className="rounded-full border border-orange-300 bg-orange-50 px-3 py-1.5 text-xs font-semibold text-orange-700 shadow-sm">
+              <div className="rounded-full border border-orange-300 bg-orange-50 px-2.5 py-1.5 text-xs font-semibold text-orange-700 shadow-sm sm:px-3">
                 {session.companyName}
               </div>
               <button
