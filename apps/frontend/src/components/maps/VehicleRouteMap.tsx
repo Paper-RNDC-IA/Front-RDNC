@@ -1,12 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  Polyline,
-  TileLayer,
-  useMap,
-} from 'react-leaflet';
+import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from 'react-leaflet';
 import L, { type LatLngBoundsExpression, type LatLngTuple } from 'leaflet';
 
 import type { VehicleRouteMap as VehicleRouteMapModel } from '../../types/company-routes';
@@ -23,8 +16,8 @@ type FitBoundsProps = {
 
 const COLOMBIA_CENTER: LatLngTuple = [4.5709, -74.2973];
 const COLOMBIA_BOUNDS: LatLngBoundsExpression = [
-  [ -4.3, -81.9 ],
-  [ 13.5, -66.7 ],
+  [-4.3, -81.9],
+  [13.5, -66.7],
 ];
 
 function FitBounds({ positions }: FitBoundsProps): JSX.Element | null {
@@ -70,7 +63,9 @@ export function VehicleRouteMap({
       <div className="route-map-shell">
         <div className="route-map-empty">
           <p className="text-sm font-semibold text-slate-900">Cargando recorrido</p>
-          <p className="mt-1 text-xs text-slate-500">Preparando trayectoria y eventos del vehiculo.</p>
+          <p className="mt-1 text-xs text-slate-500">
+            Preparando trayectoria y eventos del vehiculo.
+          </p>
         </div>
       </div>
     );
@@ -88,7 +83,7 @@ export function VehicleRouteMap({
           className="route-map-canvas"
         >
           <TileLayer
-            attribution='&copy; OpenStreetMap contributors'
+            attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
         </MapContainer>
@@ -96,7 +91,8 @@ export function VehicleRouteMap({
         <div className="route-map-empty">
           <p className="text-sm font-semibold text-slate-900">Mapa base de Colombia</p>
           <p className="mt-1 text-xs text-slate-500">
-            Cuando subas y proceses un Excel con coordenadas validas, aqui se dibuja la ruta del vehiculo.
+            Cuando subas y proceses un Excel con coordenadas validas, aqui se dibuja la ruta del
+            vehiculo.
           </p>
         </div>
       </div>
@@ -110,7 +106,7 @@ export function VehicleRouteMap({
     <div className="route-map-shell">
       <MapContainer center={positions[0]} zoom={6} scrollWheelZoom className="route-map-canvas">
         <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
+          attribution="&copy; OpenStreetMap contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 

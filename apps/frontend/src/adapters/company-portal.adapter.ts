@@ -42,17 +42,15 @@ function resolveInsightKpis(insight: CompanyFileInsightApi): Array<{
   const raw = (insight as { kpis?: unknown }).kpis;
 
   if (Array.isArray(raw)) {
-    return raw
-      .filter(isRecord)
-      .map((item) => ({
-        label: String(item.label ?? 'KPI'),
-        value: toNumber(item.value),
-        delta: typeof item.delta === 'string' ? item.delta : undefined,
-        trend:
-          item.trend === 'up' || item.trend === 'down' || item.trend === 'neutral'
-            ? item.trend
-            : undefined,
-      }));
+    return raw.filter(isRecord).map((item) => ({
+      label: String(item.label ?? 'KPI'),
+      value: toNumber(item.value),
+      delta: typeof item.delta === 'string' ? item.delta : undefined,
+      trend:
+        item.trend === 'up' || item.trend === 'down' || item.trend === 'neutral'
+          ? item.trend
+          : undefined,
+    }));
   }
 
   if (!isRecord(raw)) {
@@ -65,16 +63,16 @@ function resolveInsightKpis(insight: CompanyFileInsightApi): Array<{
   }));
 }
 
-function resolveInsightTrend(insight: CompanyFileInsightApi): Array<{ period: string; total: number }> {
+function resolveInsightTrend(
+  insight: CompanyFileInsightApi,
+): Array<{ period: string; total: number }> {
   const raw = (insight as { trend?: unknown }).trend;
 
   if (Array.isArray(raw)) {
-    return raw
-      .filter(isRecord)
-      .map((item) => ({
-        period: String(item.period ?? item.label ?? 'N/A'),
-        total: toNumber(item.total ?? item.value),
-      }));
+    return raw.filter(isRecord).map((item) => ({
+      period: String(item.period ?? item.label ?? 'N/A'),
+      total: toNumber(item.total ?? item.value),
+    }));
   }
 
   if (!isRecord(raw)) {
@@ -93,12 +91,10 @@ function resolveInsightCategories(
   const raw = (insight as { categories?: unknown }).categories;
 
   if (Array.isArray(raw)) {
-    return raw
-      .filter(isRecord)
-      .map((item) => ({
-        label: String(item.label ?? 'Categoria'),
-        total: toNumber(item.total ?? item.value),
-      }));
+    return raw.filter(isRecord).map((item) => ({
+      label: String(item.label ?? 'Categoria'),
+      total: toNumber(item.total ?? item.value),
+    }));
   }
 
   if (!isRecord(raw)) {
@@ -224,7 +220,8 @@ export function adaptInsightRows(
 ): Array<Record<string, string | number>> {
   const categories = resolveInsightCategories(insight);
   const fileId =
-    (insight as { file_id?: unknown }).file_id && typeof (insight as { file_id?: unknown }).file_id === 'string'
+    (insight as { file_id?: unknown }).file_id &&
+    typeof (insight as { file_id?: unknown }).file_id === 'string'
       ? (insight as { file_id: string }).file_id
       : 'sin-archivo';
 
