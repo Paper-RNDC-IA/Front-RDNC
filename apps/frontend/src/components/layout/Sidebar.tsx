@@ -46,7 +46,7 @@ export function Sidebar({ open, onNavigate }: SidebarProps): JSX.Element {
   return (
     <aside
       className={[
-        'fixed inset-y-0 left-0 z-40 w-72 border-r-2 border-zinc-200 bg-[#fffdfa] px-5 py-7 shadow-[10px_0_28px_rgba(15,23,42,0.06)] transition-transform duration-300 md:sticky md:top-0 md:h-screen md:translate-x-0 md:w-64',
+        'fixed inset-y-0 left-0 z-40 flex w-72 flex-col overflow-y-auto overscroll-contain border-r-2 border-zinc-200 bg-[#fffdfa] px-5 py-7 shadow-[10px_0_28px_rgba(15,23,42,0.06)] transition-transform duration-300 md:sticky md:top-0 md:h-screen md:translate-x-0 md:w-64',
         open ? 'translate-x-0' : '-translate-x-full',
       ].join(' ')}
     >
@@ -56,7 +56,7 @@ export function Sidebar({ open, onNavigate }: SidebarProps): JSX.Element {
         <p className="mt-1 text-xs text-slate-600">Monitoreo de carga terrestre</p>
       </div>
 
-      <nav className="space-y-3">
+      <nav className="flex-1 space-y-3 overflow-y-auto pr-1">
         {navGroups.map((group) => (
           <section key={group.title} className="pb-2 last:pb-0">
             <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{group.title}</p>

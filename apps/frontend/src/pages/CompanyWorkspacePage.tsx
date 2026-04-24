@@ -8,6 +8,7 @@ import { KpiCard } from '../components/common/KpiCard';
 import { LoadingState } from '../components/common/LoadingState';
 import { DataSourceBadge } from '../components/common/DataSourceBadge';
 import { PageIntro } from '../components/common/PageIntro';
+import { RouteMapPanel } from '../components/portal/RouteMapPanel';
 import { useCompanyWorkspacePage } from '../hooks/useCompanyWorkspacePage';
 
 export function CompanyWorkspacePage(): JSX.Element {
@@ -141,6 +142,8 @@ export function CompanyWorkspacePage(): JSX.Element {
           onExportPdf={onExportPdf}
         />
       </div>
+
+      <RouteMapPanel companyId={session.companyId} selectedFileId={selectedFileId} />
     </section>
   );
 }

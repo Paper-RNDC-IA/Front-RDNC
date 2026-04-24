@@ -20,7 +20,7 @@ export function ChartCard({
   return (
     <Card
       title={title}
-      className="bg-gradient-to-b from-white to-[#fffcf9]"
+      className="border-[#d2daeb] bg-gradient-to-b from-white to-[#f8fbff]"
       actions={
         <div className="flex items-center gap-2">
           {sourceLabel ? null : null}
@@ -34,8 +34,8 @@ export function ChartCard({
         </div>
       }
     >
-      {subtitle ? <p className="-mt-1 mb-4 text-xs text-slate-600">{subtitle}</p> : null}
-      <div className="min-h-[260px] w-full">{children}</div>
+      {subtitle ? <p className="-mt-1 mb-4 text-xs text-[#5a759c]">{subtitle}</p> : null}
+      <div className="min-h-[220px] w-full sm:min-h-[260px] md:min-h-[300px]">{children}</div>
     </Card>
   );
 }

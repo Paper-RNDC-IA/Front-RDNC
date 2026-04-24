@@ -161,7 +161,7 @@ export function TelemetriaPage(): JSX.Element {
         title="KPIs operativos"
         description="Lectura rapida de desempeno de flota y variables de seguridad."
       />
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
         {kpis.map((item) => (
           <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
         ))}
@@ -170,7 +170,7 @@ export function TelemetriaPage(): JSX.Element {
         title="Alertas criticas"
         description="Top alertas para priorizar supervision y acciones preventivas."
       />
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {criticalCards.map((item) => (
           <Card
             key={String(item.type)}
@@ -187,7 +187,7 @@ export function TelemetriaPage(): JSX.Element {
         title="Tendencia y zonas de riesgo"
         description="Compara evolucion de velocidad con concentracion de alertas y eventos."
       />
-      <div className="grid gap-6 xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
         <LineChartWidget
           title="Velocidad promedio"
           subtitle="Este grafico muestra la evolucion temporal de la velocidad media de la flota."
@@ -242,7 +242,7 @@ export function TelemetriaPage(): JSX.Element {
         }}
       />
 
-      <div className="grid gap-6 xl:grid-cols-[1.2fr_1fr]">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 xl:grid-cols-[1.2fr_1fr]">
         <BarChartWidget
           title="Eventos de seguridad"
           subtitle="Top eventos que afectan seguridad y continuidad operacional."
@@ -288,7 +288,7 @@ export function TelemetriaPage(): JSX.Element {
         title="Detalle operativo"
         description="Tablas para revision puntual de corredores, alertas y eventos consolidados."
       />
-      <div className="grid gap-6 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
         <DataTable
           title="Corredor principal"
           subtitle="Segmentos con mayor flujo y su velocidad promedio."

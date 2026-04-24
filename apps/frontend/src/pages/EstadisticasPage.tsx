@@ -124,7 +124,7 @@ export function EstadisticasPage(): JSX.Element {
             title="KPIs principales"
             description="Estos indicadores resumen volumen y estado operativo global para el rango de fechas consultado."
           />
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
             {kpis.map((item) => (
               <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
             ))}
@@ -133,7 +133,7 @@ export function EstadisticasPage(): JSX.Element {
             title="Visualizaciones"
             description="Cada grafico responde una pregunta clave para la toma de decisiones."
           />
-          <div className="grid gap-4 xl:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <LineChartWidget
               title="Tendencia operativa"
               subtitle="Serie temporal reportada por el backend en /stats/dashboard"

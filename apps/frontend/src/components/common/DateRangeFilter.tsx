@@ -27,9 +27,9 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
   }
 
   return (
-    <Card title="Filtro por fechas">
+    <Card title="Filtro por fechas" className="border-[#d2daeb] bg-[#f7f9fe]">
       <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto] md:items-end">
-        <label className="space-y-1 text-sm text-slate-700">
+        <label className="space-y-1 text-sm text-[#425f8b]">
           <span>Desde</span>
           <input
             type="date"
@@ -40,10 +40,10 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
                 from: normalizeDateInput(event.target.value),
               })
             }
-            className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
+            className="w-full rounded-lg border border-[#cbd7eb] bg-white px-3 py-2 text-[#1d3d68]"
           />
         </label>
-        <label className="space-y-1 text-sm text-slate-700">
+        <label className="space-y-1 text-sm text-[#425f8b]">
           <span>Hasta</span>
           <input
             type="date"
@@ -54,18 +54,18 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
                 to: normalizeDateInput(event.target.value),
               })
             }
-            className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-slate-900"
+            className="w-full rounded-lg border border-[#cbd7eb] bg-white px-3 py-2 text-[#1d3d68]"
           />
         </label>
         <button
           type="button"
           onClick={handleSearch}
-          className="rounded-md border border-orange-500 bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="rounded-full border border-[#ef8e39] bg-[#f07b1b] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#e46e10] focus:outline-none focus:ring-2 focus:ring-orange-300"
         >
           Buscar
         </button>
       </div>
-      <p className="mt-2 text-xs text-slate-500">
+      <p className="mt-2 text-xs text-[#627ca3]">
         Los resultados se actualizan cuando presionas Buscar.
       </p>
       {validationMessage ? <p className="mt-1 text-xs text-red-600">{validationMessage}</p> : null}

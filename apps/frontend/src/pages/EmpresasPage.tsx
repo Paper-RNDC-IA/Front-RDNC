@@ -137,7 +137,7 @@ export function EmpresasPage(): JSX.Element {
         title="KPIs empresariales"
         description="Indicadores agregados para medir capacidad y comportamiento del tejido empresarial."
       />
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
         {kpis.map((item) => (
           <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
         ))}
@@ -146,7 +146,7 @@ export function EmpresasPage(): JSX.Element {
         title="Comparativo y detalle"
         description="Selecciona una empresa en la tabla para revisar su ficha de comportamiento."
       />
-      <div className="grid gap-6 xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
         <BarChartWidget
           title="Top empresas por vehiculos"
           subtitle="Ranking de capacidad activa para priorizar seguimiento"
@@ -182,7 +182,7 @@ export function EmpresasPage(): JSX.Element {
           }}
         />
       </div>
-      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 xl:grid-cols-[2fr_1fr]">
         <DataTable
           title="Empresas habilitadas"
           subtitle="Ranking operativo de empresas registradas con posibilidad de drill-down en detalle."

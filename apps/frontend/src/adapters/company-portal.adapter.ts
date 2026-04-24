@@ -17,6 +17,118 @@ export type CompanyFileRow = {
   module: string;
 };
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
+function toNumber(value: unknown): number {
+  return typeof value === 'number' ? value : Number(value ?? 0);
+}
+
+function toLabelFromKey(key: string): string {
+  return key
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function resolveInsightKpis(insight: CompanyFileInsightApi): Array<{
+  label: string;
+  value: number;
+  delta?: string;
+  trend?: 'up' | 'down' | 'neutral';
+}> {
+  const raw = (insight as { kpis?: unknown }).kpis;
+
+  if (Array.isArray(raw)) {
+    return raw
+      .filter(isRecord)
+      .map((item) => ({
+        label: String(item.label ?? 'KPI'),
+        value: toNumber(item.value),
+        delta: typeof item.delta === 'string' ? item.delta : undefined,
+        trend:
+          item.trend === 'up' || item.trend === 'down' || item.trend === 'neutral'
+            ? item.trend
+            : undefined,
+      }));
+  }
+
+  if (!isRecord(raw)) {
+    return [];
+  }
+
+  return Object.entries(raw).map(([key, value]) => ({
+    label: toLabelFromKey(key),
+    value: toNumber(value),
+  }));
+}
+
+function resolveInsightTrend(insight: CompanyFileInsightApi): Array<{ period: string; total: number }> {
+  const raw = (insight as { trend?: unknown }).trend;
+
+  if (Array.isArray(raw)) {
+    return raw
+      .filter(isRecord)
+      .map((item) => ({
+        period: String(item.period ?? item.label ?? 'N/A'),
+        total: toNumber(item.total ?? item.value),
+      }));
+  }
+
+  if (!isRecord(raw)) {
+    return [];
+  }
+
+  return Object.entries(raw).map(([period, total]) => ({
+    period,
+    total: toNumber(total),
+  }));
+}
+
+function resolveInsightCategories(
+  insight: CompanyFileInsightApi,
+): Array<{ label: string; total: number }> {
+  const raw = (insight as { categories?: unknown }).categories;
+
+  if (Array.isArray(raw)) {
+    return raw
+      .filter(isRecord)
+      .map((item) => ({
+        label: String(item.label ?? 'Categoria'),
+        total: toNumber(item.total ?? item.value),
+      }));
+  }
+
+  if (!isRecord(raw)) {
+    return [];
+  }
+
+  return Object.entries(raw).map(([label, total]) => ({
+    label: toLabelFromKey(label),
+    total: toNumber(total),
+  }));
+}
+
+function resolveInsightNotes(insight: CompanyFileInsightApi): string[] {
+  const raw = (insight as { notes?: unknown }).notes;
+
+  if (Array.isArray(raw)) {
+    return raw.map((item) => String(item));
+  }
+
+  if (typeof raw === 'string') {
+    return [raw];
+  }
+
+  if (isRecord(raw)) {
+    return Object.entries(raw).map(([key, value]) => `${toLabelFromKey(key)}: ${String(value)}`);
+  }
+
+  return [];
+}
+
 function formatBytes(value: number): string {
   if (value < 1024) {
     return `${value} B`;
@@ -78,7 +190,7 @@ export function adaptCompanySummary(summary: CompanyFileSummaryApi): KpiItem[] {
 }
 
 export function adaptInsightKpis(insight: CompanyFileInsightApi): KpiItem[] {
-  return insight.kpis.map((item) => ({
+  return resolveInsightKpis(insight).map((item) => ({
     label: item.label,
     value: formatNumber(item.value),
     delta: item.delta,
@@ -87,21 +199,21 @@ export function adaptInsightKpis(insight: CompanyFileInsightApi): KpiItem[] {
 }
 
 export function adaptInsightTrend(insight: CompanyFileInsightApi): ChartDatum[] {
-  return insight.trend.map((item) => ({
+  return resolveInsightTrend(insight).map((item) => ({
     label: item.period,
     value: item.total,
   }));
 }
 
 export function adaptInsightCategories(insight: CompanyFileInsightApi): ChartDatum[] {
-  return insight.categories.map((item) => ({
+  return resolveInsightCategories(insight).map((item) => ({
     label: item.label,
     value: item.total,
   }));
 }
 
 export function adaptInsightNotes(insight: CompanyFileInsightApi): SummaryItem[] {
-  return insight.notes.map((item, index) => ({
+  return resolveInsightNotes(insight).map((item, index) => ({
     label: `Nota ${index + 1}`,
     value: item,
   }));
@@ -110,9 +222,15 @@ export function adaptInsightNotes(insight: CompanyFileInsightApi): SummaryItem[]
 export function adaptInsightRows(
   insight: CompanyFileInsightApi,
 ): Array<Record<string, string | number>> {
-  return insight.categories.map((item) => ({
+  const categories = resolveInsightCategories(insight);
+  const fileId =
+    (insight as { file_id?: unknown }).file_id && typeof (insight as { file_id?: unknown }).file_id === 'string'
+      ? (insight as { file_id: string }).file_id
+      : 'sin-archivo';
+
+  return categories.map((item) => ({
     categoria: item.label,
     total: item.total,
-    archivo_id: insight.file_id,
+    archivo_id: fileId,
   }));
 }

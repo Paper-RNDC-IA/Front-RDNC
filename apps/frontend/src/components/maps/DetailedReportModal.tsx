@@ -63,12 +63,12 @@ export function DetailedReportModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-4"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/75 p-3 sm:items-center sm:p-4"
       onClick={onClose}
     >
       <article
         id={contentId}
-        className="w-full max-w-2xl rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl"
+        className="w-full max-w-2xl rounded-2xl border border-slate-700 bg-slate-900 p-4 shadow-2xl sm:p-6"
         onClick={(event) => event.stopPropagation()}
       >
         <header className="mb-4 flex items-start justify-between gap-3">
@@ -106,7 +106,7 @@ export function DetailedReportModal({
           </table>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:gap-3">
           <button
             type="button"
             className="rounded-md bg-orange-700 px-3 py-2 text-sm text-white hover:bg-orange-600"
