@@ -55,7 +55,7 @@ export type RouteMapFiltersState = {
 
 export type RouteFileApi = {
   file_id: string;
-  file_name: string;
+  filename: string;
   status?: string;
 };
 
@@ -72,9 +72,9 @@ export type RouteMonthApi = {
 
 export type RoutePointApi = {
   lat: number | string;
-  lng: number | string;
+  lon: number | string;
   timestamp?: string | null;
-  speed_kmh?: number | string | null;
+  speed?: number | string | null;
 };
 
 export type RouteEventApi = {
@@ -83,7 +83,7 @@ export type RouteEventApi = {
   label?: string;
   description?: string;
   lat: number | string;
-  lng: number | string;
+  lon: number | string;
   timestamp?: string | null;
   severity?: string;
 };
@@ -95,8 +95,8 @@ export type RouteMapApi = {
   end_point?: RoutePointApi | null;
   stats?: {
     distance_km?: number | string;
-    avg_speed_kmh?: number | string;
-    max_speed_kmh?: number | string;
+    avg_speed?: number | string;
+    max_speed?: number | string;
     total_points?: number | string;
     from_at?: string | null;
     to_at?: string | null;

@@ -1,15 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { adaptExportSummary } from '../adapters/export.adapter';
-import { getCombinedExport } from '../services/export.service';
+import { downloadReportPdf, getCombinedExport } from '../services/export.service';
 import type { DateRange, SummaryItem } from '../types/common';
 import type { ExportModule } from '../types/export';
-import {
-  exportRowsToCsv,
-  exportRowsToExcel,
-  exportSectionToPdf,
-  toExportFileName,
-} from '../utils/exports';
+import { exportRowsToCsv, exportRowsToExcel, toExportFileName } from '../utils/exports';
 import { getDefaultDateRange, normalizeDateRange } from '../utils/date';
 
 type DescargaInformePageState = {
@@ -18,6 +13,7 @@ type DescargaInformePageState = {
   dateRange: DateRange;
   summary: SummaryItem[];
   rows: Record<string, string | number>[];
+  narrativa: string;
 };
 
 export function useDescargaInformePage(module: string) {
@@ -27,6 +23,7 @@ export function useDescargaInformePage(module: string) {
     dateRange: getDefaultDateRange(),
     summary: [],
     rows: [],
+    narrativa: '',
   });
 
   const load = useCallback(async (selectedModule: ExportModule, dateRange: DateRange) => {
@@ -40,6 +37,7 @@ export function useDescargaInformePage(module: string) {
         loading: false,
         summary: adaptExportSummary(response),
         rows: response.rows,
+        narrativa: response.narrativa ?? '',
       }));
     } catch (error) {
       setState((prev) => ({
@@ -67,7 +65,7 @@ export function useDescargaInformePage(module: string) {
   }, [module, state.dateRange, state.rows]);
 
   const exportPdf = useCallback(async () => {
-    await exportSectionToPdf('root', toExportFileName(module, state.dateRange, 'pdf'));
+    await downloadReportPdf(module as ExportModule, state.dateRange);
   }, [module, state.dateRange]);
 
   const reload = useCallback(() => {
@@ -80,6 +78,7 @@ export function useDescargaInformePage(module: string) {
       error: state.error,
       dateRange: state.dateRange,
       summary: state.summary,
+      narrativa: state.narrativa,
       setDateRange,
       exportCsv,
       exportExcel,

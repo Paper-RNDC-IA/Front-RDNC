@@ -61,7 +61,7 @@ function persistApiSyncInfo(response: Response): void {
   }
 }
 
-function getAuthHeader(): Record<string, string> {
+export function getAuthHeader(): Record<string, string> {
   try {
     const raw = localStorage.getItem(SESSION_STORAGE_KEY);
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
   adaptCompanyFiles,
@@ -35,6 +35,7 @@ type WorkspaceState = {
   summaryKpis: KpiItem[];
   selectedFileId: string | null;
   selectedFileName: string | null;
+  fileKind: string | null;
   insight: CompanyFileInsightApi | null;
   insightKpis: KpiItem[];
   insightTrend: ChartDatum[];
@@ -55,6 +56,7 @@ const initialState: WorkspaceState = {
   summaryKpis: [],
   selectedFileId: null,
   selectedFileName: null,
+  fileKind: null,
   insight: null,
   insightKpis: [],
   insightTrend: [],
@@ -71,7 +73,8 @@ function createExportBaseName(session: SessionUser | null, selectedFileId: strin
   return `portal-empresarial-${companyTag}-${fileTag}-${dateTag}`;
 }
 
-export function useCompanyWorkspacePage() {
+export function useCompanyWorkspacePage(initialFileId?: string | null) {
+  const initFileRef = useRef(initialFileId);
   const [state, setState] = useState<WorkspaceState>(initialState);
 
   const loadInsightForFile = useCallback(async (session: SessionUser, fileId: string) => {
@@ -82,12 +85,14 @@ export function useCompanyWorkspacePage() {
 
       setState((prev) => {
         const selectedRow = prev.fileRows.find((item) => item.id === fileId) ?? null;
+        const fileKind = String((insight as { file_kind?: unknown }).file_kind ?? '');
 
         return {
           ...prev,
           insightLoading: false,
           selectedFileId: fileId,
           selectedFileName: selectedRow?.fileName ?? prev.selectedFileName,
+          fileKind: fileKind || null,
           insight,
           insightKpis: adaptInsightKpis(insight),
           insightTrend: adaptInsightTrend(insight),
@@ -117,16 +122,19 @@ export function useCompanyWorkspacePage() {
           throw new Error('La sesion no esta disponible. Inicia sesion nuevamente.');
         }
 
-        const [files, summary] = await Promise.all([
+        const [filesResult, summaryResult] = await Promise.allSettled([
           getCompanyFiles(session.companyId),
           getCompanyFilesSummary(session.companyId),
         ]);
 
+        const files = filesResult.status === 'fulfilled' ? filesResult.value : [];
+        const summary = summaryResult.status === 'fulfilled' ? summaryResult.value : ({} as Parameters<typeof adaptCompanySummary>[0]);
+
         const fileRows = adaptCompanyFiles(files);
         const selectedFileId =
-          preferredFileId && files.some((item) => item.id === preferredFileId)
+          preferredFileId && fileRows.some((item) => item.id === preferredFileId)
             ? preferredFileId
-            : (files[0]?.id ?? null);
+            : (fileRows[0]?.id ?? null);
 
         setState((prev) => ({
           ...prev,
@@ -160,7 +168,7 @@ export function useCompanyWorkspacePage() {
   );
 
   useEffect(() => {
-    void loadWorkspace();
+    void loadWorkspace(initFileRef.current);
   }, [loadWorkspace]);
 
   const onUploadFile = useCallback(
@@ -252,6 +260,7 @@ export function useCompanyWorkspacePage() {
       summaryKpis: state.summaryKpis,
       selectedFileId: state.selectedFileId,
       selectedFileName: state.selectedFileName,
+      fileKind: state.fileKind,
       insightKpis: state.insightKpis,
       insightTrend: state.insightTrend,
       insightCategories: state.insightCategories,

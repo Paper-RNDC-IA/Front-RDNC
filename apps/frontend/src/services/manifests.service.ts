@@ -1,9 +1,12 @@
 import type { DateRange } from '../types/common';
 import type {
+  ClusterRowApi,
   CompanyRankingApi,
+  InteranualRowApi,
   ManifestDistributionApi,
   ManifestKpiApi,
   ManifestTrendApi,
+  OdMatrixRowApi,
   RouteRankingApi,
 } from '../types/manifests';
 
@@ -91,7 +94,7 @@ function normalizeDistribution(payload: unknown): ManifestDistributionApi[] {
   }
 
   return payload.filter(isRecord).map((item) => ({
-    status: String(item.status ?? item.tipo_mercancia ?? item.label ?? 'Sin categoria'),
+    status: String(item.categoria ?? item.status ?? item.tipo_mercancia ?? item.label ?? 'Sin categoria'),
     total: toNumber(item.total ?? item.value),
   }));
 }
@@ -151,4 +154,41 @@ export async function getManifestDistribution(
     buildDateQuery(dateRange),
   );
   return normalizeDistribution(response);
+}
+
+export async function getInteranual(params?: {
+  departamento?: string;
+  tipo_movimiento?: string;
+  categoria_mercancia?: string;
+}): Promise<InteranualRowApi[]> {
+  const response = await api.get<unknown>(endpoints.manifests.interanual, params ?? {});
+  return Array.isArray(response) ? (response as InteranualRowApi[]) : [];
+}
+
+export async function getOdMatrix(params?: {
+  departamento_origen?: string;
+  departamento_destino?: string;
+  anio?: number;
+  limit?: number;
+}): Promise<OdMatrixRowApi[]> {
+  const query: Record<string, string> = {};
+  if (params?.departamento_origen) query.departamento_origen = params.departamento_origen;
+  if (params?.departamento_destino) query.departamento_destino = params.departamento_destino;
+  if (params?.anio) query.anio = String(params.anio);
+  if (params?.limit) query.limit = String(params.limit);
+
+  const response = await api.get<unknown>(endpoints.manifests.odMatrix, query);
+  return Array.isArray(response) ? (response as OdMatrixRowApi[]) : [];
+}
+
+export async function getClusters(params?: {
+  anio?: number;
+  n_clusters?: number;
+}): Promise<ClusterRowApi[]> {
+  const query: Record<string, string> = {};
+  if (params?.anio) query.anio = String(params.anio);
+  if (params?.n_clusters) query.n_clusters = String(params.n_clusters);
+
+  const response = await api.get<unknown>(endpoints.manifests.clusters, query);
+  return Array.isArray(response) ? (response as ClusterRowApi[]) : [];
 }

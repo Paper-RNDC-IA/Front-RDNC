@@ -15,4 +15,5 @@ export type ExportSummaryApi = {
 export type ExportCombinedApi = {
   summary: ExportSummaryApi[];
   rows: Record<string, string | number>[];
+  narrativa?: string;
 };

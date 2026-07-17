@@ -14,12 +14,19 @@ export type RegisterCompanyRequest = {
 
 export type LoginResponseApi = {
   access_token?: string;
+  token?: string;
   token_type?: 'bearer';
-  company_id: string;
-  company_name: string;
+  company_id?: string;
+  company?: string;
+  empresa_id?: string;
+  company_name?: string;
+  nombre_empresa?: string;
   company_nit?: string;
-  email: string;
+  nit?: string;
+  email?: string;
+  correo?: string;
   expires_at?: string;
+  exp?: number;
 };
 
 export type SessionUser = {

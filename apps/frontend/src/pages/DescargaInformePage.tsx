@@ -37,6 +37,7 @@ export function DescargaInformePage(): JSX.Element {
     dateRange,
     setDateRange,
     summary,
+    narrativa,
     exportCsv,
     exportExcel,
     exportPdf,
@@ -195,6 +196,16 @@ export function DescargaInformePage(): JSX.Element {
         </ul>
       </div>
       <InsightsPanel title="Contexto de salida" items={insightItems} />
+      {narrativa ? (
+        <div className="rounded-2xl border border-orange-200 bg-orange-50/60 p-4">
+          <h3 className="mb-2 text-sm font-semibold text-slate-900">Análisis generado por IA</h3>
+          <p className="text-sm leading-relaxed text-slate-700">{narrativa}</p>
+          <p className="mt-2 text-[11px] italic text-slate-500">
+            Generado automáticamente a partir de los datos reales del módulo filtrado. Verifica
+            cifras importantes antes de usarlas en decisiones operativas.
+          </p>
+        </div>
+      ) : null}
     </section>
   );
 }

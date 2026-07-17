@@ -23,6 +23,7 @@ export function EstadisticasPage(): JSX.Element {
     kpis,
     trendChart,
     summaryChart,
+    fiabilidad,
     setDateRange,
     reload,
   } = useStatsPage();
@@ -187,6 +188,50 @@ export function EstadisticasPage(): JSX.Element {
             }}
           />
           <InsightsPanel title="Insights rapidos" items={insightItems} />
+
+          {fiabilidad ? (
+            <>
+              <SectionHeader
+                title="Calidad de datos"
+                description="Indicadores de fiabilidad del dataset RNDC procesado por el ETL."
+              />
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
+                <KpiCard
+                  item={{
+                    label: 'Cobertura DANE (%)',
+                    value: fiabilidad.cobertura_dane_pct,
+                    delta: `${fiabilidad.cobertura_dane_pct.toFixed(1)}%`,
+                    trend: fiabilidad.cobertura_dane_pct >= 90 ? 'up' : 'down',
+                  }}
+                  sourceLabel="RNDC publico"
+                />
+                <KpiCard
+                  item={{
+                    label: 'Duplicados detectados',
+                    value: fiabilidad.duplicados,
+                    trend: fiabilidad.duplicados === 0 ? 'up' : 'down',
+                  }}
+                  sourceLabel="RNDC publico"
+                />
+                <KpiCard
+                  item={{
+                    label: 'Viajes vacios (0 ton)',
+                    value: fiabilidad.viajes_vacios,
+                    trend: fiabilidad.viajes_vacios === 0 ? 'up' : 'down',
+                  }}
+                  sourceLabel="RNDC publico"
+                />
+                <KpiCard
+                  item={{
+                    label: 'Outliers toneladas',
+                    value: fiabilidad.outliers_toneladas,
+                    trend: fiabilidad.outliers_toneladas < 100 ? 'neutral' : 'down',
+                  }}
+                  sourceLabel="RNDC publico"
+                />
+              </div>
+            </>
+          ) : null}
         </>
       ) : null}
     </section>

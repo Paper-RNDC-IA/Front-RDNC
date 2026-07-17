@@ -33,6 +33,7 @@ export function FileInsightPanel({
       <EmptyState
         title="Sin archivo seleccionado"
         message="Selecciona un archivo de la tabla para ver analitica y reportes."
+        explanation=""
       />
     );
   }

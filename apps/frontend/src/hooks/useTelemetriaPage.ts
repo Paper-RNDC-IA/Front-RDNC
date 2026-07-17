@@ -8,13 +8,16 @@ import {
   adaptTelemetryKpis,
 } from '../adapters/telemetry.adapter';
 import {
+  getCo2Tendencia,
   getCorridorSummary,
+  getNodosParada,
   getSecurityEvents,
   getSpeedTrend,
   getTelemetryAlerts,
   getTelemetryKpis,
 } from '../services/telemetry.service';
 import type { ChartDatum, DateRange, KpiItem } from '../types/common';
+import type { Co2TendenciaRowApi, NodoParadaApi } from '../types/telemetry';
 import { getDefaultDateRange, normalizeDateRange } from '../utils/date';
 
 type TelemetriaPageState = {
@@ -26,6 +29,8 @@ type TelemetriaPageState = {
   alerts: Array<Record<string, string | number>>;
   corridorSummary: Array<Record<string, string | number>>;
   securityEvents: Array<Record<string, string | number>>;
+  co2Tendencia: Co2TendenciaRowApi[];
+  nodos: NodoParadaApi[];
 };
 
 export function useTelemetriaPage() {
@@ -38,19 +43,24 @@ export function useTelemetriaPage() {
     alerts: [],
     corridorSummary: [],
     securityEvents: [],
+    co2Tendencia: [],
+    nodos: [],
   });
 
   const load = useCallback(async (dateRange: DateRange) => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
-      const [kpisRes, speedRes, alertsRes, corridorRes, securityRes] = await Promise.all([
-        getTelemetryKpis(dateRange),
-        getSpeedTrend(dateRange),
-        getTelemetryAlerts(dateRange),
-        getCorridorSummary(dateRange),
-        getSecurityEvents(dateRange),
-      ]);
+      const [kpisRes, speedRes, alertsRes, corridorRes, securityRes, co2Res, nodosRes] =
+        await Promise.all([
+          getTelemetryKpis(dateRange),
+          getSpeedTrend(dateRange),
+          getTelemetryAlerts(dateRange),
+          getCorridorSummary(dateRange),
+          getSecurityEvents(dateRange),
+          getCo2Tendencia({ from: dateRange.from, to: dateRange.to }),
+          getNodosParada({ from: dateRange.from, to: dateRange.to }),
+        ]);
 
       setState((prev) => ({
         ...prev,
@@ -60,6 +70,8 @@ export function useTelemetriaPage() {
         alerts: adaptTelemetryAlerts(alertsRes),
         corridorSummary: adaptTelemetryCorridor(corridorRes),
         securityEvents: adaptSecurityEvents(securityRes),
+        co2Tendencia: co2Res,
+        nodos: nodosRes,
       }));
     } catch (error) {
       setState((prev) => ({
@@ -92,6 +104,8 @@ export function useTelemetriaPage() {
       alerts: state.alerts,
       corridorSummary: state.corridorSummary,
       securityEvents: state.securityEvents,
+      co2Tendencia: state.co2Tendencia,
+      nodos: state.nodos,
       setDateRange,
       reload,
     }),

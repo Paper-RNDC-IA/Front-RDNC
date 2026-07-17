@@ -16,6 +16,9 @@ export const endpoints = {
     distribution: '/api/manifests/distribution',
     top20: '/api/manifests/top20',
     summary: '/api/manifests/summary',
+    interanual: '/api/manifests/interanual',
+    odMatrix: '/api/manifests/od-matrix',
+    clusters: '/api/manifests/clusters',
   },
   telemetry: {
     kpis: '/api/telemetry/kpis',
@@ -27,6 +30,8 @@ export const endpoints = {
     securityEvents: '/api/telemetry/security-events',
     report: '/api/telemetry/report',
     upload: '/api/telemetry/upload',
+    co2Tendencia: '/api/telemetry/co2/tendencia',
+    nodos: '/api/telemetry/nodos',
   },
   telemetryRoutes: {
     files: '/api/telemetry/routes/files',
@@ -66,8 +71,10 @@ export const endpoints = {
     kpis: '/api/stats/kpis',
     trends: '/api/stats/trends',
     summary: '/api/stats/summary',
+    fiabilidad: '/api/stats/fiabilidad',
   },
   export: {
     combined: '/api/export/combined',
+    reportPdf: '/api/export/report-pdf',
   },
 } as const;

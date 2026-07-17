@@ -35,3 +35,22 @@ export type TelemetryDashboardApi = {
   corridor: CorridorSegmentApi[];
   security_events: SecurityEventApi[];
 };
+
+export type Co2TendenciaRowApi = {
+  mes: string;
+  co2_kg: number;
+  co2_kg_acumulado: number;
+  galones: number;
+  costo_cop: number;
+  distancia_km: number;
+  registros: number;
+};
+
+export type NodoParadaApi = {
+  lat: number;
+  lon: number;
+  registros: number;
+  vel_promedio: number;
+  primera_vez: string;
+  ultima_vez: string;
+};

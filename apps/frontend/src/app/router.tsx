@@ -12,6 +12,8 @@ import { DescargaInformePage } from '../pages/DescargaInformePage';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { CompanyWorkspacePage } from '../pages/CompanyWorkspacePage';
+import { CompanyFilesPage } from '../pages/CompanyFilesPage';
+import { CompanyChatPage } from '../pages/CompanyChatPage';
 
 export const router = createHashRouter([
   {
@@ -55,6 +57,10 @@ export const router = createHashRouter([
     element: <Navigate to="/app/portal-empresa" replace />,
   },
   {
+    path: '/mis-archivos',
+    element: <Navigate to="/app/mis-archivos" replace />,
+  },
+  {
     path: '/app',
     element: <DashboardLayout />,
     children: [
@@ -91,6 +97,22 @@ export const router = createHashRouter([
         element: (
           <RequireAuth>
             <CompanyWorkspacePage />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: 'mis-archivos',
+        element: (
+          <RequireAuth>
+            <CompanyFilesPage />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: 'chat-empresa',
+        element: (
+          <RequireAuth>
+            <CompanyChatPage />
           </RequireAuth>
         ),
       },

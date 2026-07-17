@@ -1,4 +1,5 @@
 import type {
+  FiabilidadApi,
   StatsDashboardApi,
   StatsDashboardRawApi,
   StatsKpiApi,
@@ -146,4 +147,12 @@ export async function getStatsTrends(dateRange?: DateRange): Promise<StatsTrendA
 export async function getStatsSummary(dateRange?: DateRange): Promise<StatsSummaryApi[]> {
   const dashboard = await getStatsDashboard(dateRange);
   return dashboard.summary;
+}
+
+export async function getFiabilidad(): Promise<FiabilidadApi | null> {
+  const response = await api.get<unknown>(endpoints.stats.fiabilidad);
+  if (isRecord(response)) {
+    return response as FiabilidadApi;
+  }
+  return null;
 }

@@ -48,3 +48,11 @@ export type StatsDashboardApi = {
   updatedAt?: string;
   healthStatus?: string;
 };
+
+export type FiabilidadApi = {
+  nulls: Record<string, { count: number; pct: number }>;
+  duplicados: number;
+  viajes_vacios: number;
+  outliers_toneladas: number;
+  cobertura_dane_pct: number;
+};

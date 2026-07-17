@@ -37,6 +37,8 @@ export function TelemetriaPage(): JSX.Element {
     alerts,
     securityEvents,
     corridorSummary,
+    co2Tendencia,
+    nodos,
     setDateRange,
     reload,
   } = useTelemetriaPage();
@@ -331,6 +333,105 @@ export function TelemetriaPage(): JSX.Element {
         />
       </div>
       <InsightsPanel title="Lectura de riesgo del periodo" items={insightItems} />
+
+      {co2Tendencia.length > 0 ? (
+        <>
+          <SectionHeader
+            title="Tendencia CO₂ acumulado"
+            description="Emision mensual y acumulado de CO₂ estimado por la flota en el periodo."
+          />
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
+            <LineChartWidget
+              title="CO₂ acumulado mensual (kg)"
+              subtitle="Acumulado progresivo de emisiones estimadas de CO₂."
+              data={co2Tendencia.map((r) => ({ label: r.mes, value: r.co2_kg_acumulado }))}
+              dataKey="value"
+              xKey="label"
+              metricLabel="kg CO₂"
+              sourceLabel="Telemetria empresarial"
+              help={{
+                description: 'CO₂ acumulado calculado desde registros de telemetria GPS.',
+                xAxis: 'Mes del periodo.',
+                yAxis: 'kg de CO₂ acumulados.',
+                interpretation:
+                  'Una curva con pendiente sostenida indica consumo constante; escalones bruscos pueden reflejar picos operativos.',
+              }}
+            />
+            <LineChartWidget
+              title="CO₂ mensual (kg)"
+              subtitle="Emision de CO₂ mes a mes sin acumular."
+              data={co2Tendencia.map((r) => ({ label: r.mes, value: r.co2_kg }))}
+              dataKey="value"
+              xKey="label"
+              metricLabel="kg CO₂"
+              sourceLabel="Telemetria empresarial"
+              help={{
+                description: 'CO₂ emitido por mes segun distancia y consumo estimado.',
+                xAxis: 'Mes.',
+                yAxis: 'kg de CO₂.',
+                interpretation:
+                  'Meses con mayor CO₂ correlacionan con mayor actividad de flota o rutas largas.',
+              }}
+            />
+          </div>
+          <DataTable
+            title="Detalle mensual de emisiones"
+            subtitle="CO₂, galones, costo y distancia por mes."
+            columns={[
+              { key: 'mes', label: 'Mes' },
+              { key: 'co2_kg', label: 'CO₂ (kg)' },
+              { key: 'galones', label: 'Galones' },
+              { key: 'costo_cop', label: 'Costo (COP)' },
+              { key: 'distancia_km', label: 'Distancia (km)' },
+              { key: 'registros', label: 'Registros' },
+            ]}
+            rows={co2Tendencia.map((r) => ({
+              mes: r.mes,
+              co2_kg: r.co2_kg.toFixed(1),
+              galones: r.galones.toFixed(2),
+              costo_cop: r.costo_cop.toLocaleString('es-CO'),
+              distancia_km: r.distancia_km.toFixed(1),
+              registros: r.registros,
+            }))}
+            rowKey="mes"
+            sourceLabel="Telemetria empresarial"
+            helpText="Resume las metricas ambientales y de costo operativo por mes del periodo seleccionado."
+          />
+        </>
+      ) : null}
+
+      {nodos.length > 0 ? (
+        <>
+          <SectionHeader
+            title="Puntos de parada frecuentes"
+            description="Coordenadas donde los vehiculos se detienen con mayor frecuencia (velocidad baja)."
+          />
+          <DataTable
+            title="Nodos de parada"
+            subtitle="Ubicaciones con mayor concentracion de tiempo detenido."
+            columns={[
+              { key: 'lat', label: 'Latitud' },
+              { key: 'lon', label: 'Longitud' },
+              { key: 'registros', label: 'Registros' },
+              { key: 'vel_promedio', label: 'Vel. prom. (km/h)' },
+              { key: 'primera_vez', label: 'Primera vez' },
+              { key: 'ultima_vez', label: 'Ultima vez' },
+            ]}
+            rows={nodos.map((n) => ({
+              lat: n.lat.toFixed(4),
+              lon: n.lon.toFixed(4),
+              registros: n.registros,
+              vel_promedio: n.vel_promedio.toFixed(1),
+              primera_vez: n.primera_vez,
+              ultima_vez: n.ultima_vez,
+            }))}
+            rowKey="lat"
+            maxRows={10}
+            sourceLabel="Telemetria empresarial"
+            helpText="Nodos con alta frecuencia de parada — utiles para detectar puntos de control, cargue o congestion."
+          />
+        </>
+      ) : null}
     </section>
   );
 }

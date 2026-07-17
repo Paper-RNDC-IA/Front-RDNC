@@ -166,12 +166,11 @@ export function useCompanyRoutes({
         const vehicles = adaptRouteVehicles(response);
 
         setState((prev) => {
+          // Always auto-select: keep current if valid, else take first
           const nextVehicleId =
-            vehicles.length === 1
-              ? vehicles[0].value
-              : vehicles.some((item) => item.value === prev.filters.vehicleId)
-                ? prev.filters.vehicleId
-                : '';
+            vehicles.some((item) => item.value === prev.filters.vehicleId)
+              ? prev.filters.vehicleId
+              : vehicles[0]?.value ?? '';
 
           return {
             ...prev,
@@ -234,12 +233,11 @@ export function useCompanyRoutes({
         const months = adaptRouteMonths(response);
 
         setState((prev) => {
+          // Always auto-select: keep current if valid, else take first (most recent)
           const nextMonth =
-            months.length === 1
-              ? months[0].value
-              : months.some((item) => item.value === prev.filters.month)
-                ? prev.filters.month
-                : '';
+            months.some((item) => item.value === prev.filters.month)
+              ? prev.filters.month
+              : months[0]?.value ?? '';
 
           return {
             ...prev,

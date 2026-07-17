@@ -1,7 +1,9 @@
 import type { DateRange } from '../types/common';
 import type {
   AlertApi,
+  Co2TendenciaRowApi,
   CorridorSegmentApi,
+  NodoParadaApi,
   SecurityEventApi,
   SpeedPointApi,
   TelemetryKpiApi,
@@ -142,6 +144,38 @@ export async function getSpeedTrend(dateRange?: DateRange): Promise<SpeedPointAp
 
 export async function getCorridorSummary(dateRange?: DateRange): Promise<CorridorSegmentApi[]> {
   return getTelemetryCorridor(dateRange);
+}
+
+export async function getCo2Tendencia(params?: {
+  vehicle_id?: string;
+  from?: string;
+  to?: string;
+}): Promise<Co2TendenciaRowApi[]> {
+  const query: Record<string, string> = {};
+  if (params?.vehicle_id) query.vehicle_id = params.vehicle_id;
+  if (params?.from) query.from = params.from;
+  if (params?.to) query.to = params.to;
+
+  const response = await api.get<unknown>(endpoints.telemetry.co2Tendencia, query);
+  return Array.isArray(response) ? (response as Co2TendenciaRowApi[]) : [];
+}
+
+export async function getNodosParada(params?: {
+  vehicle_id?: string;
+  velocidad_max?: number;
+  min_registros?: number;
+  from?: string;
+  to?: string;
+}): Promise<NodoParadaApi[]> {
+  const query: Record<string, string> = {};
+  if (params?.vehicle_id) query.vehicle_id = params.vehicle_id;
+  if (params?.velocidad_max !== undefined) query.velocidad_max = String(params.velocidad_max);
+  if (params?.min_registros !== undefined) query.min_registros = String(params.min_registros);
+  if (params?.from) query.from = params.from;
+  if (params?.to) query.to = params.to;
+
+  const response = await api.get<unknown>(endpoints.telemetry.nodos, query);
+  return Array.isArray(response) ? (response as NodoParadaApi[]) : [];
 }
 
 export async function uploadTelemetryExcel(

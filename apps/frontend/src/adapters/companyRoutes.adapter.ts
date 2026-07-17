@@ -75,9 +75,9 @@ function formatMonthLabel(value: string): string {
 function adaptPoint(point: RoutePointApi): RoutePoint {
   return {
     lat: toNumber(point.lat),
-    lng: toNumber(point.lng),
+    lng: toNumber(point.lon),
     timestamp: point.timestamp ?? null,
-    speedKmh: toNullableNumber(point.speed_kmh),
+    speedKmh: toNullableNumber(point.speed),
   };
 }
 
@@ -90,7 +90,7 @@ function adaptEvent(item: RouteEventApi, index: number): RouteEvent {
     label: item.label?.trim() || type,
     description: item.description?.trim() || 'Evento detectado durante el recorrido.',
     lat: toNumber(item.lat),
-    lng: toNumber(item.lng),
+    lng: toNumber(item.lon),
     timestamp: item.timestamp ?? null,
     severity:
       item.severity === 'high' ||
@@ -113,7 +113,7 @@ function buildTimeRangeLabel(fromAt: string | null | undefined, toAt: string | n
 export function adaptRouteFiles(items: RouteFileApi[]): FileOption[] {
   return items.map((item) => ({
     value: item.file_id,
-    label: item.file_name,
+    label: item.filename,
   }));
 }
 
@@ -154,8 +154,8 @@ export function adaptVehicleRouteMap(map: RouteMapApi, eventsPayload: RouteEvent
   const statsFromApi = map.stats ?? {};
   const stats: RouteMapStats = {
     distanceKm: toNumber(statsFromApi.distance_km),
-    avgSpeedKmh: toNumber(statsFromApi.avg_speed_kmh),
-    maxSpeedKmh: toNumber(statsFromApi.max_speed_kmh),
+    avgSpeedKmh: toNumber(statsFromApi.avg_speed),
+    maxSpeedKmh: toNumber(statsFromApi.max_speed),
     totalPoints: toNumber(statsFromApi.total_points) || rawPath.length,
     timeRangeLabel: buildTimeRangeLabel(statsFromApi.from_at, statsFromApi.to_at),
   };

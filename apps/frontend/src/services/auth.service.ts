@@ -34,7 +34,13 @@ export function getStoredSession(): SessionUser | null {
   try {
     const parsed = JSON.parse(raw) as SessionUser;
 
-    if (!hasToken(parsed.token) || !parsed.expiresAt || isExpired(parsed.expiresAt)) {
+    if (!hasToken(parsed.token)) {
+      localStorage.removeItem(SESSION_STORAGE_KEY);
+      return null;
+    }
+
+    // Solo verificar expiración si el campo tiene un valor real
+    if (parsed.expiresAt && isExpired(parsed.expiresAt)) {
       localStorage.removeItem(SESSION_STORAGE_KEY);
       return null;
     }

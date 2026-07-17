@@ -1,5 +1,4 @@
 export type {
-  DepartmentShape,
   LayerMetric,
   MapData,
   MapDepartment,

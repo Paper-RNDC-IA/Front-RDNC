@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { adaptStatsKpis, adaptStatsSummary, adaptStatsTrend } from '../adapters/stats.adapter';
-import { getStatsDashboard } from '../services/stats.service';
+import { getFiabilidad, getStatsDashboard } from '../services/stats.service';
 import type { ChartDatum, DateRange, KpiItem } from '../types/common';
+import type { FiabilidadApi } from '../types/stats';
 import { getDefaultDateRange, normalizeDateRange } from '../utils/date';
 
 type StatsPageState = {
@@ -14,6 +15,7 @@ type StatsPageState = {
   kpis: KpiItem[];
   trendChart: ChartDatum[];
   summaryChart: ChartDatum[];
+  fiabilidad: FiabilidadApi | null;
 };
 
 export function useStatsPage() {
@@ -28,6 +30,7 @@ export function useStatsPage() {
     kpis: [],
     trendChart: [],
     summaryChart: [],
+    fiabilidad: null,
   });
 
   const load = useCallback(async (dateRange: DateRange) => {
@@ -35,11 +38,20 @@ export function useStatsPage() {
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
-      const dashboard = await getStatsDashboard(dateRange);
+      const [dashboardRes, fiabilidadRes] = await Promise.allSettled([
+        getStatsDashboard(dateRange),
+        getFiabilidad(),
+      ]);
 
       if (requestId !== requestIdRef.current) {
         return;
       }
+
+      if (dashboardRes.status !== 'fulfilled') {
+        throw dashboardRes.reason;
+      }
+
+      const dashboard = dashboardRes.value;
 
       setState((prev) => ({
         ...prev,
@@ -49,6 +61,7 @@ export function useStatsPage() {
         kpis: adaptStatsKpis(dashboard.kpis),
         trendChart: adaptStatsTrend(dashboard.trends),
         summaryChart: adaptStatsSummary(dashboard.summary),
+        fiabilidad: fiabilidadRes.status === 'fulfilled' ? fiabilidadRes.value : null,
       }));
     } catch (error) {
       if (requestId !== requestIdRef.current) {
@@ -96,6 +109,7 @@ export function useStatsPage() {
       kpis: state.kpis,
       trendChart: state.trendChart,
       summaryChart: state.summaryChart,
+      fiabilidad: state.fiabilidad,
       setDateRange,
       reload,
     }),

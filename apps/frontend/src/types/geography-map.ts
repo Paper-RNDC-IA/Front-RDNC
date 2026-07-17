@@ -31,13 +31,6 @@ export type MapLayerApiItem = {
   unit?: string;
 };
 
-export type DepartmentShape = {
-  id: string;
-  name: string;
-  path: string;
-  centroid: { x: number; y: number };
-};
-
 export function toDepartmentId(value: string): string {
   return value
     .normalize('NFD')

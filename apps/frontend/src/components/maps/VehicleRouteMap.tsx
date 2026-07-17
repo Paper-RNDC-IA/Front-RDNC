@@ -121,28 +121,8 @@ export function VehicleRouteMap({
           pathOptions={{ color: '#ea580c', opacity: 0.88, weight: 4, lineCap: 'round' }}
         />
 
-        {data.startPoint ? (
-          <Marker position={[data.startPoint.lat, data.startPoint.lng]} icon={startIcon}>
-            <Popup>
-              <strong>Inicio</strong>
-              <br />
-              {data.startPoint.timestamp || 'Sin timestamp'}
-            </Popup>
-          </Marker>
-        ) : null}
-
-        {data.endPoint ? (
-          <Marker position={[data.endPoint.lat, data.endPoint.lng]} icon={endIcon}>
-            <Popup>
-              <strong>Fin</strong>
-              <br />
-              {data.endPoint.timestamp || 'Sin timestamp'}
-            </Popup>
-          </Marker>
-        ) : null}
-
         {limitedEvents.map((event) => (
-          <Marker key={event.id} position={[event.lat, event.lng]} icon={eventIcon}>
+          <Marker key={event.id} position={[event.lat, event.lng]} icon={eventIcon} zIndexOffset={0}>
             <Popup>
               <strong>{event.label}</strong>
               <br />
@@ -152,6 +132,34 @@ export function VehicleRouteMap({
             </Popup>
           </Marker>
         ))}
+
+        {data.startPoint ? (
+          <Marker
+            position={[data.startPoint.lat, data.startPoint.lng]}
+            icon={startIcon}
+            zIndexOffset={1000}
+          >
+            <Popup>
+              <strong>Inicio</strong>
+              <br />
+              {data.startPoint.timestamp || 'Sin timestamp'}
+            </Popup>
+          </Marker>
+        ) : null}
+
+        {data.endPoint ? (
+          <Marker
+            position={[data.endPoint.lat, data.endPoint.lng]}
+            icon={endIcon}
+            zIndexOffset={900}
+          >
+            <Popup>
+              <strong>Fin</strong>
+              <br />
+              {data.endPoint.timestamp || 'Sin timestamp'}
+            </Popup>
+          </Marker>
+        ) : null}
       </MapContainer>
     </div>
   );

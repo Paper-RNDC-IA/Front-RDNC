@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { KpiCard } from '../components/common/KpiCard';
 import { DataTable } from '../components/common/DataTable';
 import { DateRangeFilter } from '../components/common/DateRangeFilter';
@@ -12,7 +14,10 @@ import { BarChartWidget } from '../components/charts/BarChartWidget';
 import { LineChartWidget } from '../components/charts/LineChartWidget';
 import { PieChartWidget } from '../components/charts/PieChartWidget';
 import { useManifiestosPage } from '../hooks/useManifiestosPage';
+import { getInteranual, getOdMatrix } from '../services/manifests.service';
 import { formatNumber } from '../utils/formatters';
+import type { InteranualRowApi, OdMatrixRowApi } from '../types/manifests';
+import { OdFlowMap } from '../components/manifests/OdFlowMap';
 
 function parseTableNumber(value: string | number): number {
   if (typeof value === 'number') {
@@ -35,6 +40,14 @@ export function ManifiestosPage(): JSX.Element {
     setDateRange,
     reload,
   } = useManifiestosPage();
+
+  const [interanual, setInteranual] = useState<InteranualRowApi[]>([]);
+  const [odMatrix, setOdMatrix] = useState<OdMatrixRowApi[]>([]);
+
+  useEffect(() => {
+    void getInteranual().then(setInteranual).catch(() => setInteranual([]));
+    void getOdMatrix({ limit: 20 }).then(setOdMatrix).catch(() => setOdMatrix([]));
+  }, []);
 
   const isInitialLoading = loading && !kpis.length && !trends.length;
 
@@ -134,6 +147,60 @@ export function ManifiestosPage(): JSX.Element {
               <KpiCard key={item.label} item={item} sourceLabel="RNDC publico" />
             ))}
           </div>
+          {interanual.length > 0 ? (
+            <>
+              <SectionHeader
+                title="Comparacion interanual"
+                description="Evolucion ano a ano de manifiestos, toneladas y empresas activas."
+              />
+              <BarChartWidget
+                title="Manifiestos por ano"
+                subtitle="Volumen total de manifiestos reportados en cada ano"
+                data={interanual.map((r) => ({ label: String(r.anio), value: r.total_manifiestos }))}
+                dataKey="value"
+                xKey="label"
+                valueLabel="Manifiestos"
+                sourceLabel="RNDC publico"
+                help={{
+                  description: 'Comparacion del total de manifiestos reportados por ano.',
+                  xAxis: 'Ano.',
+                  yAxis: 'Cantidad de manifiestos.',
+                  interpretation:
+                    'Permite identificar tendencias multianuales y variaciones significativas de actividad.',
+                }}
+              />
+              <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-100 text-left text-xs uppercase tracking-wide text-slate-500">
+                      <th className="px-4 py-2">Ano</th>
+                      <th className="px-4 py-2">Manifiestos</th>
+                      <th className="px-4 py-2">Toneladas</th>
+                      <th className="px-4 py-2">Empresas</th>
+                      <th className="px-4 py-2">Var. manif. %</th>
+                      <th className="px-4 py-2">Var. ton. %</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {interanual.map((row) => (
+                      <tr key={row.anio} className="border-b border-slate-50 hover:bg-slate-50">
+                        <td className="px-4 py-2 font-semibold text-slate-800">{row.anio}</td>
+                        <td className="px-4 py-2 text-slate-700">{formatNumber(row.total_manifiestos)}</td>
+                        <td className="px-4 py-2 text-slate-700">{formatNumber(row.total_toneladas)}</td>
+                        <td className="px-4 py-2 text-slate-700">{row.empresas_activas}</td>
+                        <td className={`px-4 py-2 font-medium ${row.var_manifiestos_pct === null ? 'text-slate-400' : row.var_manifiestos_pct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                          {row.var_manifiestos_pct === null ? '—' : `${row.var_manifiestos_pct > 0 ? '+' : ''}${row.var_manifiestos_pct.toFixed(1)}%`}
+                        </td>
+                        <td className={`px-4 py-2 font-medium ${row.var_toneladas_pct === null ? 'text-slate-400' : row.var_toneladas_pct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                          {row.var_toneladas_pct === null ? '—' : `${row.var_toneladas_pct > 0 ? '+' : ''}${row.var_toneladas_pct.toFixed(1)}%`}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ) : null}
           <SectionHeader
             title="Tendencia y composicion"
             description="Este bloque muestra como cambia el volumen y en que categorias se concentra."
@@ -222,6 +289,40 @@ export function ManifiestosPage(): JSX.Element {
               helpText="Muestra empresas lideres del periodo para evaluar participacion y concentracion del mercado."
             />
           </div>
+          {odMatrix.length > 0 ? (
+            <>
+              <SectionHeader
+                title="Matriz Origen-Destino"
+                description="Top 20 flujos entre municipios con codigos DANE. Excluye registros sin match DIVIPOLA."
+              />
+              <OdFlowMap rows={odMatrix} />
+              <DataTable
+                title="Flujos OD principales"
+                subtitle="Pares origen-destino con mayor volumen de viajes y toneladas."
+                columns={[
+                  { key: 'origen', label: 'Origen' },
+                  { key: 'destino', label: 'Destino' },
+                  { key: 'dept_origen', label: 'Depto. origen' },
+                  { key: 'dept_destino', label: 'Depto. destino' },
+                  { key: 'total_viajes', label: 'Viajes' },
+                  { key: 'total_toneladas', label: 'Toneladas' },
+                ]}
+                rows={odMatrix.map((r) => ({
+                  origen: r.origen,
+                  destino: r.destino,
+                  dept_origen: r.departamento_origen,
+                  dept_destino: r.departamento_destino,
+                  total_viajes: formatNumber(r.total_viajes),
+                  total_toneladas: formatNumber(r.total_toneladas),
+                }))}
+                rowKey="origen"
+                maxRows={20}
+                sourceLabel="RNDC publico"
+                helpText="Flujos municipio a municipio con codigos DANE. Refleja la red logistica real del periodo."
+              />
+            </>
+          ) : null}
+
           <InsightsPanel title="Hallazgos del periodo" items={insightItems} />
         </>
       ) : null}
