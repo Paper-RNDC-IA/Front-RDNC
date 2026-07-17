@@ -19,7 +19,7 @@ export function adaptSession(
 
   // El back a veces devuelve company_name=NIT y company_nit=nombre (invertidos).
   // Detectamos por patrón: NIT solo tiene dígitos, puntos y guiones.
-  const isNitLike = (s: string) => s.length > 0 && /^[\d.\-]+$/.test(s.trim());
+  const isNitLike = (s: string) => s.length > 0 && /^[\d.-]+$/.test(s.trim());
   const swapped = isNitLike(rawName) && !isNitLike(rawNit);
 
   const companyName = (swapped ? rawNit : rawName) || companyId || 'Empresa';

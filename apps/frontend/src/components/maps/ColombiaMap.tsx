@@ -3,7 +3,7 @@ import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from 'react-leaf
 import type { Map as LeafletMap } from 'leaflet';
 
 import { Card } from '../common/Card';
-import type { MapData, MapDepartment, MapLayer } from './types';
+import type { MapData, MapLayer } from './types';
 
 type ColombiaMapProps = {
   mapData: MapData;
@@ -149,13 +149,6 @@ export function ColombiaMap({
   const [isExplorerOpen, setIsExplorerOpen] = useState(false);
   const [isLegendOpen, setIsLegendOpen] = useState(false);
   const mapRef = useRef<LeafletMap | null>(null);
-
-  const departmentsById = useMemo(() => {
-    return mapData.departments.reduce<Map<string, MapDepartment>>((acc, item) => {
-      acc.set(item.id, item);
-      return acc;
-    }, new Map<string, MapDepartment>());
-  }, [mapData]);
 
   const valueRange = useMemo(() => getValueRange(mapData, activeLayer), [activeLayer, mapData]);
 
