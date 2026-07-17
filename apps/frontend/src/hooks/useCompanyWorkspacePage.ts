@@ -128,7 +128,10 @@ export function useCompanyWorkspacePage(initialFileId?: string | null) {
         ]);
 
         const files = filesResult.status === 'fulfilled' ? filesResult.value : [];
-        const summary = summaryResult.status === 'fulfilled' ? summaryResult.value : ({} as Parameters<typeof adaptCompanySummary>[0]);
+        const summary =
+          summaryResult.status === 'fulfilled'
+            ? summaryResult.value
+            : ({} as Parameters<typeof adaptCompanySummary>[0]);
 
         const fileRows = adaptCompanyFiles(files);
         const selectedFileId =

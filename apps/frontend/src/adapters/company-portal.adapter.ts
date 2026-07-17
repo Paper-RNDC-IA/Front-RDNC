@@ -67,17 +67,15 @@ function resolveInsightKpis(insight: CompanyFileInsightApi): Array<{
 
   // Array of {label, value} objects — use as-is
   if (Array.isArray(raw)) {
-    return raw
-      .filter(isRecord)
-      .map((item) => ({
-        label: String(item.label ?? 'KPI'),
-        value: toNumber(item.value),
-        delta: typeof item.delta === 'string' ? item.delta : undefined,
-        trend:
-          item.trend === 'up' || item.trend === 'down' || item.trend === 'neutral'
-            ? item.trend
-            : undefined,
-      }));
+    return raw.filter(isRecord).map((item) => ({
+      label: String(item.label ?? 'KPI'),
+      value: toNumber(item.value),
+      delta: typeof item.delta === 'string' ? item.delta : undefined,
+      trend:
+        item.trend === 'up' || item.trend === 'down' || item.trend === 'neutral'
+          ? item.trend
+          : undefined,
+    }));
   }
 
   if (!isRecord(raw)) return [];
@@ -87,7 +85,9 @@ function resolveInsightKpis(insight: CompanyFileInsightApi): Array<{
   // Detect nested stats pattern: {COL: {total, promedio, maximo, minimo}}
   const isNestedStats =
     entries.length > 0 &&
-    entries.every(([, v]) => isRecord(v) && ('total' in (v as object) || 'promedio' in (v as object)));
+    entries.every(
+      ([, v]) => isRecord(v) && ('total' in (v as object) || 'promedio' in (v as object)),
+    );
 
   if (isNestedStats) {
     return entries
@@ -107,17 +107,17 @@ function resolveInsightKpis(insight: CompanyFileInsightApi): Array<{
     }));
 }
 
-function resolveInsightTrend(insight: CompanyFileInsightApi): Array<{ period: string; total: number }> {
+function resolveInsightTrend(
+  insight: CompanyFileInsightApi,
+): Array<{ period: string; total: number }> {
   const raw = (insight as { trend?: unknown }).trend;
 
   if (Array.isArray(raw)) {
     if (raw.length === 0) return [];
-    return raw
-      .filter(isRecord)
-      .map((item) => ({
-        period: String(item.period ?? item.label ?? item.ANOMES ?? 'N/A'),
-        total: toNumber(item.total ?? item.value ?? item.VIAJES),
-      }));
+    return raw.filter(isRecord).map((item) => ({
+      period: String(item.period ?? item.label ?? item.ANOMES ?? 'N/A'),
+      total: toNumber(item.total ?? item.value ?? item.VIAJES),
+    }));
   }
 
   if (!isRecord(raw)) return [];
@@ -137,12 +137,10 @@ function resolveInsightCategories(
   if (fileKind === 'gps') {
     const preview = (insight as { preview?: unknown }).preview;
     if (Array.isArray(preview)) {
-      return (preview as unknown[])
-        .filter(isRecord)
-        .map((row) => ({
-          label: String(row.vehicle_id ?? 'Vehículo'),
-          total: toNumber(row.distance_km ?? row.total_points ?? 1),
-        }));
+      return (preview as unknown[]).filter(isRecord).map((row) => ({
+        label: String(row.vehicle_id ?? 'Vehículo'),
+        total: toNumber(row.distance_km ?? row.total_points ?? 1),
+      }));
     }
     return [];
   }
@@ -175,12 +173,10 @@ function resolveInsightCategories(
   }
 
   if (Array.isArray(raw)) {
-    return raw
-      .filter(isRecord)
-      .map((item) => ({
-        label: String(item.label ?? 'Categoria'),
-        total: toNumber(item.total ?? item.value),
-      }));
+    return raw.filter(isRecord).map((item) => ({
+      label: String(item.label ?? 'Categoria'),
+      total: toNumber(item.total ?? item.value),
+    }));
   }
 
   if (!isRecord(raw)) return [];
@@ -198,6 +194,7 @@ function resolveInsightNotes(insight: CompanyFileInsightApi): string[] {
   // Backend already provides a descriptive note string — use it
   if (typeof raw === 'string' && raw.length > 0) return [raw];
   if (Array.isArray(raw) && raw.length > 0) return raw.map((item) => String(item));
+  if (isRecord(raw) && Object.keys(raw).length > 0) return Object.values(raw).map(String);
 
   // Generate fallback notes from the insight data
   const rows = toNumber((insight as { rows?: unknown }).rows);
@@ -205,11 +202,17 @@ function resolveInsightNotes(insight: CompanyFileInsightApi): string[] {
   const notes: string[] = [];
 
   if (fileKind === 'gps') {
-    notes.push('Archivo GPS procesado correctamente. Usa el Mapa de recorrido para ver la trayectoria.');
+    notes.push(
+      'Archivo GPS procesado correctamente. Usa el Mapa de recorrido para ver la trayectoria.',
+    );
   } else if (fileKind === 'gps_raw') {
-    notes.push('Archivo GPS detectado. El análisis de ruta está disponible en la sección Mapa de recorrido.');
+    notes.push(
+      'Archivo GPS detectado. El análisis de ruta está disponible en la sección Mapa de recorrido.',
+    );
   } else if (fileKind === 'unknown') {
-    notes.push('Formato de archivo no reconocido. El sistema espera archivos RNDC (.xlsx) o GPS (.xls/.xlsx).');
+    notes.push(
+      'Formato de archivo no reconocido. El sistema espera archivos RNDC (.xlsx) o GPS (.xls/.xlsx).',
+    );
   } else if (fileKind === 'missing') {
     notes.push('El archivo no se encontró en el servidor. Por favor, vuelve a cargarlo.');
   } else if (rows > 0) {
@@ -267,13 +270,20 @@ export function adaptCompanyFiles(items: CompanyFileApi[]): CompanyFileRow[] {
       const raw = item as unknown as Record<string, unknown>;
       const id = String(resolveField(raw, 'id', 'file_id') ?? '');
       const fileName = String(
-        resolveField(raw, 'file_name', 'filename', 'name', 'original_name', 'original_filename') ?? 'Sin nombre',
+        resolveField(raw, 'file_name', 'filename', 'name', 'original_name', 'original_filename') ??
+          'Sin nombre',
       );
       const sizeBytes = Number(resolveField(raw, 'size_bytes', 'size', 'file_size', 'bytes') ?? 0);
-      const uploadedAt = String(resolveField(raw, 'uploaded_at', 'created_at', 'upload_date', 'date') ?? '');
-      const records = Number(resolveField(raw, 'records', 'record_count', 'total_records', 'num_records', 'rows') ?? 0);
+      const uploadedAt = String(
+        resolveField(raw, 'uploaded_at', 'created_at', 'upload_date', 'date') ?? '',
+      );
+      const records = Number(
+        resolveField(raw, 'records', 'record_count', 'total_records', 'num_records', 'rows') ?? 0,
+      );
       const status = resolveField(raw, 'status', 'estado');
-      const module = String(resolveField(raw, 'source_module', 'module', 'tipo', 'type', 'modulo') ?? '—');
+      const module = String(
+        resolveField(raw, 'source_module', 'module', 'tipo', 'type', 'modulo') ?? '—',
+      );
 
       return {
         id,
@@ -312,9 +322,8 @@ export function adaptCompanySummary(summary: CompanyFileSummaryApi): KpiItem[] {
     return `${(kb / 1024).toFixed(1)} MB`;
   };
 
-  const typeBreakdown = byType
-    .map((t) => `${t.type?.toUpperCase() ?? '?'}: ${t.count ?? 0}`)
-    .join(' · ') || '—';
+  const typeBreakdown =
+    byType.map((t) => `${t.type?.toUpperCase() ?? '?'}: ${t.count ?? 0}`).join(' · ') || '—';
 
   return [
     { label: 'Archivos cargados', value: formatNumber(totalFiles) },
@@ -359,7 +368,8 @@ export function adaptInsightRows(
 ): Array<Record<string, string | number>> {
   const categories = resolveInsightCategories(insight);
   const fileId =
-    (insight as { file_id?: unknown }).file_id && typeof (insight as { file_id?: unknown }).file_id === 'string'
+    (insight as { file_id?: unknown }).file_id &&
+    typeof (insight as { file_id?: unknown }).file_id === 'string'
       ? (insight as { file_id: string }).file_id
       : 'sin-archivo';
 

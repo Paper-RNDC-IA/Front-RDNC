@@ -45,8 +45,12 @@ export function ManifiestosPage(): JSX.Element {
   const [odMatrix, setOdMatrix] = useState<OdMatrixRowApi[]>([]);
 
   useEffect(() => {
-    void getInteranual().then(setInteranual).catch(() => setInteranual([]));
-    void getOdMatrix({ limit: 20 }).then(setOdMatrix).catch(() => setOdMatrix([]));
+    void getInteranual()
+      .then(setInteranual)
+      .catch(() => setInteranual([]));
+    void getOdMatrix({ limit: 20 })
+      .then(setOdMatrix)
+      .catch(() => setOdMatrix([]));
   }, []);
 
   const isInitialLoading = loading && !kpis.length && !trends.length;
@@ -156,7 +160,10 @@ export function ManifiestosPage(): JSX.Element {
               <BarChartWidget
                 title="Manifiestos por ano"
                 subtitle="Volumen total de manifiestos reportados en cada ano"
-                data={interanual.map((r) => ({ label: String(r.anio), value: r.total_manifiestos }))}
+                data={interanual.map((r) => ({
+                  label: String(r.anio),
+                  value: r.total_manifiestos,
+                }))}
                 dataKey="value"
                 xKey="label"
                 valueLabel="Manifiestos"
@@ -185,14 +192,26 @@ export function ManifiestosPage(): JSX.Element {
                     {interanual.map((row) => (
                       <tr key={row.anio} className="border-b border-slate-50 hover:bg-slate-50">
                         <td className="px-4 py-2 font-semibold text-slate-800">{row.anio}</td>
-                        <td className="px-4 py-2 text-slate-700">{formatNumber(row.total_manifiestos)}</td>
-                        <td className="px-4 py-2 text-slate-700">{formatNumber(row.total_toneladas)}</td>
-                        <td className="px-4 py-2 text-slate-700">{row.empresas_activas}</td>
-                        <td className={`px-4 py-2 font-medium ${row.var_manifiestos_pct === null ? 'text-slate-400' : row.var_manifiestos_pct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                          {row.var_manifiestos_pct === null ? '—' : `${row.var_manifiestos_pct > 0 ? '+' : ''}${row.var_manifiestos_pct.toFixed(1)}%`}
+                        <td className="px-4 py-2 text-slate-700">
+                          {formatNumber(row.total_manifiestos)}
                         </td>
-                        <td className={`px-4 py-2 font-medium ${row.var_toneladas_pct === null ? 'text-slate-400' : row.var_toneladas_pct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                          {row.var_toneladas_pct === null ? '—' : `${row.var_toneladas_pct > 0 ? '+' : ''}${row.var_toneladas_pct.toFixed(1)}%`}
+                        <td className="px-4 py-2 text-slate-700">
+                          {formatNumber(row.total_toneladas)}
+                        </td>
+                        <td className="px-4 py-2 text-slate-700">{row.empresas_activas}</td>
+                        <td
+                          className={`px-4 py-2 font-medium ${row.var_manifiestos_pct === null ? 'text-slate-400' : row.var_manifiestos_pct >= 0 ? 'text-green-600' : 'text-red-500'}`}
+                        >
+                          {row.var_manifiestos_pct === null
+                            ? '—'
+                            : `${row.var_manifiestos_pct > 0 ? '+' : ''}${row.var_manifiestos_pct.toFixed(1)}%`}
+                        </td>
+                        <td
+                          className={`px-4 py-2 font-medium ${row.var_toneladas_pct === null ? 'text-slate-400' : row.var_toneladas_pct >= 0 ? 'text-green-600' : 'text-red-500'}`}
+                        >
+                          {row.var_toneladas_pct === null
+                            ? '—'
+                            : `${row.var_toneladas_pct > 0 ? '+' : ''}${row.var_toneladas_pct.toFixed(1)}%`}
                         </td>
                       </tr>
                     ))}

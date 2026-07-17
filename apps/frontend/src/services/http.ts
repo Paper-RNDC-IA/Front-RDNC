@@ -182,7 +182,8 @@ export async function httpRequest<T>(path: string, init?: RequestInit): Promise<
   const url = resolveUrl(path);
   const timeout = Number.isFinite(REQUEST_TIMEOUT_MS) ? REQUEST_TIMEOUT_MS : 25000;
   const authHeader = getAuthHeader();
-  const hasAuthToken = typeof authHeader.Authorization === 'string' && authHeader.Authorization.length > 0;
+  const hasAuthToken =
+    typeof authHeader.Authorization === 'string' && authHeader.Authorization.length > 0;
   let response: Response;
 
   const attemptRequest = async (attempt: number): Promise<Response> => {

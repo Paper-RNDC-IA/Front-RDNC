@@ -21,7 +21,9 @@ function FileKindBadge({ kind }: { kind: string | null }): JSX.Element | null {
   const c = config[kind];
   if (!c) return null;
   return (
-    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${c.className}`}>
+    <span
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${c.className}`}
+    >
       {c.label}
     </span>
   );
@@ -76,14 +78,17 @@ export function CompanyWorkspacePage(): JSX.Element {
 
   return (
     <section className="space-y-6" id="company-workspace-report">
-
       {/* Header empresa */}
       <div className="rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">Portal Privado</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">
+              Portal Privado
+            </p>
             <h2 className="mt-1 text-2xl font-bold text-slate-900">{session.companyName}</h2>
-            <p className="mt-0.5 text-sm text-slate-500">NIT: {session.companyNit} · {session.email}</p>
+            <p className="mt-0.5 text-sm text-slate-500">
+              NIT: {session.companyNit} · {session.email}
+            </p>
           </div>
           <div className="flex items-center gap-3">
             {hasFiles ? (
@@ -102,9 +107,7 @@ export function CompanyWorkspacePage(): JSX.Element {
         </div>
       </div>
 
-      {error ? (
-        <ErrorState title="Novedad en portal" message={error} onRetry={reload} />
-      ) : null}
+      {error ? <ErrorState title="Novedad en portal" message={error} onRetry={reload} /> : null}
 
       {/* Zona de carga */}
       <div className="rounded-2xl border-2 border-dashed border-orange-300 bg-orange-50/40 px-6 py-5">
@@ -125,7 +128,9 @@ export function CompanyWorkspacePage(): JSX.Element {
       {!hasFiles ? (
         <div className="rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center">
           <p className="text-4xl">📂</p>
-          <p className="mt-3 text-base font-semibold text-slate-700">Aún no tienes archivos cargados</p>
+          <p className="mt-3 text-base font-semibold text-slate-700">
+            Aún no tienes archivos cargados
+          </p>
           <p className="mt-1 text-sm text-slate-400">
             Sube tu primer archivo Excel para ver el análisis y el mapa aquí.
           </p>
@@ -158,11 +163,13 @@ export function CompanyWorkspacePage(): JSX.Element {
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600">
-            <p className="font-semibold text-slate-700">📍 Mapa GPS no disponible para este archivo</p>
+            <p className="font-semibold text-slate-700">
+              📍 Mapa GPS no disponible para este archivo
+            </p>
             <p className="mt-1">
-              Este es un archivo de estadísticas RNDC, no contiene coordenadas GPS.
-              Para ver recorridos en el mapa, sube un archivo de telemetría vehicular
-              con columnas: <span className="font-mono text-xs">fecha, hora, latitud, longitud, velocidad</span>.
+              Este es un archivo de estadísticas RNDC, no contiene coordenadas GPS. Para ver
+              recorridos en el mapa, sube un archivo de telemetría vehicular con columnas:{' '}
+              <span className="font-mono text-xs">fecha, hora, latitud, longitud, velocidad</span>.
             </p>
           </div>
         </>
@@ -184,7 +191,9 @@ export function CompanyWorkspacePage(): JSX.Element {
 
           {insightKpis.length > 0 ? (
             <div>
-              <h3 className="mb-3 text-base font-semibold text-slate-800">Resumen del archivo GPS</h3>
+              <h3 className="mb-3 text-base font-semibold text-slate-800">
+                Resumen del archivo GPS
+              </h3>
               <FileInsightPanel
                 fileName={selectedFileName}
                 loading={insightLoading}
@@ -211,15 +220,21 @@ export function CompanyWorkspacePage(): JSX.Element {
           {insightNotes.length > 0 ? (
             <ul className="space-y-1">
               {insightNotes.map((n) => (
-                <li key={n.label} className="text-sm text-red-700">{n.value}</li>
+                <li key={n.label} className="text-sm text-red-700">
+                  {n.value}
+                </li>
               ))}
             </ul>
           ) : null}
           <div className="mt-4 rounded-lg border border-red-200 bg-white p-4 text-sm text-slate-700">
             <p className="font-semibold mb-2">Formatos aceptados:</p>
             <ul className="list-disc list-inside space-y-1 text-slate-600">
-              <li><strong>Estadísticas RNDC:</strong> columnas VIAJES, PLACAS, KILOGRAMOS, ANOMES…</li>
-              <li><strong>Telemetría GPS:</strong> columnas fecha, hora, latitud, longitud, velocidad…</li>
+              <li>
+                <strong>Estadísticas RNDC:</strong> columnas VIAJES, PLACAS, KILOGRAMOS, ANOMES…
+              </li>
+              <li>
+                <strong>Telemetría GPS:</strong> columnas fecha, hora, latitud, longitud, velocidad…
+              </li>
             </ul>
           </div>
         </div>
@@ -250,7 +265,6 @@ export function CompanyWorkspacePage(): JSX.Element {
           </div>
         </div>
       ) : null}
-
     </section>
   );
 }

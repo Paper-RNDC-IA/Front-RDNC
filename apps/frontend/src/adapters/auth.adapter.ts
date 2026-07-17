@@ -4,18 +4,12 @@ export function adaptSession(
   response: LoginResponseApi,
   fallback?: Pick<SessionUser, 'token' | 'expiresAt'>,
 ): SessionUser {
-  const token =
-    response.access_token ??
-    response.token ??
-    fallback?.token ??
-    '';
+  const token = response.access_token ?? response.token ?? fallback?.token ?? '';
 
-  const companyId = String(
-    response.company_id ?? response.company ?? response.empresa_id ?? '',
-  );
+  const companyId = String(response.company_id ?? response.company ?? response.empresa_id ?? '');
 
   const rawName = String(response.company_name ?? response.nombre_empresa ?? '');
-  const rawNit  = String(response.company_nit  ?? response.nit ?? '');
+  const rawNit = String(response.company_nit ?? response.nit ?? '');
 
   // El back a veces devuelve company_name=NIT y company_nit=nombre (invertidos).
   // Detectamos por patrón: NIT solo tiene dígitos, puntos y guiones.
@@ -23,7 +17,7 @@ export function adaptSession(
   const swapped = isNitLike(rawName) && !isNitLike(rawNit);
 
   const companyName = (swapped ? rawNit : rawName) || companyId || 'Empresa';
-  const companyNit  = (swapped ? rawName : rawNit) || 'N/A';
+  const companyNit = (swapped ? rawName : rawNit) || 'N/A';
 
   const email = String(response.email ?? response.correo ?? '');
 

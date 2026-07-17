@@ -68,7 +68,10 @@ export function DataTable<T extends object>({
           <tbody>
             {!visibleRows.length ? (
               <tr>
-                <td colSpan={columns.length} className="px-2 py-5 text-center text-slate-500 sm:px-3">
+                <td
+                  colSpan={columns.length}
+                  className="px-2 py-5 text-center text-slate-500 sm:px-3"
+                >
                   No hay registros para este rango.
                 </td>
               </tr>

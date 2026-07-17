@@ -102,9 +102,10 @@ export function useCompanyRoutes({
           const selectedFromCurrent = files.some((item) => item.value === prev.filters.fileId)
             ? prev.filters.fileId
             : '';
-          const selectedFromInitial = initialFileId && files.some((item) => item.value === initialFileId)
-            ? initialFileId
-            : '';
+          const selectedFromInitial =
+            initialFileId && files.some((item) => item.value === initialFileId)
+              ? initialFileId
+              : '';
           const nextFileId = selectedFromCurrent || selectedFromInitial || files[0]?.value || '';
 
           return {
@@ -167,10 +168,9 @@ export function useCompanyRoutes({
 
         setState((prev) => {
           // Always auto-select: keep current if valid, else take first
-          const nextVehicleId =
-            vehicles.some((item) => item.value === prev.filters.vehicleId)
-              ? prev.filters.vehicleId
-              : vehicles[0]?.value ?? '';
+          const nextVehicleId = vehicles.some((item) => item.value === prev.filters.vehicleId)
+            ? prev.filters.vehicleId
+            : (vehicles[0]?.value ?? '');
 
           return {
             ...prev,
@@ -234,10 +234,9 @@ export function useCompanyRoutes({
 
         setState((prev) => {
           // Always auto-select: keep current if valid, else take first (most recent)
-          const nextMonth =
-            months.some((item) => item.value === prev.filters.month)
-              ? prev.filters.month
-              : months[0]?.value ?? '';
+          const nextMonth = months.some((item) => item.value === prev.filters.month)
+            ? prev.filters.month
+            : (months[0]?.value ?? '');
 
           return {
             ...prev,
@@ -379,7 +378,8 @@ export function useCompanyRoutes({
   const hasReadyFilters = Boolean(
     state.filters.fileId && state.filters.vehicleId && state.filters.month,
   );
-  const isMapEmpty = hasReadyFilters && !state.loadingMap && (state.mapData?.path.length ?? 0) === 0;
+  const isMapEmpty =
+    hasReadyFilters && !state.loadingMap && (state.mapData?.path.length ?? 0) === 0;
 
   return {
     files: state.files,

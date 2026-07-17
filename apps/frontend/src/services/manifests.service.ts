@@ -94,7 +94,9 @@ function normalizeDistribution(payload: unknown): ManifestDistributionApi[] {
   }
 
   return payload.filter(isRecord).map((item) => ({
-    status: String(item.categoria ?? item.status ?? item.tipo_mercancia ?? item.label ?? 'Sin categoria'),
+    status: String(
+      item.categoria ?? item.status ?? item.tipo_mercancia ?? item.label ?? 'Sin categoria',
+    ),
     total: toNumber(item.total ?? item.value),
   }));
 }

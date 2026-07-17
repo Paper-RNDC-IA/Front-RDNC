@@ -247,7 +247,7 @@ export function ColombiaMap({
             className="h-full w-full rounded-lg"
           >
             <TileLayer
-              attribution='&copy; OpenStreetMap contributors'
+              attribution="&copy; OpenStreetMap contributors"
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <MapZoomController zoom={zoom} mapRef={mapRef} />
@@ -304,8 +304,8 @@ export function ColombiaMap({
               </div>
               <p className="mt-2 text-sm text-slate-500">
                 Haz clic en cualquier burbuja para ver estadisticas detalladas de produccion,
-                regalias y demanda regional. El tamano y color de cada burbuja reflejan el valor
-                de la capa activa.
+                regalias y demanda regional. El tamano y color de cada burbuja reflejan el valor de
+                la capa activa.
               </p>
             </div>
           )}

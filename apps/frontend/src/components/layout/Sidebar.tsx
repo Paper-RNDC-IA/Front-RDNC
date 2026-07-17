@@ -26,7 +26,11 @@ const PUBLIC_ITEMS: NavItem[] = [
   { to: '/app/geografia', label: 'Geografía' },
 ];
 
-const EMPRESA_GROUP: NavGroup = { id: 'empresa', title: 'Portal Empresarial', items: EMPRESA_ITEMS };
+const EMPRESA_GROUP: NavGroup = {
+  id: 'empresa',
+  title: 'Portal Empresarial',
+  items: EMPRESA_ITEMS,
+};
 const PUBLIC_GROUPS: NavGroup[] = [
   { id: 'rndc', title: 'RNDC Público', items: PUBLIC_ITEMS.slice(0, 4) },
   { id: 'geo', title: 'Territorial', items: PUBLIC_ITEMS.slice(4) },
@@ -62,14 +66,24 @@ function Logo(): JSX.Element {
   return (
     <div className="mb-7 rounded-2xl border border-orange-200/70 bg-gradient-to-br from-orange-50 to-white px-4 py-4 shadow-sm">
       <div className="mb-2 flex items-center gap-2">
-        <svg viewBox="0 0 64 40" className="h-8 w-12 text-orange-500" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          viewBox="0 0 64 40"
+          className="h-8 w-12 text-orange-500"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <rect x="2" y="10" width="38" height="22" rx="3" />
           <path d="M40 18h10l8 8v6H40V18z" />
           <circle cx="14" cy="34" r="5" />
           <circle cx="50" cy="34" r="5" />
           <line x1="2" y1="18" x2="40" y2="18" />
         </svg>
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-600">TransData</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-600">
+          TransData
+        </p>
       </div>
       <h1 className="text-base font-bold text-slate-900">RNDC Colombia</h1>
       <p className="mt-0.5 text-xs text-slate-500">Análisis de carga terrestre</p>

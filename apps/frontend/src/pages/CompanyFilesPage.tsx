@@ -45,12 +45,13 @@ export function CompanyFilesPage(): JSX.Element {
 
   return (
     <section className="space-y-6">
-
       {/* Header empresa */}
       <div className="rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">Portal Privado · Archivos</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">
+              Portal Privado · Archivos
+            </p>
             <h2 className="mt-1 text-2xl font-bold text-slate-900">{session.companyName}</h2>
             <p className="mt-0.5 text-sm text-slate-500">NIT: {session.companyNit}</p>
           </div>
@@ -61,9 +62,7 @@ export function CompanyFilesPage(): JSX.Element {
         </div>
       </div>
 
-      {error ? (
-        <ErrorState title="Novedad en archivos" message={error} onRetry={reload} />
-      ) : null}
+      {error ? <ErrorState title="Novedad en archivos" message={error} onRetry={reload} /> : null}
 
       {/* Resumen de archivos */}
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -78,7 +77,8 @@ export function CompanyFilesPage(): JSX.Element {
           <p className="text-4xl">📂</p>
           <p className="mt-3 text-base font-semibold text-slate-700">Sin archivos cargados</p>
           <p className="mt-1 text-sm text-slate-400">
-            Ve a <span className="font-medium text-orange-600">Mis datos</span> para subir tu primer archivo Excel.
+            Ve a <span className="font-medium text-orange-600">Mis datos</span> para subir tu primer
+            archivo Excel.
           </p>
         </div>
       ) : (

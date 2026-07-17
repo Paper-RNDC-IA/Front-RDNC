@@ -90,10 +90,10 @@ function MessageBubble({ msg }: { msg: UiMessage }): JSX.Element {
         {msg.content}
         {!isUser ? (
           <p className="mt-2 border-t border-slate-100 pt-2 text-[11px] italic leading-snug text-slate-400">
-            Esta respuesta se generó automáticamente a partir de los datos de tu empresa y del
-            RNDC. Puede contener errores de interpretación del modelo: verifica las cifras
-            importantes antes de tomar decisiones operativas. El Asistente IA es una herramienta
-            de apoyo, no reemplaza el criterio de un profesional de logística.
+            Esta respuesta se generó automáticamente a partir de los datos de tu empresa y del RNDC.
+            Puede contener errores de interpretación del modelo: verifica las cifras importantes
+            antes de tomar decisiones operativas. El Asistente IA es una herramienta de apoyo, no
+            reemplaza el criterio de un profesional de logística.
           </p>
         ) : null}
       </div>
@@ -195,9 +195,7 @@ export function CompanyChatPage(): JSX.Element {
               Portal Privado · Asistente IA
             </p>
             <h2 className="mt-1 text-2xl font-bold text-slate-900">{companyName}</h2>
-            {companyNit ? (
-              <p className="mt-0.5 text-sm text-slate-500">NIT: {companyNit}</p>
-            ) : null}
+            {companyNit ? <p className="mt-0.5 text-sm text-slate-500">NIT: {companyNit}</p> : null}
           </div>
           <div className="flex items-center gap-2 rounded-xl border border-orange-200 bg-white px-4 py-2 shadow-sm">
             <div className="h-2 w-2 rounded-full bg-green-400" />
@@ -233,8 +231,8 @@ export function CompanyChatPage(): JSX.Element {
               </div>
               <p className="text-base font-semibold text-slate-700">¿En qué te puedo ayudar hoy?</p>
               <p className="mt-1 max-w-sm text-sm text-slate-500">
-                Pregunta sobre tus manifiestos, estadísticas de vehículos, rutas GPS o emisiones CO₂.
-                El asistente consulta tus datos reales para responderte.
+                Pregunta sobre tus manifiestos, estadísticas de vehículos, rutas GPS o emisiones
+                CO₂. El asistente consulta tus datos reales para responderte.
               </p>
               <div className="mt-5 grid gap-2 sm:grid-cols-2">
                 {SUGGESTIONS.map((suggestion) => (
@@ -313,7 +311,8 @@ export function CompanyChatPage(): JSX.Element {
             </button>
           </div>
           <p className="mt-1.5 text-[11px] text-slate-400">
-            Powered by Groq · Llama 3.3 70B Versatile · Respuestas generadas por IA, verifica datos importantes.
+            Powered by Groq · Llama 3.3 70B Versatile · Respuestas generadas por IA, verifica datos
+            importantes.
           </p>
         </div>
       </div>

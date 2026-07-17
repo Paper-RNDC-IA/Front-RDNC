@@ -102,7 +102,10 @@ function adaptEvent(item: RouteEventApi, index: number): RouteEvent {
   };
 }
 
-function buildTimeRangeLabel(fromAt: string | null | undefined, toAt: string | null | undefined): string {
+function buildTimeRangeLabel(
+  fromAt: string | null | undefined,
+  toAt: string | null | undefined,
+): string {
   if (!fromAt && !toAt) {
     return 'Sin rango temporal';
   }
@@ -143,10 +146,15 @@ export function adaptRouteMapStats(data: VehicleRouteMap): Array<{ label: string
   ];
 }
 
-export function adaptVehicleRouteMap(map: RouteMapApi, eventsPayload: RouteEventApi[]): VehicleRouteMap {
+export function adaptVehicleRouteMap(
+  map: RouteMapApi,
+  eventsPayload: RouteEventApi[],
+): VehicleRouteMap {
   const rawPath = (map.points ?? map.path ?? []).map(adaptPoint).filter(isValidCoordinate);
-  const startPoint = map.start_point ? adaptPoint(map.start_point) : rawPath[0] ?? null;
-  const endPoint = map.end_point ? adaptPoint(map.end_point) : rawPath[rawPath.length - 1] ?? null;
+  const startPoint = map.start_point ? adaptPoint(map.start_point) : (rawPath[0] ?? null);
+  const endPoint = map.end_point
+    ? adaptPoint(map.end_point)
+    : (rawPath[rawPath.length - 1] ?? null);
   const events = eventsPayload
     .map(adaptEvent)
     .filter((item) => Number.isFinite(item.lat) && Number.isFinite(item.lng));
