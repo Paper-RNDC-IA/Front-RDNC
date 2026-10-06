@@ -40,6 +40,9 @@ export type InteranualRowApi = {
   total_manifiestos: number;
   total_toneladas: number;
   empresas_activas: number;
+  /** Meses con datos del año; un año con menos de 12 no es comparable. */
+  meses?: number;
+  parcial?: boolean;
   var_manifiestos_pct: number | null;
   var_toneladas_pct: number | null;
 };

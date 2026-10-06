@@ -191,7 +191,14 @@ export function ManifiestosPage(): JSX.Element {
                   <tbody>
                     {interanual.map((row) => (
                       <tr key={row.anio} className="border-b border-slate-50 hover:bg-slate-50">
-                        <td className="px-4 py-2 font-semibold text-slate-800">{row.anio}</td>
+                        <td className="px-4 py-2 font-semibold text-slate-800">
+                          {row.anio}
+                          {row.parcial ? (
+                            <span className="ml-2 text-xs font-normal text-amber-600">
+                              parcial ({row.meses} meses)
+                            </span>
+                          ) : null}
+                        </td>
                         <td className="px-4 py-2 text-slate-700">
                           {formatNumber(row.total_manifiestos)}
                         </td>
