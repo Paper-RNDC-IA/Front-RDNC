@@ -38,7 +38,7 @@ function normalizeKpis(payload: unknown): ManifestKpiApi[] {
   }
 
   return [
-    { label: 'Manifiestos Totales', value: toNumber(payload.total_manifiestos) },
+    { label: 'Viajes Totales', value: toNumber(payload.total_manifiestos) },
     { label: 'Toneladas Totales', value: toNumber(payload.total_toneladas) },
     { label: 'Empresas Activas', value: toNumber(payload.empresas_activas) },
     {

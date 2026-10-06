@@ -2,13 +2,6 @@ import type { DateRange } from '../types/common';
 
 const DATE_FORMAT_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
-function toInputDate(value: Date): string {
-  const year = value.getFullYear();
-  const month = String(value.getMonth() + 1).padStart(2, '0');
-  const day = String(value.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
 export function normalizeDateInput(value: string): string {
   const trimmed = value.trim();
 
@@ -73,13 +66,15 @@ export function getDateRangeValidationError(dateRange: DateRange): string | null
   return null;
 }
 
+/**
+ * Rango por defecto: SIN fechas, es decir todo el periodo disponible.
+ *
+ * Antes eran los ultimos 30 dias contados desde hoy. El RNDC publica con meses de retraso
+ * (el ultimo periodo cargado es junio de 2026), asi que esa ventana no cruzaba ningun dato y
+ * Estadisticas, Manifiestos, Empresas y Geografia abrian con todos los KPIs en cero: lo
+ * primero que vera cualquiera que abra la plataforma. api.ts omite los parametros vacios,
+ * de modo que {from:'', to:''} equivale a no filtrar.
+ */
 export function getDefaultDateRange(): DateRange {
-  const today = new Date();
-  const start = new Date(today);
-  start.setDate(today.getDate() - 30);
-
-  return {
-    from: toInputDate(start),
-    to: toInputDate(today),
-  };
+  return { from: '', to: '' };
 }

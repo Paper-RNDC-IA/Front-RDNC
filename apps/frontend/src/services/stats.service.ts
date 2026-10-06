@@ -42,7 +42,7 @@ function normalizeDashboard(payload: unknown): Omit<StatsDashboardApi, 'healthSt
 
   const kpis: StatsKpiApi[] = [
     {
-      label: 'Manifiestos Totales',
+      label: 'Viajes Totales',
       value: toNumber(manifests.total_manifiestos),
       delta: `${toNumber(manifests.variacion_manifiestos).toFixed(1)}%`,
       trend: toNumber(manifests.variacion_manifiestos) >= 0 ? 'up' : 'down',
@@ -64,7 +64,7 @@ function normalizeDashboard(payload: unknown): Omit<StatsDashboardApi, 'healthSt
   ];
 
   const summary: StatsSummaryApi[] = [
-    { module: 'Manifiestos', total: toNumber(manifests.total_manifiestos) },
+    { module: 'Viajes', total: toNumber(manifests.total_manifiestos) },
     { module: 'Rutas', total: toNumber(routes.total_rutas) },
     { module: 'Empresas', total: toNumber(companies.total_empresas) },
   ];
