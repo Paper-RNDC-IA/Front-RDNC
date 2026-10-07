@@ -63,12 +63,6 @@ function normalizeDashboard(payload: unknown): Omit<StatsDashboardApi, 'healthSt
     },
   ];
 
-  const summary: StatsSummaryApi[] = [
-    { module: 'Viajes', total: toNumber(manifests.total_manifiestos) },
-    { module: 'Rutas', total: toNumber(routes.total_rutas) },
-    { module: 'Empresas', total: toNumber(companies.total_empresas) },
-  ];
-
   const trends: StatsTrendApi[] = Array.isArray(dashboard.trends)
     ? dashboard.trends.filter(isRecord).map((item) => ({
         period:
@@ -78,6 +72,28 @@ function normalizeDashboard(payload: unknown): Omit<StatsDashboardApi, 'healthSt
         total: toNumber(item.total ?? item.total_manifiestos),
       }))
     : [];
+
+  // Viajes por AÑO, a partir de la serie mensual. Antes este grafico sumaba viajes + rutas +
+  // empresas como si fueran "modulos" comparables (total 55.653.011): unidades distintas que
+  // no se pueden sumar, y el panel concluia "Viajes lidera con 53.863.845 registros".
+  // Un año con menos de 12 meses se rotula como parcial: no es comparable con uno completo.
+  const porAnio = new Map<number, { total: number; meses: number }>();
+  if (Array.isArray(dashboard.trends)) {
+    for (const item of dashboard.trends.filter(isRecord)) {
+      const anio = toNumber(item.anio);
+      if (!anio) continue;
+      const actual = porAnio.get(anio) ?? { total: 0, meses: 0 };
+      actual.total += toNumber(item.total ?? item.total_manifiestos);
+      actual.meses += 1;
+      porAnio.set(anio, actual);
+    }
+  }
+  const summary: StatsSummaryApi[] = [...porAnio.entries()]
+    .sort(([a], [b]) => a - b)
+    .map(([anio, { total, meses }]) => ({
+      module: meses < 12 ? `${anio} (${meses} meses)` : String(anio),
+      total,
+    }));
 
   return {
     kpis,

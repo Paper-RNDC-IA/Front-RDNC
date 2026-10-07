@@ -63,8 +63,8 @@ export function EstadisticasPage(): JSX.Element {
     },
     topModule
       ? {
-          title: 'Modulo con mayor volumen',
-          detail: `${topModule.label} lidera con ${formatNumber(topModule.value)} registros consolidados.`,
+          title: 'Año con mayor volumen',
+          detail: `${topModule.label} lidera con ${formatNumber(topModule.value)} viajes.`,
           tone: 'neutral' as const,
         }
       : null,
@@ -153,8 +153,8 @@ export function EstadisticasPage(): JSX.Element {
               }}
             />
             <BarChartWidget
-              title="Resumen por modulo"
-              subtitle="Que modulos concentran mas actividad"
+              title="Viajes por año"
+              subtitle="Que años concentran mas actividad (los incompletos se rotulan)"
               data={summaryChart}
               dataKey="value"
               xKey="label"
@@ -173,8 +173,8 @@ export function EstadisticasPage(): JSX.Element {
             />
           </div>
           <PieChartWidget
-            title="Participacion por modulo"
-            subtitle="Como se distribuye el volumen total entre modulos"
+            title="Participacion por año"
+            subtitle="Como se reparten los viajes entre los años cargados"
             data={summaryDistribution}
             dataKey="value"
             nameKey="label"
@@ -200,14 +200,13 @@ export function EstadisticasPage(): JSX.Element {
                   item={{
                     label: 'Cobertura DANE (%)',
                     value: fiabilidad.cobertura_dane_pct,
-                    delta: `${fiabilidad.cobertura_dane_pct.toFixed(1)}%`,
                     trend: fiabilidad.cobertura_dane_pct >= 90 ? 'up' : 'down',
                   }}
                   sourceLabel="RNDC publico"
                 />
                 <KpiCard
                   item={{
-                    label: 'Duplicados detectados',
+                    label: 'Posibles duplicados (cota)',
                     value: fiabilidad.duplicados,
                     trend: fiabilidad.duplicados === 0 ? 'up' : 'down',
                   }}
@@ -215,7 +214,7 @@ export function EstadisticasPage(): JSX.Element {
                 />
                 <KpiCard
                   item={{
-                    label: 'Viajes vacios (0 ton)',
+                    label: 'Registros sin carga (0 t)',
                     value: fiabilidad.viajes_vacios,
                     trend: fiabilidad.viajes_vacios === 0 ? 'up' : 'down',
                   }}
@@ -223,7 +222,7 @@ export function EstadisticasPage(): JSX.Element {
                 />
                 <KpiCard
                   item={{
-                    label: 'Outliers toneladas',
+                    label: 'Registros atipicos (t)',
                     value: fiabilidad.outliers_toneladas,
                     trend: fiabilidad.outliers_toneladas < 100 ? 'neutral' : 'down',
                   }}
