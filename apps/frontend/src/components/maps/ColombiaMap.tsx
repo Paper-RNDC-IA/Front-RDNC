@@ -29,7 +29,7 @@ const layerStyle: Record<MapLayer, { label: string; unit: string; palette: strin
     palette: ['#f5f5f5', '#ffb27a', '#ff7802', '#e42b0c', '#7a1507'],
   },
   royalties: {
-    label: 'Regalias',
+    label: 'Regalias (ilustrativo)',
     unit: 'MM COP',
     palette: ['#d1fae5', '#6ee7b7', '#34d399', '#10b981', '#047857'],
   },

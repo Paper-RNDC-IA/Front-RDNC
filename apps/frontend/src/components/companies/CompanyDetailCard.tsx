@@ -3,9 +3,13 @@ import { Card } from '../common/Card';
 
 type CompanyDetailCardProps = {
   company: CompanyRow | null;
+  showCapacity?: boolean;
 };
 
-export function CompanyDetailCard({ company }: CompanyDetailCardProps): JSX.Element {
+export function CompanyDetailCard({
+  company,
+  showCapacity = true,
+}: CompanyDetailCardProps): JSX.Element {
   if (!company) {
     return (
       <Card title="Detalle de empresa">
@@ -25,14 +29,18 @@ export function CompanyDetailCard({ company }: CompanyDetailCardProps): JSX.Elem
           <dt className="text-slate-400">NIT</dt>
           <dd className="text-slate-100">{company.nit}</dd>
         </div>
-        <div className="rounded-lg bg-slate-950/70 px-3 py-2">
-          <dt className="text-slate-400">Vehiculos activos</dt>
-          <dd className="text-slate-100">{company.activeVehicles}</dd>
-        </div>
-        <div className="rounded-lg bg-slate-950/70 px-3 py-2">
-          <dt className="text-slate-400">Cumplimiento</dt>
-          <dd className="text-slate-100">{company.compliance}</dd>
-        </div>
+        {showCapacity ? (
+          <>
+            <div className="rounded-lg bg-slate-950/70 px-3 py-2">
+              <dt className="text-slate-400">Vehiculos activos</dt>
+              <dd className="text-slate-100">{company.activeVehicles}</dd>
+            </div>
+            <div className="rounded-lg bg-slate-950/70 px-3 py-2">
+              <dt className="text-slate-400">Cumplimiento</dt>
+              <dd className="text-slate-100">{company.compliance}</dd>
+            </div>
+          </>
+        ) : null}
         <div className="rounded-lg bg-slate-950/70 px-3 py-2">
           <dt className="text-slate-400">Ciudad</dt>
           <dd className="text-slate-100">{company.city}</dd>

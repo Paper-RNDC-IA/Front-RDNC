@@ -57,6 +57,10 @@ export function EmpresasPage(): JSX.Element {
     (a, b) => parseVehicles(b.activeVehicles) - parseVehicles(a.activeVehicles),
   )[0];
 
+  // El directorio publico del RNDC no trae vehiculos ni cumplimiento: sin esos datos se
+  // ocultan en vez de mostrar ceros que parecen una medicion.
+  const hasCapacityData = companies.some((item) => parseVehicles(item.activeVehicles) > 0);
+
   const companyBarData = [...companies]
     .map((item) => ({
       label: item.name,
@@ -78,7 +82,7 @@ export function EmpresasPage(): JSX.Element {
   }));
 
   const insightItems = [
-    topCompany
+    hasCapacityData && topCompany
       ? {
           title: 'Empresa con mayor capacidad activa',
           detail: `${topCompany.name} lidera con ${topCompany.activeVehicles} vehiculos activos en el periodo.`,
@@ -88,7 +92,9 @@ export function EmpresasPage(): JSX.Element {
     selectedCompany
       ? {
           title: 'Empresa seleccionada para analisis',
-          detail: `${selectedCompany.name} reporta cumplimiento de ${selectedCompany.compliance} y estado ${selectedCompany.status}.`,
+          detail: hasCapacityData
+            ? `${selectedCompany.name} reporta cumplimiento de ${selectedCompany.compliance} y estado ${selectedCompany.status}.`
+            : `${selectedCompany.name} (${selectedCompany.city}) figura con estado ${selectedCompany.status}.`,
           tone: 'neutral' as const,
         }
       : null,
@@ -146,25 +152,27 @@ export function EmpresasPage(): JSX.Element {
         title="Comparativo y detalle"
         description="Selecciona una empresa en la tabla para revisar su ficha de comportamiento."
       />
-      <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
-        <BarChartWidget
-          title="Top empresas por vehiculos"
-          subtitle="Ranking de capacidad activa para priorizar seguimiento"
-          data={companyBarData}
-          dataKey="value"
-          xKey="label"
-          horizontal
-          sortDescending
-          valueLabel="Vehiculos"
-          sourceLabel="RNDC publico"
-          help={{
-            description: 'Compara capacidad activa de empresas por cantidad de vehiculos.',
-            xAxis: 'Numero de vehiculos activos.',
-            yAxis: 'Empresa habilitada.',
-            interpretation:
-              'Empresas con barras mas altas tienen mayor capacidad operacional reportada.',
-          }}
-        />
+      <div className={`grid grid-cols-1 gap-4 sm:gap-6 ${hasCapacityData ? 'lg:grid-cols-2' : ''}`}>
+        {hasCapacityData ? (
+          <BarChartWidget
+            title="Top empresas por vehiculos"
+            subtitle="Ranking de capacidad activa para priorizar seguimiento"
+            data={companyBarData}
+            dataKey="value"
+            xKey="label"
+            horizontal
+            sortDescending
+            valueLabel="Vehiculos"
+            sourceLabel="RNDC publico"
+            help={{
+              description: 'Compara capacidad activa de empresas por cantidad de vehiculos.',
+              xAxis: 'Numero de vehiculos activos.',
+              yAxis: 'Empresa habilitada.',
+              interpretation:
+                'Empresas con barras mas altas tienen mayor capacidad operacional reportada.',
+            }}
+          />
+        ) : null}
         <PieChartWidget
           title="Distribucion por estado"
           subtitle="Participacion de empresas por estado operativo"
@@ -187,10 +195,17 @@ export function EmpresasPage(): JSX.Element {
           title="Empresas habilitadas"
           subtitle="Ranking operativo de empresas registradas con posibilidad de drill-down en detalle."
           columns={[
-            { key: 'name', label: 'Empresa' },
-            { key: 'nit', label: 'NIT' },
-            { key: 'activeVehicles', label: 'Vehiculos Activos' },
-            { key: 'compliance', label: 'Cumplimiento' },
+            { key: 'name' as const, label: 'Empresa' },
+            { key: 'nit' as const, label: 'NIT' },
+            ...(hasCapacityData
+              ? [
+                  { key: 'activeVehicles' as const, label: 'Vehiculos Activos' },
+                  { key: 'compliance' as const, label: 'Cumplimiento' },
+                ]
+              : [
+                  { key: 'city' as const, label: 'Ciudad' },
+                  { key: 'status' as const, label: 'Estado' },
+                ]),
           ]}
           rows={companies}
           rowKey="id"
@@ -199,7 +214,7 @@ export function EmpresasPage(): JSX.Element {
           sourceLabel="RNDC publico"
           helpText="Selecciona una empresa para ver su ficha y comparar actividad, cumplimiento y estado operativo."
         />
-        <CompanyDetailCard company={selectedCompany} />
+        <CompanyDetailCard company={selectedCompany} showCapacity={hasCapacityData} />
       </div>
       <InsightsPanel title="Hallazgos empresariales" items={insightItems} />
     </section>

@@ -40,7 +40,7 @@ export function DetailedReportModal({
         disponible: department.values.demand.available ? 'Si' : 'No',
       },
       {
-        capa: 'Regalias',
+        capa: 'Regalias (ilustrativo)',
         valor: formatMetric(department.values.royalties.value, department.values.royalties.unit),
         disponible: department.values.royalties.available ? 'Si' : 'No',
       },

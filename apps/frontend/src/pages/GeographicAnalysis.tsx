@@ -24,7 +24,7 @@ import { formatNumber } from '../utils/formatters';
 const layerLabels: Record<MapLayer, string> = {
   production: 'Produccion',
   demand: 'Demanda',
-  royalties: 'Regalias',
+  royalties: 'Regalias (ilustrativo)',
 };
 
 const allMapDepartments = [
@@ -317,7 +317,7 @@ export function GeographicAnalysis(): JSX.Element {
       ),
     },
     {
-      label: 'Regalias',
+      label: 'Regalias (ilustrativo)',
       value: (state.mapData?.departments ?? []).reduce(
         (acc, department) => acc + (department.values.royalties.value ?? 0),
         0,
