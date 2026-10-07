@@ -130,7 +130,7 @@ Archivo:
 
 Variable principal:
 
-- VITE_API_URL=https://back-rndc.onrender.com
+- VITE_API_URL=http://127.0.0.1:8000 (backend local; en el servidor de la universidad, la URL publica del backend)
 
 ## Desarrollo local
 
@@ -150,18 +150,27 @@ npm run test -- --run
 npm run build
 ```
 
-## Estado de integracion
+## Sistema visual
 
-El frontend esta configurado para consumir datos reales del backend desplegado y no usa fallback mock en la capa de servicios principal.
+Basado en `DESIGN.md` (guia de estilo "industrial command deck"):
 
-## Documento adicional de integracion
+- Lienzo gris `#f5f5f5`, tarjetas blancas con borde `#e5e7eb` y sombra suave; barra lateral Carbon `#1f1f1f`.
+- Un unico color de acento, bermellon `#e42b0c`, solo para acciones y elementos activos (la escala `orange` de Tailwind esta remapeada a bermellon en `tailwind.config.*`). Los graficos usan bermellon, carbon y grises.
+- Tipografia Inter (sustituto de telegraf): titulos livianos con tracking negativo, etiquetas en mayuscula con tracking 0.025em.
+- Radio unico de 8 px y cuerpo de 16 px.
 
-Para ver inventario completo de endpoints, metodos, payloads y flujo tecnico de conexion con backend:
+## Datos que muestra
 
-- README-INTEGRACION-BACKEND.md
+- Los datos del RNDC son agregados mensuales (una fila no es un viaje): las pantallas muestran **viajes** (`VIAJESTOTALES`) y distinguen "registros".
+- Los anios incompletos se rotulan ("2026 (6 meses)") y no se comparan contra anios completos.
+- Sin filtro de fechas se consulta todo el corpus (2022-2026); el rango por defecto ya no es "ultimos 30 dias".
+- El directorio publico de empresas no trae vehiculos ni cumplimiento: esas piezas se ocultan cuando no hay datos.
+- La capa "Regalias" del mapa es ilustrativa (factor arbitrario en el backend) y no debe citarse.
 
-## Nota de workflow
+## Cambios recientes
 
-Cambio menor de documentacion para validar flujo de commit en el repositorio.
-
-Actualizacion minima para disparar el workflow de CI.
+- Rediseno completo segun `DESIGN.md`.
+- Graficos de barras y de torta corregidos (Fragments incompatibles con recharts 2.15 + React 19; contenedor de alto fijo en tortas con muchas categorias).
+- Tablas con clave de fila compuesta (`getRowKey`) para evitar claves duplicadas.
+- Estadisticas: KPI de viajes y toneladas con variacion real contra el periodo anterior; "Participacion por anio" en lugar de por modulo.
+- `.env.local`, `node_modules`, `dist` y `*.tsbuildinfo` ya no se versionan.
