@@ -73,22 +73,38 @@ export function PieChartWidget({
         }
       >
         <div className="space-y-3">
-          <ResponsiveContainer>
-            <BarChart data={sorted} layout="vertical" margin={{ left: 8 }}>
-              <XAxis type="number" stroke="#64748b" tickFormatter={formatNumber} />
-              <YAxis type="category" dataKey="label" width={120} stroke="#64748b" />
-              <Tooltip
-                formatter={(value: number) => [formatNumber(value), 'Volumen']}
-                contentStyle={{
-                  backgroundColor: '#ffffff',
-                  borderColor: '#e2e8f0',
-                  borderRadius: '10px',
-                  boxShadow: '0 12px 22px rgba(15, 23, 42, 0.12)',
-                }}
-              />
-              <Bar dataKey="value" fill="#f97316" radius={[0, 6, 6, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          {/* ResponsiveContainer mide el alto de su padre: sin una altura fija medía 0 px y el
+              ranking no se dibujaba nunca. La rama de pocas categorias ya la tenia (h-56). */}
+          <div className="h-80 w-full">
+            <ResponsiveContainer>
+              <BarChart data={sorted} layout="vertical" margin={{ left: 8, right: 16 }}>
+                <XAxis type="number" stroke="#64748b" tickFormatter={formatNumber} />
+                <YAxis type="category" dataKey="label" width={120} stroke="#64748b" />
+                <Tooltip
+                  formatter={(
+                    value: number,
+                    _name: string,
+                    item: { payload?: { percent?: number } },
+                  ) => [
+                    `${formatNumber(value)} (${(item?.payload?.percent ?? 0).toFixed(1)}%)`,
+                    'Volumen',
+                  ]}
+                  contentStyle={{
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
+                    borderRadius: '10px',
+                    boxShadow: '0 12px 22px rgba(15, 23, 42, 0.12)',
+                  }}
+                />
+                <Bar
+                  dataKey="value"
+                  fill="#f97316"
+                  radius={[0, 6, 6, 0]}
+                  isAnimationActive={false}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
 
           {help ? (
             <ChartLegendHelp

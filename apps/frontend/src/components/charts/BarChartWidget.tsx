@@ -24,6 +24,9 @@ type BarChartWidgetProps = {
   };
 };
 
+// Sin animacion: las barras se dibujan con requestAnimationFrame, que el navegador pausa en
+// pestanas en segundo plano, y html2canvas (exportacion a PDF) puede capturar el grafico a
+// medio animar. Con isAnimationActive={false} el resultado es el mismo siempre.
 export function BarChartWidget({
   title,
   data,
@@ -59,19 +62,24 @@ export function BarChartWidget({
           <ResponsiveContainer>
             <BarChart data={chartData} layout={horizontal ? 'vertical' : 'horizontal'}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              {/* Sin <>…</>: recharts 2.x usa react-is 18, que no reconoce los Fragments de React 19,
+                  e ignora los ejes y las barras que van dentro (solo se dibujaba la cuadricula). */}
               {horizontal ? (
-                <>
-                  <XAxis type="number" stroke="#64748b" tickFormatter={formatNumber} />
-                  <YAxis type="category" dataKey={xKey} stroke="#64748b" width={120} />
-                  <Bar dataKey={dataKey} fill="#f97316" radius={[0, 6, 6, 0]} />
-                </>
+                <XAxis type="number" stroke="#64748b" tickFormatter={formatNumber} />
               ) : (
-                <>
-                  <XAxis dataKey={xKey} stroke="#64748b" />
-                  <YAxis stroke="#64748b" tickFormatter={formatNumber} />
-                  <Bar dataKey={dataKey} fill="#f97316" radius={[6, 6, 0, 0]} />
-                </>
+                <XAxis dataKey={xKey} stroke="#64748b" />
               )}
+              {horizontal ? (
+                <YAxis type="category" dataKey={xKey} stroke="#64748b" width={120} />
+              ) : (
+                <YAxis stroke="#64748b" tickFormatter={formatNumber} />
+              )}
+              <Bar
+                dataKey={dataKey}
+                fill="#f97316"
+                radius={horizontal ? [0, 6, 6, 0] : [6, 6, 0, 0]}
+                isAnimationActive={false}
+              />
               <Tooltip
                 formatter={(value: number) => [formatNumber(value), valueLabel]}
                 contentStyle={{

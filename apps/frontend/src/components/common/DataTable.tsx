@@ -11,6 +11,8 @@ type DataTableProps<T extends object> = {
   columns: Array<Column<T>>;
   rows: T[];
   rowKey: keyof T & string;
+  /** Clave compuesta cuando `rowKey` no es unico (p. ej. un origen con varios destinos). */
+  getRowKey?: (row: T) => string;
   onRowClick?: (row: T) => void;
   subtitle?: string;
   maxRows?: number;
@@ -23,6 +25,7 @@ export function DataTable<T extends object>({
   columns,
   rows,
   rowKey,
+  getRowKey,
   onRowClick,
   subtitle,
   maxRows = 10,
@@ -78,7 +81,7 @@ export function DataTable<T extends object>({
             ) : null}
             {visibleRows.map((row) => (
               <tr
-                key={String(row[rowKey])}
+                key={getRowKey ? getRowKey(row) : String(row[rowKey])}
                 className="border-b border-zinc-200/70 text-slate-700 transition-colors hover:bg-orange-50/45"
                 onClick={() => onRowClick?.(row)}
               >
@@ -86,7 +89,10 @@ export function DataTable<T extends object>({
                   const value = row[column.key];
 
                   return (
-                    <td key={`${String(row[rowKey])}-${column.key}`} className="px-2 py-2 sm:px-3">
+                    <td
+                      key={`${getRowKey ? getRowKey(row) : String(row[rowKey])}-${column.key}`}
+                      className="px-2 py-2 sm:px-3"
+                    >
                       {typeof value === 'string' || typeof value === 'number' ? value : ''}
                     </td>
                   );

@@ -342,6 +342,7 @@ export function ManifiestosPage(): JSX.Element {
                   total_toneladas: formatNumber(r.total_toneladas),
                 }))}
                 rowKey="origen"
+                getRowKey={(row) => `${row.origen}|${row.destino}`}
                 maxRows={20}
                 sourceLabel="RNDC publico"
                 helpText="Flujos municipio a municipio con codigos DANE. Refleja la red logistica real del periodo."
