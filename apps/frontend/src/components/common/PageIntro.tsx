@@ -34,7 +34,7 @@ export function PageIntro({
             {title}
           </h2>
           <p className="mt-3 max-w-3xl text-lg leading-relaxed text-[#556f98]">{subtitle}</p>
-          {periodLabel ? (
+          {periodLabel && /\d/.test(periodLabel) ? (
             <p className="mt-3 inline-flex rounded-full border border-[#d7deee] bg-[#f8faff] px-3 py-1 text-sm text-[#496892]">
               Periodo: {periodLabel}
             </p>
