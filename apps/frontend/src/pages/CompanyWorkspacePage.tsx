@@ -13,7 +13,7 @@ function FileKindBadge({ kind }: { kind: string | null }): JSX.Element | null {
   const config: Record<string, { label: string; className: string }> = {
     rndc_stats: { label: 'RNDC Stats', className: 'bg-blue-100 text-blue-700 border-blue-200' },
     gps: { label: 'GPS Procesado', className: 'bg-green-100 text-green-700 border-green-200' },
-    gps_raw: { label: 'GPS (sin ruta)', className: 'bg-amber-100 text-amber-700 border-amber-200' },
+    gps_raw: { label: 'GPS (sin ruta)', className: 'bg-[#f5f5f5] text-[#4a5565] border-[#e5e7eb]' },
     unknown: { label: 'Formato desconocido', className: 'bg-red-100 text-red-700 border-red-200' },
     error: { label: 'Error de lectura', className: 'bg-red-100 text-red-700 border-red-200' },
     missing: { label: 'Archivo faltante', className: 'bg-red-100 text-red-700 border-red-200' },
@@ -79,7 +79,7 @@ export function CompanyWorkspacePage(): JSX.Element {
   return (
     <section className="space-y-6" id="company-workspace-report">
       {/* Header empresa */}
-      <div className="rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-5">
+      <div className="rounded-2xl border border-orange-200 bg-white shadow-card px-6 py-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">
@@ -110,7 +110,7 @@ export function CompanyWorkspacePage(): JSX.Element {
       {error ? <ErrorState title="Novedad en portal" message={error} onRetry={reload} /> : null}
 
       {/* Zona de carga */}
-      <div className="rounded-2xl border-2 border-dashed border-orange-300 bg-orange-50/40 px-6 py-5">
+      <div className="rounded-2xl border-2 border-dashed border-orange-300 bg-[#f5f5f5] px-6 py-5">
         <div className="mb-3 flex items-center gap-3">
           <div>
             <h3 className="text-base font-bold text-slate-800">

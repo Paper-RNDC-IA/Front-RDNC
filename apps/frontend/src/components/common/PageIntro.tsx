@@ -26,16 +26,16 @@ export function PageIntro({
   moduleGuide,
 }: PageIntroProps): JSX.Element {
   return (
-    <Card className="border-[#d2daeb] bg-gradient-to-b from-[#fbfcff] to-white">
+    <Card className="border-[#e5e7eb] bg-white !p-8 md:!p-10">
       <div className="space-y-5">
-        <div className="max-w-4xl border-l-4 border-[#f07b1b] pl-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#f07b1b]">Analitica operativa</p>
-          <h2 className="mt-1 text-4xl font-semibold leading-tight text-[#173a68] md:text-5xl">
+        <div className="max-w-4xl">
+          <p className="text-xs font-medium uppercase tracking-[0.025em] text-[#4a5565]">Analitica operativa</p>
+          <h2 className="mt-3 text-4xl font-light leading-[1.1] tracking-[-0.03em] text-[#101828] md:text-5xl">
             {title}
           </h2>
-          <p className="mt-3 max-w-3xl text-lg leading-relaxed text-[#556f98]">{subtitle}</p>
+          <p className="mt-3 max-w-3xl text-lg leading-relaxed text-[#4a5565]">{subtitle}</p>
           {periodLabel && /\d/.test(periodLabel) ? (
-            <p className="mt-3 inline-flex rounded-full border border-[#d7deee] bg-[#f8faff] px-3 py-1 text-sm text-[#496892]">
+            <p className="mt-3 inline-flex rounded-lg border border-[#d4d4d4] px-3 py-1 text-xs font-medium uppercase tracking-[0.025em] text-[#4a5565]">
               Periodo: {periodLabel}
             </p>
           ) : null}

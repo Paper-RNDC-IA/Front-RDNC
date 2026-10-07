@@ -14,7 +14,7 @@ export function ChartLegendHelp({
   interpretation,
 }: ChartLegendHelpProps): JSX.Element {
   return (
-    <div className="mt-3 rounded-xl border border-zinc-200 bg-[#fffdfa] p-3">
+    <div className="mt-3 rounded-xl border border-zinc-200 bg-[#ffffff] p-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-orange-600">{title}</p>
       <p className="mt-1 text-xs leading-relaxed text-slate-700">{description}</p>
       <div className="mt-2 grid gap-2 sm:grid-cols-2">

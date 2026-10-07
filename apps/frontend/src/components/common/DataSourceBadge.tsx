@@ -23,12 +23,12 @@ export function DataSourceBadge({
   return (
     <div className="rounded-[16px] border border-[#d4ddee] bg-white px-4 py-3 shadow-[0_8px_18px_rgba(21,51,96,0.06)]">
       <div className="flex flex-wrap items-center gap-2 text-sm text-[#375889]">
-        <span className="rounded-full border border-[#f0c79f] bg-[#fff5ea] px-2.5 py-0.5 text-xs font-semibold text-[#d16c11]">
+        <span className="rounded-full border border-[#f0c79f] bg-[#f5f5f5] px-2.5 py-0.5 text-xs font-semibold text-[#d16c11]">
           {visibilityLabel[visibility]}
         </span>
         <span className="font-semibold text-[#1a3c69]">{module}</span>
-        {sourceLabel ? <span className="text-[#57719a]">• {sourceLabel}</span> : null}
-        {updatedAt ? <span className="text-[#57719a]">• {updatedAt}</span> : null}
+        {sourceLabel ? <span className="text-[#4a5565]">• {sourceLabel}</span> : null}
+        {updatedAt ? <span className="text-[#4a5565]">• {updatedAt}</span> : null}
       </div>
       {sourceDetail ? <p className="mt-1 text-xs text-[#667fa6]">{sourceDetail}</p> : null}
     </div>

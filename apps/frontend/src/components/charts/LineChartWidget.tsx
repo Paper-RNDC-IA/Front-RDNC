@@ -45,7 +45,7 @@ export function LineChartWidget({
   if (!data.length) {
     return (
       <ChartCard title={title} subtitle={subtitle}>
-        <div className="flex h-64 items-center justify-center rounded-xl border border-zinc-200 bg-[#fffaf6]">
+        <div className="flex h-64 items-center justify-center rounded-xl border border-zinc-200 bg-[#ffffff]">
           <p className="text-sm text-slate-600">
             No hay datos de tendencia para el rango seleccionado.
           </p>
@@ -82,36 +82,36 @@ export function LineChartWidget({
             <AreaChart data={data} margin={{ top: 12, right: 12, left: -8, bottom: 0 }}>
               <defs>
                 <linearGradient id="manifestsTrendFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#f97316" stopOpacity={0.45} />
-                  <stop offset="95%" stopColor="#f97316" stopOpacity={0.03} />
+                  <stop offset="5%" stopColor="#e42b0c" stopOpacity={0.45} />
+                  <stop offset="95%" stopColor="#e42b0c" stopOpacity={0.03} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="4 4" stroke="#e2e8f0" vertical={false} />
+              <CartesianGrid strokeDasharray="4 4" stroke="#e5e7eb" vertical={false} />
               <XAxis
                 dataKey={xKey}
-                stroke="#64748b"
+                stroke="#4a5565"
                 tick={{ fontSize: 11 }}
                 tickLine={false}
-                axisLine={{ stroke: '#cbd5e1' }}
+                axisLine={{ stroke: '#d4d4d4' }}
                 minTickGap={20}
               />
               <YAxis
-                stroke="#64748b"
+                stroke="#4a5565"
                 tick={{ fontSize: 11 }}
                 tickLine={false}
-                axisLine={{ stroke: '#cbd5e1' }}
+                axisLine={{ stroke: '#d4d4d4' }}
                 width={58}
               />
               <Tooltip
-                cursor={{ stroke: '#fdba74', strokeDasharray: '3 3' }}
+                cursor={{ stroke: '#ffb27a', strokeDasharray: '3 3' }}
                 contentStyle={{
                   backgroundColor: '#ffffff',
-                  borderColor: '#e2e8f0',
+                  borderColor: '#e5e7eb',
                   borderRadius: '10px',
-                  color: '#0f172a',
+                  color: '#101828',
                   boxShadow: '0 12px 22px rgba(15, 23, 42, 0.12)',
                 }}
-                labelStyle={{ color: '#64748b' }}
+                labelStyle={{ color: '#4a5565' }}
                 formatter={(value: number) => [valueFormatter(value), metricLabel]}
               />
               <Area
@@ -123,10 +123,10 @@ export function LineChartWidget({
               <Line
                 type="monotone"
                 dataKey={dataKey}
-                stroke="#fb923c"
+                stroke="#ff7802"
                 strokeWidth={3}
-                dot={{ r: 2, strokeWidth: 0, fill: '#fdba74' }}
-                activeDot={{ r: 5, fill: '#f97316', stroke: '#ffedd5', strokeWidth: 2 }}
+                dot={{ r: 2, strokeWidth: 0, fill: '#ffb27a' }}
+                activeDot={{ r: 5, fill: '#e42b0c', stroke: '#f5f5f5', strokeWidth: 2 }}
               />
             </AreaChart>
           </ResponsiveContainer>

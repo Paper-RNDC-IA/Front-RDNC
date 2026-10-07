@@ -32,17 +32,17 @@ function MiniChart({
         <p className="text-xs text-slate-400">Sin datos.</p>
       ) : type === 'bar' ? (
         <BarChart width={280} height={200} data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-          <XAxis dataKey="label" stroke="#64748b" tick={{ fontSize: 10 }} />
-          <YAxis stroke="#64748b" tick={{ fontSize: 10 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis dataKey="label" stroke="#4a5565" tick={{ fontSize: 10 }} />
+          <YAxis stroke="#4a5565" tick={{ fontSize: 10 }} />
           <Tooltip />
           <Bar dataKey="value" fill={color} radius={[6, 6, 0, 0]} />
         </BarChart>
       ) : (
         <LineChart width={280} height={200} data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-          <XAxis dataKey="label" stroke="#64748b" tick={{ fontSize: 10 }} />
-          <YAxis stroke="#64748b" tick={{ fontSize: 10 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis dataKey="label" stroke="#4a5565" tick={{ fontSize: 10 }} />
+          <YAxis stroke="#4a5565" tick={{ fontSize: 10 }} />
           <Tooltip />
           <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2} dot={{ r: 3 }} />
         </LineChart>
@@ -58,7 +58,7 @@ function ChatChart({ chart }: { chart: AiChatChart }): JSX.Element {
         title={`${chart.title} — Distancia (km)`}
         data={chart.distance}
         type={chart.chart_type}
-        color="#f97316"
+        color="#e42b0c"
       />
       <MiniChart
         title={`${chart.title} — Velocidad (km/h)`}
@@ -188,7 +188,7 @@ export function CompanyChatPage(): JSX.Element {
   return (
     <section className="flex h-[calc(100vh-4rem)] flex-col space-y-0" id="company-chat">
       {/* Header */}
-      <div className="rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-5 mb-4 flex-shrink-0">
+      <div className="rounded-2xl border border-orange-200 bg-white shadow-card px-6 py-5 mb-4 flex-shrink-0">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">

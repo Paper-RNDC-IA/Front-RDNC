@@ -114,7 +114,7 @@ export function VehicleRouteMap({
 
         <Polyline
           positions={positions}
-          pathOptions={{ color: '#ea580c', opacity: 0.88, weight: 4, lineCap: 'round' }}
+          pathOptions={{ color: '#e42b0c', opacity: 0.88, weight: 4, lineCap: 'round' }}
         />
 
         {limitedEvents.map((event) => (

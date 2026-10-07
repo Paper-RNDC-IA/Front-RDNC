@@ -20,9 +20,7 @@ const highlights = [
 
 export function HomePage(): JSX.Element {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#fffdfb] text-slate-900">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_0%,rgba(249,115,22,0.18),transparent_36%),radial-gradient(circle_at_95%_8%,rgba(251,146,60,0.12),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(234,88,12,0.08),transparent_45%)]" />
-
+    <div className="relative min-h-screen overflow-hidden bg-[#ffffff] text-slate-900">
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-10 pt-6 sm:px-5 sm:pb-12 sm:pt-8 lg:px-10 lg:pt-10">
         <header className="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border-2 border-zinc-200 bg-white px-4 py-3 shadow-[0_14px_30px_rgba(15,23,42,0.08)] backdrop-blur sm:mb-10 sm:gap-4 sm:px-5 sm:py-4">
           <div>
@@ -56,7 +54,7 @@ export function HomePage(): JSX.Element {
 
         <section className="grid gap-5 sm:gap-6 lg:grid-cols-[1.25fr_1fr]">
           <article className="rounded-3xl border-2 border-zinc-200 bg-white p-5 shadow-[0_18px_36px_rgba(15,23,42,0.08)] sm:p-7">
-            <div className="inline-flex rounded-full border border-orange-300 bg-orange-50 px-3 py-1 text-xs font-medium text-orange-700">
+            <div className="inline-flex rounded-lg border border-[#d4d4d4] bg-white px-3 py-1 text-xs font-medium text-orange-700">
               Plataforma nacional de analitica RNDC
             </div>
             <h2 className="mt-4 text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
@@ -73,7 +71,7 @@ export function HomePage(): JSX.Element {
               {highlights.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-zinc-200 bg-[#fffaf6] p-4"
+                  className="rounded-2xl border border-zinc-200 bg-[#ffffff] p-4"
                 >
                   <h3 className="text-sm font-semibold text-orange-700">{item.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-slate-600">{item.description}</p>
@@ -89,16 +87,16 @@ export function HomePage(): JSX.Element {
             </p>
 
             <ol className="mt-5 space-y-3 text-sm text-slate-700">
-              <li className="rounded-xl border border-zinc-200 bg-[#fffaf6] px-3 py-2.5">
+              <li className="rounded-xl border border-zinc-200 bg-[#ffffff] px-3 py-2.5">
                 1. Revisar estado general en Estadisticas.
               </li>
-              <li className="rounded-xl border border-zinc-200 bg-[#fffaf6] px-3 py-2.5">
+              <li className="rounded-xl border border-zinc-200 bg-[#ffffff] px-3 py-2.5">
                 2. Profundizar en RNDC publico: Manifiestos y Empresas.
               </li>
-              <li className="rounded-xl border border-zinc-200 bg-[#fffaf6] px-3 py-2.5">
+              <li className="rounded-xl border border-zinc-200 bg-[#ffffff] px-3 py-2.5">
                 3. Revisar Inteligencia territorial en Geografia.
               </li>
-              <li className="rounded-xl border border-zinc-200 bg-[#fffaf6] px-3 py-2.5">
+              <li className="rounded-xl border border-zinc-200 bg-[#ffffff] px-3 py-2.5">
                 4. Iniciar sesion para acceder a telemetria y portal privado.
               </li>
             </ol>

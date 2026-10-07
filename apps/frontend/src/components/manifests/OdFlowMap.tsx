@@ -19,7 +19,7 @@ function lineWeight(toneladas: number, maxTon: number): number {
 function lineColor(toneladas: number, maxTon: number): string {
   const ratio = maxTon > 0 ? toneladas / maxTon : 0;
   if (ratio > 0.6) return '#ef4444';
-  if (ratio > 0.3) return '#f97316';
+  if (ratio > 0.3) return '#e42b0c';
   return '#3b82f6';
 }
 

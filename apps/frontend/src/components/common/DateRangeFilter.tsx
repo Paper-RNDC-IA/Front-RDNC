@@ -27,9 +27,9 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
   }
 
   return (
-    <Card title="Filtro por fechas" className="border-[#d2daeb] bg-[#f7f9fe]">
+    <Card title="Filtro por fechas" className="border-[#e5e7eb] bg-[#ffffff]">
       <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto] md:items-end">
-        <label className="space-y-1 text-sm text-[#425f8b]">
+        <label className="space-y-1 text-sm text-[#4a5565]">
           <span>Desde</span>
           <input
             type="date"
@@ -40,10 +40,10 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
                 from: normalizeDateInput(event.target.value),
               })
             }
-            className="w-full rounded-lg border border-[#cbd7eb] bg-white px-3 py-2 text-[#1d3d68]"
+            className="w-full rounded-lg border border-[#e5e7eb] bg-white px-3 py-2 text-[#101828]"
           />
         </label>
-        <label className="space-y-1 text-sm text-[#425f8b]">
+        <label className="space-y-1 text-sm text-[#4a5565]">
           <span>Hasta</span>
           <input
             type="date"
@@ -54,13 +54,13 @@ export function DateRangeFilter({ value, onChange }: DateRangeFilterProps): JSX.
                 to: normalizeDateInput(event.target.value),
               })
             }
-            className="w-full rounded-lg border border-[#cbd7eb] bg-white px-3 py-2 text-[#1d3d68]"
+            className="w-full rounded-lg border border-[#e5e7eb] bg-white px-3 py-2 text-[#101828]"
           />
         </label>
         <button
           type="button"
           onClick={handleSearch}
-          className="rounded-full border border-[#ef8e39] bg-[#f07b1b] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#e46e10] focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="rounded-full border border-[#ef8e39] bg-[#e42b0c] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#e46e10] focus:outline-none focus:ring-2 focus:ring-orange-300"
         >
           Buscar
         </button>

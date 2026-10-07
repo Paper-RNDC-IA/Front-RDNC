@@ -69,7 +69,7 @@ export function FileInsightPanel({
             <button
               type="button"
               onClick={() => void onExportPdf()}
-              className="rounded-md bg-amber-700 px-2 py-1 text-xs text-white hover:bg-amber-600"
+              className="rounded-md bg-[#1f1f1f] px-2 py-1 text-xs text-white hover:bg-[#364153]"
             >
               PDF
             </button>

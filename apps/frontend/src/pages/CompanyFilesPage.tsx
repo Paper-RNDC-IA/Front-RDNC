@@ -46,7 +46,7 @@ export function CompanyFilesPage(): JSX.Element {
   return (
     <section className="space-y-6">
       {/* Header empresa */}
-      <div className="rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-5">
+      <div className="rounded-2xl border border-orange-200 bg-white shadow-card px-6 py-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">

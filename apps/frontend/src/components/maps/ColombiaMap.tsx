@@ -26,7 +26,7 @@ const layerStyle: Record<MapLayer, { label: string; unit: string; palette: strin
   demand: {
     label: 'Demanda',
     unit: 'viajes/dia',
-    palette: ['#ffedd5', '#fdba74', '#fb923c', '#f97316', '#c2410c'],
+    palette: ['#f5f5f5', '#ffb27a', '#ff7802', '#e42b0c', '#7a1507'],
   },
   royalties: {
     label: 'Regalias',
@@ -95,7 +95,7 @@ function getValueRange(mapData: MapData, activeLayer: MapLayer): { min: number; 
 function getLayerColor(activeLayer: MapLayer, ratio: number | null): string {
   const palette = layerStyle[activeLayer].palette;
   if (ratio === null) {
-    return '#cbd5e1';
+    return '#d4d4d4';
   }
   const index = Math.min(palette.length - 1, Math.max(0, Math.floor(ratio * palette.length)));
   return palette[index];
@@ -227,7 +227,7 @@ export function ColombiaMap({
                 onClick={() => onLayerChange(layer)}
                 className={[
                   'rounded-lg px-4 py-2 text-sm font-semibold transition-colors',
-                  activeLayer === layer && layer === 'production' ? 'bg-amber-700 text-white' : '',
+                  activeLayer === layer && layer === 'production' ? 'bg-[#1f1f1f] text-white' : '',
                   activeLayer === layer && layer === 'royalties' ? 'bg-emerald-600 text-white' : '',
                   activeLayer === layer && layer === 'demand' ? 'bg-orange-600 text-white' : '',
                   activeLayer !== layer ? 'text-slate-600 hover:bg-slate-100' : '',
@@ -350,7 +350,7 @@ export function ColombiaMap({
                     </div>
                   ))}
                 <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <span className="inline-flex h-4 w-4 rounded-full border border-slate-300 bg-[#cbd5e1]" />
+                  <span className="inline-flex h-4 w-4 rounded-full border border-slate-300 bg-[#d4d4d4]" />
                   Sin datos
                 </div>
               </div>

@@ -50,25 +50,25 @@ function NavLinkItem({ item, onNavigate }: { item: NavItem; onNavigate: () => vo
       onClick={onNavigate}
       className={({ isActive }) =>
         [
-          'block rounded-xl px-3 py-2.5 transition-all duration-150',
+          'block rounded-lg px-3 py-2.5 transition-colors duration-150',
           isActive
-            ? 'bg-gradient-to-r from-orange-100 to-orange-50 text-slate-900 shadow-[0_8px_18px_rgba(249,115,22,0.14)]'
-            : 'text-slate-700 hover:bg-white/80 hover:text-slate-900',
+            ? 'bg-white/10 text-white shadow-[inset_3px_0_0_#e42b0c]'
+            : 'text-[#b8bfcc] hover:bg-white/5 hover:text-white',
         ].join(' ')
       }
     >
-      <p className="text-[15px] font-semibold">{item.label}</p>
+      <p className="text-[15px] font-medium">{item.label}</p>
     </NavLink>
   );
 }
 
 function Logo(): JSX.Element {
   return (
-    <div className="mb-7 rounded-2xl border border-orange-200/70 bg-gradient-to-br from-orange-50 to-white px-4 py-4 shadow-sm">
+    <div className="mb-8 border-b border-white/10 px-1 pb-6">
       <div className="mb-2 flex items-center gap-2">
         <svg
           viewBox="0 0 64 40"
-          className="h-8 w-12 text-orange-500"
+          className="h-7 w-10 text-[#e42b0c]"
           fill="none"
           stroke="currentColor"
           strokeWidth="3"
@@ -81,12 +81,12 @@ function Logo(): JSX.Element {
           <circle cx="50" cy="34" r="5" />
           <line x1="2" y1="18" x2="40" y2="18" />
         </svg>
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-600">
+        <p className="text-xs font-medium uppercase tracking-[0.025em] text-[#b8bfcc]">
           TransData
         </p>
       </div>
-      <h1 className="text-base font-bold text-slate-900">RNDC Colombia</h1>
-      <p className="mt-0.5 text-xs text-slate-500">Análisis de carga terrestre</p>
+      <h1 className="text-xl font-semibold tracking-tight text-white">RNDC Colombia</h1>
+      <p className="mt-0.5 text-xs text-[#8a8a8a]">Análisis de carga terrestre</p>
     </div>
   );
 }
@@ -98,7 +98,7 @@ export function Sidebar({ open, onNavigate }: SidebarProps): JSX.Element {
   const [publicOpen, setPublicOpen] = useState(isPublicPath);
 
   const asideClassName = [
-    'fixed inset-y-0 left-0 z-40 flex w-72 flex-col overflow-y-auto overscroll-contain border-r-2 border-zinc-200 bg-[#fffdfa] px-5 py-7 shadow-[10px_0_28px_rgba(15,23,42,0.06)] transition-transform duration-300 md:sticky md:top-0 md:h-screen md:translate-x-0 md:w-64',
+    'fixed inset-y-0 left-0 z-40 flex w-72 flex-col overflow-y-auto overscroll-contain bg-[#1f1f1f] px-5 py-7 transition-transform duration-300 md:sticky md:top-0 md:h-screen md:translate-x-0 md:w-64',
     open ? 'translate-x-0' : '-translate-x-full',
   ].join(' ');
 
@@ -120,9 +120,9 @@ export function Sidebar({ open, onNavigate }: SidebarProps): JSX.Element {
             <button
               type="button"
               onClick={() => setPublicOpen((prev) => !prev)}
-              className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-slate-600 transition-colors hover:bg-white/80 hover:text-slate-900"
+              className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-[#b8bfcc] transition-colors hover:bg-white/5 hover:text-white"
             >
-              <span className="text-xs font-semibold uppercase tracking-[0.18em]">
+              <span className="text-xs font-medium uppercase tracking-[0.025em]">
                 Datos Públicos RNDC
               </span>
               <svg
@@ -157,7 +157,7 @@ export function Sidebar({ open, onNavigate }: SidebarProps): JSX.Element {
       <nav className="flex-1 space-y-3 overflow-y-auto pr-1">
         {groups.map((group) => (
           <section key={group.id} className="pb-2 last:pb-0">
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{group.title}</p>
+            <p className="text-xs font-medium uppercase tracking-[0.025em] text-[#8a8a8a]">{group.title}</p>
             <div className="mt-2 space-y-1.5">
               {group.items.map((item) => (
                 <NavLinkItem key={item.to} item={item} onNavigate={onNavigate} />

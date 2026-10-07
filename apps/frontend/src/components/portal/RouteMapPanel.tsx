@@ -27,7 +27,7 @@ function EventBadge({ level }: { level: string }): JSX.Element {
     level === 'high'
       ? 'border-red-300 bg-red-50 text-red-700'
       : level === 'medium'
-        ? 'border-amber-300 bg-amber-50 text-amber-700'
+        ? 'border-[#d4d4d4] bg-[#f5f5f5] text-[#4a5565]'
         : level === 'low'
           ? 'border-sky-300 bg-sky-50 text-sky-700'
           : 'border-slate-300 bg-slate-50 text-slate-700';
@@ -43,7 +43,7 @@ function EventBadge({ level }: { level: string }): JSX.Element {
 
 function TabBar({ active, onChange }: { active: Tab; onChange: (t: Tab) => void }): JSX.Element {
   return (
-    <div className="flex flex-wrap gap-1 border-b border-[#f0d8c7] pb-1">
+    <div className="flex flex-wrap gap-1 border-b border-[#e5e7eb] pb-1">
       {TABS.map((tab) => (
         <button
           key={tab.id}
@@ -52,7 +52,7 @@ function TabBar({ active, onChange }: { active: Tab; onChange: (t: Tab) => void 
           className={[
             'rounded-t-lg px-3 py-1.5 text-[13px] font-semibold transition-colors',
             active === tab.id
-              ? 'border-b-2 border-[#d9540a] bg-[#fff5eb] text-[#9a3d0f]'
+              ? 'border-b-2 border-[#d9540a] bg-[#f5f5f5] text-[#b8200a]'
               : 'text-slate-500 hover:text-slate-800',
           ].join(' ')}
         >
@@ -130,7 +130,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
           <button
             type="button"
             onClick={refresh}
-            className="rounded-lg border border-[#efc5a7] bg-[#fff5eb] px-3 py-1 text-xs font-semibold text-[#9a3d0f] transition hover:bg-[#ffe9d6]"
+            className="rounded-lg border border-[#efc5a7] bg-[#f5f5f5] px-3 py-1 text-xs font-semibold text-[#b8200a] transition hover:bg-[#ffe9d6]"
           >
             Actualizar
           </button>
@@ -156,7 +156,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
               value={filters.fileId}
               onChange={(event) => setFileId(event.target.value)}
               disabled={loadingFiles || !files.length}
-              className="w-full rounded-xl border border-[#e9cdb6] bg-[#fff9f4] px-3 py-2 text-sm text-slate-800 outline-none ring-orange-200 transition focus:ring"
+              className="w-full rounded-xl border border-[#e5e7eb] bg-[#ffffff] px-3 py-2 text-sm text-slate-800 outline-none ring-orange-200 transition focus:ring"
             >
               <option value="">Seleccionar archivo</option>
               {files.map((item) => (
@@ -175,7 +175,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
               value={filters.vehicleId}
               onChange={(event) => setVehicleId(event.target.value)}
               disabled={loadingVehicles || !filters.fileId}
-              className="w-full rounded-xl border border-[#e9cdb6] bg-[#fff9f4] px-3 py-2 text-sm text-slate-800 outline-none ring-orange-200 transition focus:ring"
+              className="w-full rounded-xl border border-[#e5e7eb] bg-[#ffffff] px-3 py-2 text-sm text-slate-800 outline-none ring-orange-200 transition focus:ring"
             >
               <option value="">Seleccionar vehiculo</option>
               {vehicles.map((item) => (
@@ -194,7 +194,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
               value={filters.month}
               onChange={(event) => setMonth(event.target.value)}
               disabled={loadingMonths || !filters.vehicleId}
-              className="w-full rounded-xl border border-[#e9cdb6] bg-[#fff9f4] px-3 py-2 text-sm text-slate-800 outline-none ring-orange-200 transition focus:ring"
+              className="w-full rounded-xl border border-[#e5e7eb] bg-[#ffffff] px-3 py-2 text-sm text-slate-800 outline-none ring-orange-200 transition focus:ring"
             >
               <option value="">Seleccionar mes</option>
               {months.map((item) => (
@@ -223,7 +223,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
               <div className="grid gap-4 xl:grid-cols-[1.45fr_1fr]">
                 <div className="space-y-3">
                   <VehicleRouteMap data={mapData} loading={loadingMap} maxEventMarkers={24} />
-                  <div className="rounded-xl border border-[#f0d8c7] bg-[#fff8f2] px-3 py-2 text-xs text-slate-700">
+                  <div className="rounded-xl border border-[#e5e7eb] bg-[#ffffff] px-3 py-2 text-xs text-slate-700">
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="inline-flex items-center gap-2">
                         <span className="route-marker route-marker-start route-marker-inline">
@@ -250,12 +250,12 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                     {mapStats.map((item) => (
                       <div
                         key={item.label}
-                        className="rounded-xl border border-[#f0d7c3] bg-[#fffbf8] px-3 py-2"
+                        className="rounded-xl border border-[#e5e7eb] bg-[#ffffff] px-3 py-2"
                       >
                         <p className="text-[11px] uppercase tracking-wide text-slate-500">
                           {item.label}
                         </p>
-                        <p className="text-sm font-semibold text-[#7c3310]">{item.value}</p>
+                        <p className="text-sm font-semibold text-[#101828]">{item.value}</p>
                       </div>
                     ))}
                   </div>
@@ -279,7 +279,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b border-[#f0d8c7] text-left text-xs uppercase tracking-wide text-slate-500">
+                        <tr className="border-b border-[#e5e7eb] text-left text-xs uppercase tracking-wide text-slate-500">
                           <th className="pb-2 pr-4">Latitud</th>
                           <th className="pb-2 pr-4">Longitud</th>
                           <th className="pb-2 pr-4">Registros</th>
@@ -290,10 +290,10 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                       </thead>
                       <tbody>
                         {nodos.map((n, i) => (
-                          <tr key={i} className="border-b border-[#fdf0e6] hover:bg-[#fff8f2]">
+                          <tr key={i} className="border-b border-[#f5f5f5] hover:bg-[#ffffff]">
                             <td className="py-1.5 pr-4 text-slate-700">{n.lat.toFixed(4)}</td>
                             <td className="py-1.5 pr-4 text-slate-700">{n.lon.toFixed(4)}</td>
-                            <td className="py-1.5 pr-4 font-semibold text-[#7c3310]">
+                            <td className="py-1.5 pr-4 font-semibold text-[#101828]">
                               {n.registros}
                             </td>
                             <td className="py-1.5 pr-4 text-slate-700">
@@ -345,12 +345,12 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                       ].map((kpi) => (
                         <div
                           key={kpi.label}
-                          className="rounded-xl border border-[#f0d7c3] bg-[#fffbf8] px-3 py-2"
+                          className="rounded-xl border border-[#e5e7eb] bg-[#ffffff] px-3 py-2"
                         >
                           <p className="text-[11px] uppercase tracking-wide text-slate-500">
                             {kpi.label}
                           </p>
-                          <p className="text-sm font-semibold text-[#7c3310]">{kpi.value}</p>
+                          <p className="text-sm font-semibold text-[#101828]">{kpi.value}</p>
                         </div>
                       ))}
                     </div>
@@ -358,7 +358,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-[#f0d8c7] text-left text-xs uppercase tracking-wide text-slate-500">
+                          <tr className="border-b border-[#e5e7eb] text-left text-xs uppercase tracking-wide text-slate-500">
                             <th className="pb-2 pr-4">Mes</th>
                             <th className="pb-2 pr-4">CO₂ (kg)</th>
                             <th className="pb-2 pr-4">CO₂ acum.</th>
@@ -371,7 +371,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                           {co2Data.map((row) => (
                             <tr
                               key={row.mes}
-                              className="border-b border-[#fdf0e6] hover:bg-[#fff8f2]"
+                              className="border-b border-[#f5f5f5] hover:bg-[#ffffff]"
                             >
                               <td className="py-1.5 pr-4 font-medium text-slate-700">{row.mes}</td>
                               <td className="py-1.5 pr-4 text-slate-700">
@@ -383,7 +383,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                               <td className="py-1.5 pr-4 text-slate-700">
                                 {row.galones.toFixed(1)}
                               </td>
-                              <td className="py-1.5 pr-4 font-semibold text-[#7c3310]">
+                              <td className="py-1.5 pr-4 font-semibold text-[#101828]">
                                 ${row.costo_cop.toLocaleString('es-CO')}
                               </td>
                               <td className="py-1.5 text-slate-700">
@@ -411,7 +411,7 @@ export function RouteMapPanel({ companyId, selectedFileId }: RouteMapPanelProps)
                     {eventsPreview.map((event) => (
                       <li
                         key={event.id}
-                        className="rounded-xl border border-[#eed8c7] bg-[#fff9f4] px-3 py-2"
+                        className="rounded-xl border border-[#eed8c7] bg-[#ffffff] px-3 py-2"
                       >
                         <div className="mb-1 flex items-center justify-between gap-2">
                           <p className="text-sm font-semibold text-slate-800">{event.label}</p>

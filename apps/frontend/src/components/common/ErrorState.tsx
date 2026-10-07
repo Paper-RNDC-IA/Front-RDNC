@@ -6,7 +6,7 @@ type ErrorStateProps = {
 
 export function ErrorState({ title, message, onRetry }: ErrorStateProps): JSX.Element {
   return (
-    <div className="rounded-2xl border-2 border-orange-200 bg-[#fff7f2] p-6 shadow-[0_12px_24px_rgba(249,115,22,0.08)]">
+    <div className="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 shadow-card">
       <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
       <p className="mt-2 text-sm text-slate-700">{message}</p>
       <p className="mt-1 text-xs text-slate-500">

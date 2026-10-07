@@ -7,12 +7,10 @@ export function LoginPage(): JSX.Element {
   const { values, loading, error, setValues, onSubmit } = useLoginPage();
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#fffdfa] p-4">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.15),transparent_42%),radial-gradient(circle_at_80%_0%,rgba(251,146,60,0.1),transparent_45%)]" />
-
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#ffffff] p-4">
       <section className="relative z-10 grid w-full max-w-5xl gap-4 rounded-3xl border-2 border-zinc-200 bg-white p-4 shadow-[0_20px_40px_rgba(15,23,42,0.1)] backdrop-blur sm:gap-6 sm:p-6 lg:grid-cols-[1.2fr_1fr] lg:p-10">
         <div className="space-y-4">
-          <div className="inline-flex rounded-full border border-orange-300 bg-orange-50 px-3 py-1 text-xs font-medium text-orange-700">
+          <div className="inline-flex rounded-lg border border-[#d4d4d4] bg-white px-3 py-1 text-xs font-medium text-orange-700">
             Acceso empresarial seguro
           </div>
           <h1 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
@@ -23,7 +21,7 @@ export function LoginPage(): JSX.Element {
             derivada para seguimiento operativo y toma de decisiones.
           </p>
 
-          <div className="rounded-2xl border border-zinc-200 bg-[#fffaf6] p-4 text-sm text-slate-700">
+          <div className="rounded-2xl border border-zinc-200 bg-[#ffffff] p-4 text-sm text-slate-700">
             <p className="font-semibold text-slate-900">Credenciales demo</p>
             <p className="mt-2">NIT: 901234567-1</p>
             <p>Correo: admin@cargaandina.com</p>

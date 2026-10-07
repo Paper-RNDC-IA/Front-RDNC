@@ -116,7 +116,7 @@ export function DetailedReportModal({
           </button>
           <button
             type="button"
-            className="rounded-md bg-amber-700 px-3 py-2 text-sm text-white hover:bg-amber-600"
+            className="rounded-md bg-[#1f1f1f] px-3 py-2 text-sm text-white hover:bg-[#364153]"
             onClick={handleExportExcel}
           >
             Exportar Excel

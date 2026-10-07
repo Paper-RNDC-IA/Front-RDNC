@@ -21,9 +21,9 @@ export function KpiCard({
         : 'text-slate-700';
 
   return (
-    <Card className="border-zinc-200 bg-gradient-to-b from-white to-[#fffaf6]">
+    <Card className="border-[#e5e7eb]">
       <div className="flex items-start justify-between gap-2">
-        <p className="text-xs uppercase tracking-wide text-slate-500">{item.label}</p>
+        <p className="text-xs font-medium uppercase tracking-[0.025em] text-[#4a5565]">{item.label}</p>
         <MetricInfoTooltip
           label={`Ayuda: ${item.label}`}
           meaning={item.helperText ?? 'Indicador clave para el seguimiento del modulo.'}
@@ -32,17 +32,17 @@ export function KpiCard({
           calculation="Depende del endpoint del modulo y su agregacion interna."
         />
       </div>
-      <p className="mt-2 text-3xl font-semibold text-slate-900">{item.value}</p>
+      <p className="mt-3 text-4xl font-light tracking-[-0.03em] text-[#101828]">{item.value}</p>
       {item.unit ? <p className="mt-1 text-xs text-slate-500">{item.unit}</p> : null}
       {item.delta ? (
         <p
-          className={`mt-2 inline-flex rounded-full border border-current/30 bg-white px-2.5 py-1 text-xs font-medium ${trendColor}`}
+          className={`mt-2 inline-flex rounded-lg border border-current/30 bg-white px-2.5 py-1 text-xs font-medium ${trendColor}`}
         >
           {trendLabel ? `${trendLabel}: ${item.delta}` : item.delta}
         </p>
       ) : null}
       {item.helperText ? <p className="mt-2 text-xs text-slate-500">{item.helperText}</p> : null}
-      <span className="mt-3 inline-flex rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-700 shadow-sm">
+      <span className="mt-3 inline-flex rounded-lg border border-[#e5e7eb] bg-[#f5f5f5] px-2.5 py-1 text-[11px] font-medium text-[#4a5565]">
         Fuente: {sourceLabel}
       </span>
     </Card>

@@ -20,7 +20,7 @@ export function ChartCard({
   return (
     <Card
       title={title}
-      className="border-[#d2daeb] bg-gradient-to-b from-white to-[#f8fbff]"
+      className="border-[#e5e7eb] bg-gradient-to-b from-white to-[#f8fbff]"
       actions={
         <div className="flex items-center gap-2">
           {sourceLabel ? null : null}

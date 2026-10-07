@@ -36,7 +36,7 @@ export function DataTable<T extends object>({
 
   return (
     <Card
-      className="bg-gradient-to-b from-white to-[#fffaf6]"
+      className="bg-gradient-to-b from-white to-[#ffffff]"
       title={title}
       actions={
         <div className="flex flex-wrap items-center gap-2">
@@ -82,7 +82,7 @@ export function DataTable<T extends object>({
             {visibleRows.map((row) => (
               <tr
                 key={getRowKey ? getRowKey(row) : String(row[rowKey])}
-                className="border-b border-zinc-200/70 text-slate-700 transition-colors hover:bg-orange-50/45"
+                className="border-b border-zinc-200/70 text-slate-700 transition-colors hover:bg-[#f5f5f5]"
                 onClick={() => onRowClick?.(row)}
               >
                 {columns.map((column) => {

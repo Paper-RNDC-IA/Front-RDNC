@@ -450,7 +450,7 @@ export function GeographicAnalysis(): JSX.Element {
               <div
                 className={`cursor-pointer rounded-xl border px-4 py-4 transition ${
                   explanationTopic === 'production'
-                    ? 'border-orange-300 bg-[#fff6ed]'
+                    ? 'border-orange-300 bg-[#f5f5f5]'
                     : 'border-orange-300 bg-white'
                 }`}
                 onClick={() => toggleExplanation('production')}
@@ -481,7 +481,7 @@ export function GeographicAnalysis(): JSX.Element {
                 </p>
                 <p className="mt-2 text-xs text-slate-700">Haz clic para ver explicacion</p>
                 {explanationTopic === 'production' ? (
-                  <div className="mt-3 rounded-lg border border-orange-200 bg-[#fff6ed] px-3 py-3">
+                  <div className="mt-3 rounded-lg border border-orange-200 bg-[#f5f5f5] px-3 py-3">
                     <p className="text-sm font-semibold text-slate-900">
                       {metricExplanationContent.production.title}
                     </p>
@@ -503,7 +503,7 @@ export function GeographicAnalysis(): JSX.Element {
               <div
                 className={`cursor-pointer rounded-xl border px-4 py-4 transition ${
                   explanationTopic === 'royalties'
-                    ? 'border-orange-300 bg-[#fff6ed]'
+                    ? 'border-orange-300 bg-[#f5f5f5]'
                     : 'border-orange-300 bg-white'
                 }`}
                 onClick={() => toggleExplanation('royalties')}
@@ -534,7 +534,7 @@ export function GeographicAnalysis(): JSX.Element {
                 </p>
                 <p className="mt-2 text-xs text-slate-700">Haz clic para ver explicacion</p>
                 {explanationTopic === 'royalties' ? (
-                  <div className="mt-3 rounded-lg border border-orange-200 bg-[#fff6ed] px-3 py-3">
+                  <div className="mt-3 rounded-lg border border-orange-200 bg-[#f5f5f5] px-3 py-3">
                     <p className="text-sm font-semibold text-slate-900">
                       {metricExplanationContent.royalties.title}
                     </p>
@@ -556,7 +556,7 @@ export function GeographicAnalysis(): JSX.Element {
               <div
                 className={`cursor-pointer rounded-xl border px-4 py-4 transition ${
                   explanationTopic === 'demand'
-                    ? 'border-orange-300 bg-[#fff6ed]'
+                    ? 'border-orange-300 bg-[#f5f5f5]'
                     : 'border-orange-300 bg-white'
                 }`}
                 onClick={() => toggleExplanation('demand')}
@@ -580,7 +580,7 @@ export function GeographicAnalysis(): JSX.Element {
                 </p>
                 <p className="mt-2 text-xs text-slate-700">Haz clic para ver explicacion</p>
                 {explanationTopic === 'demand' ? (
-                  <div className="mt-3 rounded-lg border border-orange-200 bg-[#fff6ed] px-3 py-3">
+                  <div className="mt-3 rounded-lg border border-orange-200 bg-[#f5f5f5] px-3 py-3">
                     <p className="text-sm font-semibold text-slate-900">
                       {metricExplanationContent.demand.title}
                     </p>

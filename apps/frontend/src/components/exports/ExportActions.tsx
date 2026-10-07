@@ -40,7 +40,7 @@ export function ExportActions({
         <button
           type="button"
           onClick={() => void onExportPdf()}
-          className="rounded-md bg-amber-700 px-3 py-2 text-sm text-white hover:bg-amber-600"
+          className="rounded-md bg-[#1f1f1f] px-3 py-2 text-sm text-white hover:bg-[#364153]"
         >
           Exportar PDF
         </button>

@@ -30,7 +30,7 @@ type PieChartWidgetProps = {
   };
 };
 
-const colors = ['#ea580c', '#f97316', '#fb923c', '#f59e0b', '#fdba74'];
+const colors = ['#e42b0c', '#1f1f1f', '#ff7802', '#676767', '#ffb27a', '#99a1af'];
 
 export function PieChartWidget({
   title,
@@ -44,7 +44,7 @@ export function PieChartWidget({
   if (!data.length) {
     return (
       <ChartCard title={title} subtitle={subtitle}>
-        <div className="flex h-64 items-center justify-center rounded-xl border border-zinc-200 bg-[#fffaf6]">
+        <div className="flex h-64 items-center justify-center rounded-xl border border-zinc-200 bg-[#ffffff]">
           <p className="text-sm text-slate-600">
             No hay distribucion disponible para este periodo.
           </p>
@@ -78,8 +78,8 @@ export function PieChartWidget({
           <div className="h-80 w-full">
             <ResponsiveContainer>
               <BarChart data={sorted} layout="vertical" margin={{ left: 8, right: 16 }}>
-                <XAxis type="number" stroke="#64748b" tickFormatter={formatNumber} />
-                <YAxis type="category" dataKey="label" width={120} stroke="#64748b" />
+                <XAxis type="number" stroke="#4a5565" tickFormatter={formatNumber} />
+                <YAxis type="category" dataKey="label" width={120} stroke="#4a5565" />
                 <Tooltip
                   formatter={(
                     value: number,
@@ -91,14 +91,14 @@ export function PieChartWidget({
                   ]}
                   contentStyle={{
                     backgroundColor: '#ffffff',
-                    borderColor: '#e2e8f0',
+                    borderColor: '#e5e7eb',
                     borderRadius: '10px',
                     boxShadow: '0 12px 22px rgba(15, 23, 42, 0.12)',
                   }}
                 />
                 <Bar
                   dataKey="value"
-                  fill="#f97316"
+                  fill="#e42b0c"
                   radius={[0, 6, 6, 0]}
                   isAnimationActive={false}
                 />
@@ -128,9 +128,9 @@ export function PieChartWidget({
               <Tooltip
                 contentStyle={{
                   backgroundColor: '#ffffff',
-                  borderColor: '#e2e8f0',
+                  borderColor: '#e5e7eb',
                   borderRadius: '10px',
-                  color: '#0f172a',
+                  color: '#101828',
                   boxShadow: '0 12px 22px rgba(15, 23, 42, 0.12)',
                 }}
                 formatter={(

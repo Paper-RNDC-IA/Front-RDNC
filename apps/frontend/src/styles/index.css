@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg-main: #fffbf8;
+  --bg-main: #f5f5f5;
   --bg-surface: #ffffff;
-  --bg-elevated: #fff6ef;
-  --text-main: #111827;
-  --text-muted: #475569;
-  --accent: #ea580c;
+  --bg-elevated: #f5f5f5;
+  --text-main: #101828;
+  --text-muted: #4a5565;
+  --accent: #e42b0c;
 }
 
 * {
@@ -21,36 +21,24 @@ html {
   font-size: 16px;
 }
 
-@media (min-width: 640px) {
-  html {
-    font-size: 17.2px;
-  }
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 18px;
-  }
-}
-
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: 'Source Sans 3', sans-serif;
-  background:
-    radial-gradient(circle at 7% 0%, rgba(249, 115, 22, 0.12), transparent 34%),
-    radial-gradient(circle at 96% 10%, rgba(251, 146, 60, 0.1), transparent 32%),
-    linear-gradient(180deg, #fffdfa 0%, #fff9f5 54%, #fffdfb 100%);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: 'case' on;
+  background: #f5f5f5;
   color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 0.01em;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: 500;
 }
 
 #root {
@@ -63,29 +51,14 @@ select {
   font-family: inherit;
 }
 
-.text-xs {
-  font-size: 0.84rem !important;
-  line-height: 1.45 !important;
-}
-
-.text-sm {
-  font-size: 0.98rem !important;
-  line-height: 1.55 !important;
-}
-
-.text-base {
-  font-size: 1.08rem !important;
-  line-height: 1.62 !important;
-}
-
 .border,
 [class*=' border-'] {
-  border-width: 1.6px;
+  border-width: 1px;
 }
 
 .chat-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(234, 88, 12, 0.45) rgba(241, 245, 249, 0.85);
+  scrollbar-color: rgba(16, 24, 40, 0.3) rgba(245, 245, 245, 0.9);
 }
 
 .chat-scroll::-webkit-scrollbar {
@@ -98,14 +71,14 @@ select {
 }
 
 .chat-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(251, 146, 60, 0.9), rgba(234, 88, 12, 0.95));
+  background: rgba(16, 24, 40, 0.35);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 .chat-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(253, 186, 116, 0.95), rgba(249, 115, 22, 0.98));
+  background: rgba(16, 24, 40, 0.55);
   border: 2px solid transparent;
   background-clip: padding-box;
 }
@@ -175,7 +148,7 @@ select {
 .hover\:bg-slate-700:hover,
 .hover\:bg-slate-600:hover,
 .hover\:bg-slate-500:hover {
-  background-color: #fff3e8 !important;
+  background-color: #f5f5f5 !important;
 }
 
 .from-slate-800 {
@@ -217,7 +190,7 @@ select {
 .border-orange-800\/45,
 .border-orange-900\/45,
 .border-orange-900\/50 {
-  border-color: #fb923c !important;
+  border-color: #e5e7eb !important;
 }
 
 .text-emerald-100,
@@ -232,7 +205,7 @@ select {
 .text-orange-100,
 .text-orange-200,
 .text-orange-300 {
-  color: #ea580c !important;
+  color: #b8200a !important;
 }
 
 .from-blue-950\/60,
@@ -244,9 +217,9 @@ select {
 }
 
 .route-map-shell {
-  border: 1px solid #f0dbc8;
-  background: linear-gradient(180deg, #fffaf5 0%, #fff8f1 100%);
-  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  border-radius: 8px;
   min-height: 360px;
   overflow: hidden;
 }
@@ -289,7 +262,7 @@ select {
 }
 
 .route-marker-event {
-  background: #ea580c;
+  background: #e42b0c;
 }
 
 .route-marker-inline {
@@ -303,4 +276,29 @@ select {
     min-height: 300px;
     height: 300px;
   }
+}
+
+/* Radio único de 8px del sistema de diseño (los círculos y puntos con rounded-full se mantienen). */
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+[class*='rounded-['] {
+  border-radius: 8px !important;
+}
+
+button.bg-orange-500,
+button.bg-orange-600 {
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-weight: 500;
+}
+
+table th {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-size: 0.75rem;
+  color: #4a5565;
 }

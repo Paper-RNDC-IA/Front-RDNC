@@ -21,7 +21,7 @@ export function SectionHelpCard({
   return (
     <section
       className={[
-        'rounded-2xl border-2 border-orange-100 bg-[#fffaf6] p-5 shadow-[0_10px_20px_rgba(249,115,22,0.08)]',
+        'rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-5 shadow-card',
         className ?? '',
       ].join(' ')}
     >

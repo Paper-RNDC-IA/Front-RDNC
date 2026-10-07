@@ -48,7 +48,7 @@ export function BarChartWidget({
   if (!chartData.length) {
     return (
       <ChartCard title={title} subtitle={subtitle}>
-        <div className="flex h-64 items-center justify-center rounded-xl border border-zinc-200 bg-[#fffaf6]">
+        <div className="flex h-64 items-center justify-center rounded-xl border border-zinc-200 bg-[#ffffff]">
           <p className="text-sm text-slate-600">No hay datos para esta comparacion.</p>
         </div>
       </ChartCard>
@@ -61,22 +61,22 @@ export function BarChartWidget({
         <div className="h-60 w-full">
           <ResponsiveContainer>
             <BarChart data={chartData} layout={horizontal ? 'vertical' : 'horizontal'}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
               {/* Sin <>…</>: recharts 2.x usa react-is 18, que no reconoce los Fragments de React 19,
                   e ignora los ejes y las barras que van dentro (solo se dibujaba la cuadricula). */}
               {horizontal ? (
-                <XAxis type="number" stroke="#64748b" tickFormatter={formatNumber} />
+                <XAxis type="number" stroke="#4a5565" tickFormatter={formatNumber} />
               ) : (
-                <XAxis dataKey={xKey} stroke="#64748b" />
+                <XAxis dataKey={xKey} stroke="#4a5565" />
               )}
               {horizontal ? (
-                <YAxis type="category" dataKey={xKey} stroke="#64748b" width={120} />
+                <YAxis type="category" dataKey={xKey} stroke="#4a5565" width={120} />
               ) : (
-                <YAxis stroke="#64748b" tickFormatter={formatNumber} />
+                <YAxis stroke="#4a5565" tickFormatter={formatNumber} />
               )}
               <Bar
                 dataKey={dataKey}
-                fill="#f97316"
+                fill="#e42b0c"
                 radius={horizontal ? [0, 6, 6, 0] : [6, 6, 0, 0]}
                 isAnimationActive={false}
               />
@@ -84,7 +84,7 @@ export function BarChartWidget({
                 formatter={(value: number) => [formatNumber(value), valueLabel]}
                 contentStyle={{
                   backgroundColor: '#ffffff',
-                  borderColor: '#e2e8f0',
+                  borderColor: '#e5e7eb',
                   borderRadius: '10px',
                   boxShadow: '0 12px 22px rgba(15, 23, 42, 0.12)',
                 }}

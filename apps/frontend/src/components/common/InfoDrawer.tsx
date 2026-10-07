@@ -40,7 +40,7 @@ export function InfoDrawer({
             onClick={() => setOpen(false)}
           />
 
-          <aside className="h-full w-full max-w-md border-l border-zinc-200 bg-[#fffdfa] p-3 sm:p-5">
+          <aside className="h-full w-full max-w-md border-l border-zinc-200 bg-[#ffffff] p-3 sm:p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-xs uppercase tracking-[0.14em] text-orange-500">
@@ -84,7 +84,7 @@ export function InfoDrawer({
                   {useCases.map((item) => (
                     <li
                       key={item}
-                      className="rounded-md border border-zinc-200 bg-[#fffdfa] px-2 py-1"
+                      className="rounded-md border border-zinc-200 bg-[#ffffff] px-2 py-1"
                     >
                       {item}
                     </li>

@@ -106,24 +106,9 @@ function normalizeDashboard(payload: unknown): Omit<StatsDashboardApi, 'healthSt
   };
 }
 
-function mergeSummaryFromStatsSummary(
-  summary: StatsSummaryApi[],
-  payload: unknown,
-): StatsSummaryApi[] {
-  if (!isRecord(payload)) {
-    return summary;
-  }
-
-  const telemetryTotal = toNumber(payload.total_telemetry_records);
-  const next = summary.filter((item) => item.module !== 'Telemetria');
-
-  return [...next, { module: 'Telemetria', total: telemetryTotal }];
-}
-
 export async function getStatsDashboard(dateRange?: DateRange): Promise<StatsDashboardApi> {
-  const [dashboardRes, summaryRes, healthRes] = await Promise.allSettled([
+  const [dashboardRes, healthRes] = await Promise.allSettled([
     api.get<unknown>(endpoints.stats.dashboard, buildDateQuery(dateRange)),
-    api.get<unknown>(endpoints.stats.summary, buildDateQuery(dateRange)),
     api.get<unknown>(endpoints.stats.health),
   ]);
 
@@ -133,10 +118,7 @@ export async function getStatsDashboard(dateRange?: DateRange): Promise<StatsDas
 
   const normalized = normalizeDashboard(dashboardRes.value);
 
-  const mergedSummary =
-    summaryRes.status === 'fulfilled'
-      ? mergeSummaryFromStatsSummary(normalized.summary, summaryRes.value)
-      : normalized.summary;
+  const mergedSummary = normalized.summary.filter((item) => item.module !== 'Telemetria');
 
   const healthStatus =
     healthRes.status === 'fulfilled' && isRecord(healthRes.value)
