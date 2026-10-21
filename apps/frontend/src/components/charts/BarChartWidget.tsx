@@ -70,7 +70,13 @@ export function BarChartWidget({
                 <XAxis dataKey={xKey} stroke="#4a5565" />
               )}
               {horizontal ? (
-                <YAxis type="category" dataKey={xKey} stroke="#4a5565" width={120} />
+                <YAxis
+                  type="category"
+                  dataKey={xKey}
+                  stroke="#4a5565"
+                  width={150}
+                  tick={{ fontSize: 12 }}
+                />
               ) : (
                 <YAxis stroke="#4a5565" tickFormatter={formatNumber} />
               )}

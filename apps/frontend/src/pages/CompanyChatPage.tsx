@@ -107,10 +107,12 @@ function MessageBubble({ msg }: { msg: UiMessage }): JSX.Element {
 }
 
 const SUGGESTIONS = [
-  '¿Cuántos viajes registré el mes pasado?',
-  '¿Cuál es el resumen de mis rutas GPS?',
-  'Explícame el análisis de nodos de parada GPS',
-  '¿Cómo va mi empresa respecto al promedio nacional?',
+  'Dame un resumen de mi archivo GPS más reciente',
+  '¿Cuántos viajes salieron de Antioquia en 2024 y a qué departamentos van?',
+  '¿Cuánto CO₂ emite el transporte de carga que sale de Antioquia?',
+  'Explícame cómo se estiman las emisiones de CO₂',
+  'Compara mis vehículos con un gráfico',
+  '¿Qué debe tener un archivo GPS antes de subirlo?',
 ];
 
 export function CompanyChatPage(): JSX.Element {
@@ -199,7 +201,9 @@ export function CompanyChatPage(): JSX.Element {
           </div>
           <div className="flex items-center gap-2 rounded-xl border border-orange-200 bg-white px-4 py-2 shadow-sm">
             <div className="h-2 w-2 rounded-full bg-green-400" />
-            <span className="text-xs font-medium text-slate-600">IA activa · Llama 3.3 70B</span>
+            <span className="text-xs font-medium text-slate-600">
+              IA con verificación de cifras
+            </span>
           </div>
         </div>
       </div>
@@ -231,8 +235,9 @@ export function CompanyChatPage(): JSX.Element {
               </div>
               <p className="text-base font-semibold text-slate-700">¿En qué te puedo ayudar hoy?</p>
               <p className="mt-1 max-w-sm text-sm text-slate-500">
-                Pregunta sobre tus manifiestos, estadísticas de vehículos, rutas GPS o emisiones
-                CO₂. El asistente consulta tus datos reales para responderte.
+                Pregunta sobre tus archivos GPS, el transporte de carga de un departamento o
+                municipio, o las emisiones de CO₂ estimadas. Cada cifra se verifica contra los
+                datos; si no se puede respaldar, el asistente lo dice.
               </p>
               <div className="mt-5 grid gap-2 sm:grid-cols-2">
                 {SUGGESTIONS.map((suggestion) => (
@@ -311,8 +316,8 @@ export function CompanyChatPage(): JSX.Element {
             </button>
           </div>
           <p className="mt-1.5 text-[11px] text-slate-400">
-            Powered by Groq · Llama 3.3 70B Versatile · Respuestas generadas por IA, verifica datos
-            importantes.
+            Modelo gpt-oss-120b servido por Groq · Las cifras se verifican contra los datos; la
+            interpretación del modelo puede fallar.
           </p>
         </div>
       </div>

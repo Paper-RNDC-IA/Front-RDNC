@@ -73,6 +73,14 @@ export const endpoints = {
     summary: '/api/stats/summary',
     fiabilidad: '/api/stats/fiabilidad',
   },
+  emissions: {
+    overview: '/api/emissions/overview',
+    trend: '/api/emissions/trend',
+    monthly: '/api/emissions/monthly',
+    territories: '/api/emissions/territories',
+    corridors: '/api/emissions/corridors',
+    methodology: '/api/emissions/methodology',
+  },
   export: {
     combined: '/api/export/combined',
     reportPdf: '/api/export/report-pdf',

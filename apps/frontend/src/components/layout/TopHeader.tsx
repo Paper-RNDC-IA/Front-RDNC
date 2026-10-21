@@ -21,6 +21,10 @@ const routeMeta: Record<string, { title: string; subtitle: string }> = {
     title: 'Datos Publicos RNDC: Manifiestos',
     subtitle: 'Volumen, corredores y actores con mayor actividad reportada',
   },
+  '/app/emisiones': {
+    title: 'Emisiones del Transporte de Carga',
+    subtitle: 'Indicador territorial estimado: toneladas-kilometro y CO2 por municipio y departamento',
+  },
   '/app/telemetria': {
     title: 'Zona Privada Empresarial: Telemetria GPS',
     subtitle: 'Analisis de velocidad, alertas y seguridad desde archivos empresariales',

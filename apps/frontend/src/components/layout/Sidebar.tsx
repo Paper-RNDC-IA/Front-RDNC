@@ -21,6 +21,7 @@ const EMPRESA_ITEMS: NavItem[] = [
 const PUBLIC_ITEMS: NavItem[] = [
   { to: '/app/estadisticas', label: 'Estadísticas' },
   { to: '/app/manifiestos', label: 'Manifiestos' },
+  { to: '/app/emisiones', label: 'Emisiones' },
   { to: '/app/telemetria', label: 'Telemetría' },
   { to: '/app/empresas', label: 'Empresas' },
   { to: '/app/geografia', label: 'Geografía' },
@@ -32,8 +33,8 @@ const EMPRESA_GROUP: NavGroup = {
   items: EMPRESA_ITEMS,
 };
 const PUBLIC_GROUPS: NavGroup[] = [
-  { id: 'rndc', title: 'RNDC Público', items: PUBLIC_ITEMS.slice(0, 4) },
-  { id: 'geo', title: 'Territorial', items: PUBLIC_ITEMS.slice(4) },
+  { id: 'rndc', title: 'RNDC Público', items: PUBLIC_ITEMS.slice(0, 5) },
+  { id: 'geo', title: 'Territorial', items: PUBLIC_ITEMS.slice(5) },
 ];
 const GENERAL_GROUP: NavGroup = {
   id: 'general',

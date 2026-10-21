@@ -3,6 +3,7 @@ import { createHashRouter, Navigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { RequireAuth } from '../components/auth/RequireAuth';
 import { HomePage } from '../pages/HomePage';
+import { EmisionesPage } from '../pages/EmisionesPage';
 import { EstadisticasPage } from '../pages/EstadisticasPage';
 import { ManifiestosPage } from '../pages/ManifiestosPage';
 import { TelemetriaPage } from '../pages/TelemetriaPage';
@@ -75,6 +76,10 @@ export const router = createHashRouter([
       {
         path: 'manifiestos',
         element: <ManifiestosPage />,
+      },
+      {
+        path: 'emisiones',
+        element: <EmisionesPage />,
       },
       {
         path: 'telemetria',
