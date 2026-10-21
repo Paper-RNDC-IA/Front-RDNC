@@ -1,3 +1,4 @@
+import { MarkdownLite } from '../components/common/MarkdownLite';
 import { useEffect, useRef, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 
@@ -76,7 +77,7 @@ function MessageBubble({ msg }: { msg: UiMessage }): JSX.Element {
     <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
       <div
         className={[
-          'max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap',
+          'max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed',
           isUser
             ? 'bg-orange-500 text-white rounded-br-sm'
             : 'bg-white border border-slate-200 text-slate-800 rounded-bl-sm shadow-sm',
@@ -87,7 +88,7 @@ function MessageBubble({ msg }: { msg: UiMessage }): JSX.Element {
             Asistente IA
           </p>
         ) : null}
-        {msg.content}
+        {isUser ? msg.content : <MarkdownLite text={msg.content} />}
         {!isUser ? (
           <p className="mt-2 border-t border-slate-100 pt-2 text-[11px] italic leading-snug text-slate-400">
             Esta respuesta se generó automáticamente a partir de los datos de tu empresa y del RNDC.

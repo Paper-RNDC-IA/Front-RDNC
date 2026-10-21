@@ -67,7 +67,7 @@ export function BarChartWidget({
               {horizontal ? (
                 <XAxis type="number" stroke="#4a5565" tickFormatter={formatNumber} />
               ) : (
-                <XAxis dataKey={xKey} stroke="#4a5565" />
+                <XAxis dataKey={xKey} stroke="#4a5565" interval={0} tick={{ fontSize: 12 }} />
               )}
               {horizontal ? (
                 <YAxis

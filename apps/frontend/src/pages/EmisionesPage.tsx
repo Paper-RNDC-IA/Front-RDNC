@@ -71,7 +71,7 @@ export function EmisionesPage(): JSX.Element {
     : 0;
 
   const trendChart = trend.map((t) => ({
-    label: t.parcial ? `${t.anio} (${t.meses} meses)` : String(t.anio),
+    label: t.parcial ? `${t.anio} (${t.meses} m.)` : String(t.anio),
     value: Math.round(t.co2_t.central / 1e3),
   }));
   const monthlyChart = monthly.map((m) => ({

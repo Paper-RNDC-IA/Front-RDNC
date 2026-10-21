@@ -169,6 +169,8 @@ Basado en `DESIGN.md` (guia de estilo "industrial command deck"):
 
 ## Cambios recientes
 
+- Nueva pagina **Emisiones** (`/app/emisiones`): toneladas-km y CO2 estimado con rango por municipio, departamento y corredor, metodo y limites visibles; el Inicio se reescribio alrededor del problema (vacio en el modelo colombiano de madurez de ciudades inteligentes) y de la alineacion con sus dimensiones.
+- Asistente IA: preguntas sugeridas que el sistema responde, y textos sin el modelo retirado (Llama).
 - Rediseno completo segun `DESIGN.md`.
 - Graficos de barras y de torta corregidos (Fragments incompatibles con recharts 2.15 + React 19; contenedor de alto fijo en tortas con muchas categorias).
 - Tablas con clave de fila compuesta (`getRowKey`) para evitar claves duplicadas.
