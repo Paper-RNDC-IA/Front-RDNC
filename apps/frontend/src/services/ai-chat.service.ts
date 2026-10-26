@@ -31,6 +31,7 @@ export async function sendAiChat(messages: AiChatMessage[]): Promise<AiChatResul
       method: 'POST',
       body: JSON.stringify({ messages }),
     },
+    { timeoutMs: 60000 },
   );
 
   if (!data.response) throw new Error('La respuesta del asistente llegó vacía.');

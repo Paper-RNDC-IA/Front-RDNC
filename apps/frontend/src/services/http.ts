@@ -178,9 +178,14 @@ function resolveValidationErrorMessage(payload: unknown): string {
   return 'Solicitud invalida: revisa los parametros enviados.';
 }
 
-export async function httpRequest<T>(path: string, init?: RequestInit): Promise<T> {
+export async function httpRequest<T>(
+  path: string,
+  init?: RequestInit,
+  options?: { timeoutMs?: number },
+): Promise<T> {
   const url = resolveUrl(path);
-  const timeout = Number.isFinite(REQUEST_TIMEOUT_MS) ? REQUEST_TIMEOUT_MS : 25000;
+  const timeout =
+    options?.timeoutMs ?? (Number.isFinite(REQUEST_TIMEOUT_MS) ? REQUEST_TIMEOUT_MS : 25000);
   const authHeader = getAuthHeader();
   const hasAuthToken =
     typeof authHeader.Authorization === 'string' && authHeader.Authorization.length > 0;
