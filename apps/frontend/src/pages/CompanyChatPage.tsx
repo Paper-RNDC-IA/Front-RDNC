@@ -316,10 +316,6 @@ export function CompanyChatPage(): JSX.Element {
               </svg>
             </button>
           </div>
-          <p className="mt-1.5 text-[11px] text-slate-400">
-            Modelo gpt-oss-120b servido por Groq · Las cifras se verifican contra los datos; la
-            interpretación del modelo puede fallar.
-          </p>
         </div>
       </div>
     </section>
